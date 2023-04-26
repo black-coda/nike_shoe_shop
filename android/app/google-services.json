@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "460798120281",
+    "project_id": "nike-shoe-shop-black-coda",
+    "storage_bucket": "nike-shoe-shop-black-coda.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:460798120281:android:4d15ed61ad2bb2204ffc48",
+        "android_client_info": {
+          "package_name": "com.example.nike_shoe_shop"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "460798120281-sc3tjvqvtn4snfvsl4l5a4hfhlhtb3s1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAJgqmeR1LQkmlKyhLBnZc42JWPBG34T7w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "460798120281-sc3tjvqvtn4snfvsl4l5a4hfhlhtb3s1.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "460798120281-tqtu17ir2flc0mic26kqj12f354dcu39.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.nikeShoeShop"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
