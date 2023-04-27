@@ -9,5 +9,10 @@ ThemeData primaryTheme = ThemeData(
       fontSize: 30,
       fontFamily: 'RaleWay',
     ),
+    labelMedium: TextStyle(
+      fontSize: 14,
+      color: Colors.black,
+    ),
   ),
+  useMaterial3: true,
 );

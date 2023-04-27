@@ -35,21 +35,20 @@ dependencies:
   firebase_core: ^2.10.0
   flutter:
     sdk: flutter
-  
+  flutter_native_splash: ^2.2.19
   flutter_svg: ^2.0.5
   http: ^0.13.5
-  flutter_native_splash: ^2.2.19
+  material_design_icons_flutter: ^6.0.7096
+  smooth_page_indicator: ^1.1.0
 
 dev_dependencies:
   flutter_lints: ^2.0.0
   flutter_test:
     sdk: flutter
-  
 
 flutter_native_splash:
   color: "#0D6EFD"
   image: assets/images/splash/2x/splash.png
-
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
