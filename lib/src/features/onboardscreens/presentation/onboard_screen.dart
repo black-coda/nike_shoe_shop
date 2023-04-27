@@ -37,8 +37,8 @@ class _OnBoardScreenState extends State<OnBoardScreen> {
             controller: _controller,
             children: const [
               OnBoardScreen3(),
-              OnBoardScreen2(),
               OnBoardScreen1(),
+              OnBoardScreen2(),
             ],
           ),
           Container(
@@ -51,7 +51,7 @@ class _OnBoardScreenState extends State<OnBoardScreen> {
                   onPressed: () {
                     _controller.previousPage(
                         duration: const Duration(milliseconds: 700),
-                        curve: Curves.bounceInOut);
+                        curve: Curves.easeIn);
                   },
                   child: const Text(
                     "Skip",
@@ -73,7 +73,7 @@ class _OnBoardScreenState extends State<OnBoardScreen> {
                   onPressed: () {
                     _controller.nextPage(
                         duration: const Duration(milliseconds: 700),
-                        curve: Curves.bounceInOut);
+                        curve: Curves.easeIn);
                   },
                   child: const Text(
                     "Next",
@@ -103,7 +103,39 @@ class _OnBoardScreen1State extends State<OnBoardScreen1> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFF1483C2),
-      body: SafeArea(child: Column()),
+      body: Container(
+        constraints: const BoxConstraints.expand(),
+        decoration: const BoxDecoration(
+          color: Colors.transparent,
+          image: DecorationImage(
+            image: AssetImage("assets/svg/Vector(1).png"),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: Scaffold(
+          backgroundColor: const Color(0xFF1483C2),
+          body: SafeArea(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Image.asset("assets/images/others/shoe2.png"),
+                const SizedBox(
+                  height: 25,
+                ),
+                Text(
+                  "Let's Start Journey With Nike",
+                  style: Theme.of(context).textTheme.headlineLarge,
+                ),
+                const SizedBox(
+                  height: 19,
+                ),
+                const Text(
+                    "Smart, Gorgeous & Fashionable Collection Explore Now"),
+              ],
+            ),
+          ),
+        ),
+      ),
     );
   }
 }
@@ -118,13 +150,81 @@ class OnBoardScreen2 extends StatefulWidget {
 class _OnBoardScreen2State extends State<OnBoardScreen2> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xFF1483C2),
-      body: SafeArea(
-          child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: const [],
-      )),
+    return Container(
+      constraints: const BoxConstraints.expand(),
+      decoration: const BoxDecoration(
+        color: Colors.transparent,
+        image: DecorationImage(
+          image: AssetImage("assets/svg/Vector(1).png"),
+          fit: BoxFit.cover,
+        ),
+      ),
+      child: Scaffold(
+        backgroundColor: const Color(0xFF1483C2),
+        body: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const SizedBox(height: 30),
+                    Image.asset("assets/images/others/shoe_.png"),
+                    const SizedBox(
+                      height: 25,
+                    ),
+                    const Text(
+                      "Let's Start Journey\nWith Nike",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Color(0xffECECEC),
+                        fontWeight: FontWeight.w900,
+                        fontSize: 34,
+                        fontFamily: 'RaleWay',
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 19,
+                    ),
+                    const Text(
+                      "Smart, Gorgeous & Fashionable Collection\nExplore Now",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontFamily: "Poppins",
+                        fontSize: 16,
+                        color: Color(0xFFD8D8D8),
+                      ),
+                    ),
+                  ],
+                ),
+                Align(
+                  alignment: const Alignment(0, 0.89),
+                  child: SizedBox(
+                    width: MediaQuery.of(context).size.width - 40,
+                    child: ElevatedButton(
+                      onPressed: () {},
+                      style: ElevatedButton.styleFrom(
+                        padding: const EdgeInsets.all(18),
+                        backgroundColor: const Color(0xffECECEC),
+                        shape: const RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(14))),
+                      ),
+                      child: Text(
+                        "Get Started",
+                        style: Theme.of(context).textTheme.labelMedium,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
     );
   }
 }
