@@ -6,8 +6,9 @@ The UI of this app was designed using Figma by the talented designer 👨‍🎨
 
 ## Todo List 📝
 
-- [ ] Create a new Flutter project
-- [ ] Set up Firebase project and add dependencies to `pubspec.yaml` file
+- [✅] Create a new Flutter project
+- [✅] Set up Firebase project and add dependencies to `pubspec.yaml` file
+- [👨🏿‍💻 ] Build UI interfaces for app
 - [ ] Implement OTP verification using Firebase Authentication
 - [ ] Integrate Paystack payment gateway into the app
 - [ ] Fetch and display list of Nike shoes from a backend API
