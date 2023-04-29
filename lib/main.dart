@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:nike_shoe_shop/src/features/onboardscreens/presentation/onboard_screen.dart';
 import 'firebase_options.dart';
 import 'src/Theme/theme_.dart';
-import 'package:go_router/go_router.dart';
-
+import 'src/routeManager/routes.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
@@ -24,7 +22,7 @@ class AppEntry extends StatelessWidget {
     return MaterialApp.router(
       // routerDelegate: _router.routerDelegate,
       // routeInformationParser: _router.routeInformationParser,
-      routerConfig: _router,
+      routerConfig: RouteManager.router,
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: primaryTheme,
@@ -32,12 +30,3 @@ class AppEntry extends StatelessWidget {
     );
   }
 }
-
-final GoRouter _router = GoRouter(
-  routes: <RouteBase>[
-    GoRoute(
-      path: "/",
-      builder: (context, state) => const OnBoardScreen(),
-    )
-  ],
-);

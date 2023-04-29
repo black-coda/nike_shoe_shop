@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 // import 'package:flutter_svg_provider/flutter_svg_provider.dart';
 
@@ -211,12 +212,14 @@ class _OnBoardScreen2State extends State<OnBoardScreen2> {
                     ),
                   ],
                 ),
+
+                //* Button Redirect to Login page
                 Align(
                   alignment: const Alignment(0, 0.94),
                   child: SizedBox(
                     width: MediaQuery.of(context).size.width - 40,
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () => context.go('/login'),
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.all(18),
                         backgroundColor: const Color(0xffECECEC),
