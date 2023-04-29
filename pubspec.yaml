@@ -32,6 +32,7 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   cupertino_icons: ^1.0.2
+  firebase_auth: ^4.4.2
   firebase_core: ^2.10.0
   flutter:
     sdk: flutter
@@ -82,12 +83,10 @@ flutter:
         - asset: assets/fonts/Raleway-Regular.ttf
         - asset: assets/fonts/Raleway-ExtraBold.ttf
           weight: 900
-  #         style: italic
+    #         style: italic
     - family: Poppins
       fonts:
         - asset: assets/fonts/Poppins-Bold.ttf
         - asset: assets/fonts/Poppins-Regular.ttf
-      
-  #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

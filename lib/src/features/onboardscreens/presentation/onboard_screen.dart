@@ -43,7 +43,7 @@ class _OnBoardScreenState extends State<OnBoardScreen> {
           ),
           Container(
             padding: const EdgeInsets.symmetric(vertical: 15),
-            alignment: const Alignment(0, 0.65),
+            alignment: const Alignment(0, 0.72),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -115,23 +115,34 @@ class _OnBoardScreen1State extends State<OnBoardScreen1> {
         child: Scaffold(
           backgroundColor: const Color(0xFF1483C2),
           body: SafeArea(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Image.asset("assets/images/others/shoe2.png"),
-                const SizedBox(
-                  height: 25,
-                ),
-                Text(
-                  "Let's Start Journey With Nike",
-                  style: Theme.of(context).textTheme.headlineLarge,
-                ),
-                const SizedBox(
-                  height: 19,
-                ),
-                const Text(
-                    "Smart, Gorgeous & Fashionable Collection Explore Now"),
-              ],
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    "assets/images/others/shoe2.png",
+                    fit: BoxFit.contain,
+                  ),
+                  Text(
+                    "You Have The Power To Step into a world of endless possibilities",
+                    style: Theme.of(context).textTheme.headlineLarge,
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(
+                    height: 18,
+                  ),
+                  const Text(
+                    "There Are Many Beautiful And Attractive Plants To Your Room",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontFamily: "Poppins",
+                      fontSize: 16,
+                      color: Color(0xFFD8D8D8),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
@@ -201,7 +212,7 @@ class _OnBoardScreen2State extends State<OnBoardScreen2> {
                   ],
                 ),
                 Align(
-                  alignment: const Alignment(0, 0.89),
+                  alignment: const Alignment(0, 0.94),
                   child: SizedBox(
                     width: MediaQuery.of(context).size.width - 40,
                     child: ElevatedButton(
