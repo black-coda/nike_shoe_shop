@@ -1,5 +1,5 @@
 import 'package:go_router/go_router.dart';
-import 'package:nike_shoe_shop/src/features/authentication/application/login/login.dart';
+import 'package:nike_shoe_shop/src/features/authentication/presentation/widgets/login_widget.dart';
 import 'package:nike_shoe_shop/src/features/onboardscreens/presentation/onboard_screen.dart';
 
 class RouteManager {
