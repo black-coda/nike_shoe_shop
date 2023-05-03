@@ -29,6 +29,9 @@ class _OnBoardScreenState extends State<OnBoardScreen> {
 
   final PageController _controller = PageController();
 
+  //? Check if last page
+  bool isLastPage = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,10 +39,17 @@ class _OnBoardScreenState extends State<OnBoardScreen> {
         children: [
           PageView(
             controller: _controller,
+            onPageChanged: (index) {
+              setState(() {
+                if (index == 2) {
+                  isLastPage = true;
+                }
+              });
+            },
             children: const [
-              OnBoardScreen3(),
-              OnBoardScreen1(),
-              OnBoardScreen2(),
+              PageView1(),
+              PageView2(),
+              PageView3(),
             ],
           ),
           Container(
@@ -48,11 +58,10 @@ class _OnBoardScreenState extends State<OnBoardScreen> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
+                //* Skip Button
                 TextButton(
                   onPressed: () {
-                    _controller.previousPage(
-                        duration: const Duration(milliseconds: 700),
-                        curve: Curves.easeIn);
+                    _controller.jumpTo(2);
                   },
                   child: const Text(
                     "Skip",
@@ -62,27 +71,40 @@ class _OnBoardScreenState extends State<OnBoardScreen> {
                   ),
                 ),
                 SmoothPageIndicator(
-                    controller: _controller,
-                    count: 3,
-                    effect: const ExpandingDotsEffect(
-                      dotHeight: 10,
-                      dotWidth: 10,
-                      activeDotColor: Color(0xFFF87265),
-                      dotColor: Color(0xffECECEC),
-                    )),
-                TextButton(
-                  onPressed: () {
-                    _controller.nextPage(
-                        duration: const Duration(milliseconds: 700),
-                        curve: Curves.easeIn);
-                  },
-                  child: const Text(
-                    "Next",
-                    style: TextStyle(
-                        color: Color.fromARGB(255, 255, 255, 255),
-                        fontWeight: FontWeight.bold),
+                  controller: _controller,
+                  count: 3,
+                  effect: const ExpandingDotsEffect(
+                    dotHeight: 10,
+                    dotWidth: 10,
+                    activeDotColor: Color(0xFFF87265),
+                    dotColor: Color(0xffECECEC),
                   ),
-                )
+                ),
+
+                //? Next and Done Button
+                isLastPage
+                    ? TextButton(
+                        onPressed: () {
+                          _controller.nextPage(
+                              duration: const Duration(milliseconds: 700),
+                              curve: Curves.easeIn);
+                        },
+                        child: const Text(
+                          "Next",
+                          style: TextStyle(
+                              color: Color.fromARGB(255, 255, 255, 255),
+                              fontWeight: FontWeight.bold),
+                        ),
+                      )
+                    : TextButton(
+                        onPressed: () => context.go("/login"),
+                        child: const Text(
+                          "Next",
+                          style: TextStyle(
+                              color: Color.fromARGB(255, 255, 255, 255),
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
               ],
             ),
           )
@@ -92,14 +114,9 @@ class _OnBoardScreenState extends State<OnBoardScreen> {
   }
 }
 
-class OnBoardScreen1 extends StatefulWidget {
-  const OnBoardScreen1({super.key});
+class PageView2 extends StatelessWidget {
+  const PageView2({super.key});
 
-  @override
-  State<OnBoardScreen1> createState() => _OnBoardScreen1State();
-}
-
-class _OnBoardScreen1State extends State<OnBoardScreen1> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -152,14 +169,9 @@ class _OnBoardScreen1State extends State<OnBoardScreen1> {
   }
 }
 
-class OnBoardScreen2 extends StatefulWidget {
-  const OnBoardScreen2({super.key});
+class PageView3 extends StatelessWidget {
+  const PageView3({super.key});
 
-  @override
-  State<OnBoardScreen2> createState() => _OnBoardScreen2State();
-}
-
-class _OnBoardScreen2State extends State<OnBoardScreen2> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -243,8 +255,8 @@ class _OnBoardScreen2State extends State<OnBoardScreen2> {
   }
 }
 
-class OnBoardScreen3 extends StatelessWidget {
-  const OnBoardScreen3({super.key});
+class PageView1 extends StatelessWidget {
+  const PageView1({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -286,9 +298,12 @@ class OnBoardScreen3 extends StatelessWidget {
                       shape: const RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(Radius.circular(14))),
                     ),
-                    child: Text(
-                      "Get Started",
-                      style: Theme.of(context).textTheme.labelMedium,
+                    child: GestureDetector(
+                      onTap: () => context.go("login"),
+                      child: Text(
+                        "Get Started",
+                        style: Theme.of(context).textTheme.labelMedium,
+                      ),
                     ),
                   ),
                 ),
