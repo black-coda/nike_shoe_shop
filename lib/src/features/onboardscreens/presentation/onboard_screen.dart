@@ -61,7 +61,7 @@ class _OnBoardScreenState extends State<OnBoardScreen> {
                 //* Skip Button
                 TextButton(
                   onPressed: () {
-                    _controller.jumpTo(2);
+                    _controller.jumpToPage(2);
                   },
                   child: const Text(
                     "Skip",
@@ -84,20 +84,20 @@ class _OnBoardScreenState extends State<OnBoardScreen> {
                 //? Next and Done Button
                 isLastPage
                     ? TextButton(
-                        onPressed: () {
-                          _controller.nextPage(
-                              duration: const Duration(milliseconds: 700),
-                              curve: Curves.easeIn);
-                        },
+                        onPressed: () => context.go("/login"),
                         child: const Text(
-                          "Next",
+                          "Continue",
                           style: TextStyle(
                               color: Color.fromARGB(255, 255, 255, 255),
                               fontWeight: FontWeight.bold),
                         ),
                       )
                     : TextButton(
-                        onPressed: () => context.go("/login"),
+                        onPressed: () {
+                          _controller.nextPage(
+                              duration: const Duration(milliseconds: 700),
+                              curve: Curves.easeIn);
+                        },
                         child: const Text(
                           "Next",
                           style: TextStyle(
@@ -299,7 +299,7 @@ class PageView1 extends StatelessWidget {
                           borderRadius: BorderRadius.all(Radius.circular(14))),
                     ),
                     child: GestureDetector(
-                      onTap: () => context.go("login"),
+                      onTap: () => context.go("/login"),
                       child: Text(
                         "Get Started",
                         style: Theme.of(context).textTheme.labelMedium,

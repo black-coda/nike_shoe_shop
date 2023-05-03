@@ -35,8 +35,10 @@ class DynamicInputWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      
       controller: controller,
       decoration: InputDecoration(
+        
         border: const OutlineInputBorder(
             // Make border edge circular
             borderRadius: BorderRadius.all(Radius.circular(14.0)),
