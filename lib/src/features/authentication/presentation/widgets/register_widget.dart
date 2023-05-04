@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:nike_shoe_shop/src/features/authentication/utils/auth_form_input.dart';
 
-class LoginView extends ConsumerWidget {
-  const LoginView({super.key});
+class RegistrationView extends ConsumerWidget {
+  const RegistrationView({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -13,14 +14,27 @@ class LoginView extends ConsumerWidget {
       body: SafeArea(
         child: SingleChildScrollView(
           // controller: controller,
+          physics: const NeverScrollableScrollPhysics(),
           child: Center(
             child: Padding(
               padding:
-                  const EdgeInsets.symmetric(horizontal: 29.0, vertical: 78),
+                  const EdgeInsets.symmetric(horizontal: 29.0, vertical: 43),
               child: Column(
                 children: [
+                  Row(
+                    children: [
+                      IconButton(
+                        icon: const Icon(
+                          MdiIcons.arrowLeftDropCircleOutline,
+                          color: Color(0xff6A6A6A),
+                        ),
+                        onPressed: () => context.go("/login"),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 8),
                   const Text(
-                    "Hello Again",
+                    "Register Account",
                     style: TextStyle(
                       color: Color(0xff2B2B2B),
                       fontWeight: FontWeight.w900,
@@ -41,7 +55,7 @@ class LoginView extends ConsumerWidget {
                   ),
                   const SizedBox(height: 30),
                   //? Email and Password Form Field
-                  const LoginFormInputWidget(),
+                  const RegFormInputWidget(),
 
                   const SizedBox(height: 12),
                   //? Recover password
@@ -120,13 +134,13 @@ class LoginView extends ConsumerWidget {
                   const SizedBox(
                     height: 55,
                   ),
-                  //? Create new account
 
+                  //? Login to account
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const Text(
-                        "New User? ",
+                        "Already Have an account?, ",
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w400,
@@ -134,9 +148,9 @@ class LoginView extends ConsumerWidget {
                         ),
                       ),
                       TextButton(
-                        onPressed: () => context.go("/register"),
+                        onPressed: () => context.go("/login"),
                         child: const Text(
-                          "Create Account",
+                          "Login",
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w600,
