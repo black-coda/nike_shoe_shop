@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:nike_shoe_shop/src/features/authentication/utils/auth_form_input.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:nike_shoe_shop/src/features/authentication/utils/auth_form_input.dart';
 
 class LoginView extends ConsumerWidget {
   const LoginView({super.key});
