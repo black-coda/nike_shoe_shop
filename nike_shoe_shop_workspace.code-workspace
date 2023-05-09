@@ -8,6 +8,19 @@
 		"explorerExclude.backup": {},
 		"cSpell.words": [
 			"ARGB"
-		]
+		],
+		"files.exclude": {
+			"**/.git": true,
+			"**/.svn": true,
+			"**/.hg": true,
+			"**/CVS": true,
+			"**/.DS_Store": true,
+			"**/Thumbs.db": true,
+			"**/user_model.freezed.dart": true,
+			"**/user_model.g.dart": true,
+			"**/auth_failure.freezed.dart": true,
+			"**/*.dart": false,
+			"**/auth_notifier.freezed.dart": true
+		}
 	}
 }

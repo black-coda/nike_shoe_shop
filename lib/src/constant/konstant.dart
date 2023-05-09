@@ -6,6 +6,7 @@ class AuthKonstant {
   static const accountExistsWithDifferentCredential = 'accounts-exists-with-different-credential';
   static const googleCom = "google.com";
   static const emailScope = "email";
+  static const profileScope = "profile";
 
 
   const AuthKonstant._();
