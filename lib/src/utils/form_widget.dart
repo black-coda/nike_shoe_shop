@@ -83,7 +83,7 @@ class AuthValidators {
   String? emailValidator(String? val) {
     final String email = val as String;
 
-    RegExp emailReg = RegExp(email);
+    // RegExp emailReg = RegExp(email);
 
     bool containsSpecialCharacters(String str) {
       final pattern = RegExp(r'[!^&%#()$*]');

@@ -6,6 +6,7 @@ import 'package:nike_shoe_shop/src/features/core/domain/user_id.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:dartz/dartz.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Authenticator {
   Authenticator();
@@ -27,8 +28,6 @@ class Authenticator {
     // await GoogleSignIn().signOut();
   }
 
-  //TODO:  Login with gmail provider
-
   Future<Either<AuthFailure, Unit>> loginWithGoogleProvider() async {
     //* Create Google sign in object
 
@@ -45,7 +44,7 @@ class Authenticator {
       return left(const AuthFailure.error());
     }
 
-    //? Get Authentication data from loggd in G-account
+    //? Get Authentication data from logged in G-account
     final googleAuthData = await signInAccount.authentication;
 
     //? Uses the GoogleAuthProvider.credential method to create a OAuthCredential
@@ -68,15 +67,53 @@ class Authenticator {
     }
   }
 
-  //? Login with email and password
-  Future<Either<AuthFailure, Unit>> loginWithEmailAndPassword(
+  //? Create user with email and password
+  Future<Either<AuthFailure, Unit>> createUserWithEmailAndPassword(
+      UserModel userModel) async {
+    final auth = FirebaseAuth.instance;
+    final email = userModel.email;
+    final password = userModel.password;
+    final displayName = userModel.displayName;
+    final FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+    try {
+      final UserCredential cred = await auth.createUserWithEmailAndPassword(
+          email: email, password: password);
+      if (cred.user?.uid != null) {
+        await firestore.collection("users").doc(cred.user!.uid).set(
+          {
+            "email": email,
+            "displayName": displayName,
+            "address": "",
+            "mobileNumber": '',
+            "cart": [],
+          },
+        );
+      }
+
+      return right(unit);
+    } on FirebaseAuthException catch (e) {
+      return left(
+        AuthFailure.error(
+          determineError(e),
+        ),
+      );
+    }
+  }
+
+  //? Create user with email and password
+  Future<Either<AuthFailure, Unit>> loginUserWithEmailAndPassword(
       UserModel userModel) async {
     final auth = FirebaseAuth.instance;
     final email = userModel.email;
     final password = userModel.password;
 
     try {
-      await auth.signInWithEmailAndPassword(email: email, password: password);
+      await auth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+
       return right(unit);
     } on FirebaseAuthException catch (e) {
       return left(

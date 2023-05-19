@@ -1,14 +1,20 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 part 'user_model.freezed.dart';
 part 'user_model.g.dart';
 
+//* General declaration
+final user = FirebaseAuth.instance.currentUser;
+
 @freezed
 class UserModel with _$UserModel {
+  const UserModel._();
   const factory UserModel({
-    required String uid,
     required String email,
     required String password,
+   required String displayName,
+
     // String display,
   }) = _UserModel;
 
@@ -16,7 +22,13 @@ class UserModel with _$UserModel {
       _$UserModelFromJson(json);
 }
 
-
+@freezed
+class UserAuthModel with _$UserAuthModel {
+  const factory UserAuthModel({
+    required String email,
+    required String password,
+  }) = _UserAuthModel;
+}
 
 // Future<UserEntity?> signInWithEmailAndPassword({
 //   required String email,
@@ -51,3 +63,11 @@ class UserModel with _$UserModel {
 //   }
 // }
 
+
+
+// UserModel fireBaseUserToUserModel(User ?user){
+//   if(user != null){
+//     return UserModel(email: user.email!, uid: user.uid!, password: user. )
+//   }
+
+// }

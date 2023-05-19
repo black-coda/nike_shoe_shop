@@ -22,7 +22,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: '>=2.18.6 <3.0.0'
+  sdk: '>=3.0.0 <4.0.0'
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -31,6 +31,7 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  cloud_firestore: ^4.7.0
   cupertino_icons: ^1.0.2
   dartz: ^0.10.1
   firebase_auth: ^4.4.2
@@ -41,9 +42,10 @@ dependencies:
   flutter_riverpod: ^2.3.6
   flutter_svg: ^2.0.5
   freezed_annotation: ^2.2.0
-  go_router: ^6.5.8
+  go_router: ^7.0.0
   google_sign_in: ^6.1.0
   http: ^0.13.5
+  json_annotation: ^4.8.1
   material_design_icons_flutter: ^6.0.7096
   smooth_page_indicator: ^1.1.0
 
@@ -58,6 +60,11 @@ dev_dependencies:
 flutter_native_splash:
   color: "#0D6EFD"
   image: assets/images/splash/2x/splash.png
+
+  android_12:
+
+    color: "#0D6EFD"
+    image: assets/images/splash/2x/splash.png
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

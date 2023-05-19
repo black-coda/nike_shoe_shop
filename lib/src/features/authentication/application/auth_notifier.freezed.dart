@@ -16,28 +16,29 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$AuthState {
+  bool get isLoading => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() authenticated,
-    required TResult Function() unauthenticated,
-    required TResult Function(AuthFailure failure) failure,
+    required TResult Function(bool isLoading) initial,
+    required TResult Function(bool isLoading) authenticated,
+    required TResult Function(bool isLoading) unauthenticated,
+    required TResult Function(AuthFailure failure, bool isLoading) failure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function()? authenticated,
-    TResult? Function()? unauthenticated,
-    TResult? Function(AuthFailure failure)? failure,
+    TResult? Function(bool isLoading)? initial,
+    TResult? Function(bool isLoading)? authenticated,
+    TResult? Function(bool isLoading)? unauthenticated,
+    TResult? Function(AuthFailure failure, bool isLoading)? failure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? authenticated,
-    TResult Function()? unauthenticated,
-    TResult Function(AuthFailure failure)? failure,
+    TResult Function(bool isLoading)? initial,
+    TResult Function(bool isLoading)? authenticated,
+    TResult Function(bool isLoading)? unauthenticated,
+    TResult Function(AuthFailure failure, bool isLoading)? failure,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -66,12 +67,18 @@ mixin _$AuthState {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $AuthStateCopyWith<AuthState> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $AuthStateCopyWith<$Res> {
   factory $AuthStateCopyWith(AuthState value, $Res Function(AuthState) then) =
       _$AuthStateCopyWithImpl<$Res, AuthState>;
+  @useResult
+  $Res call({bool isLoading});
 }
 
 /// @nodoc
@@ -83,13 +90,29 @@ class _$AuthStateCopyWithImpl<$Res, $Val extends AuthState>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? isLoading = null,
+  }) {
+    return _then(_value.copyWith(
+      isLoading: null == isLoading
+          ? _value.isLoading
+          : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ) as $Val);
+  }
 }
 
 /// @nodoc
-abstract class _$$_InitialCopyWith<$Res> {
+abstract class _$$_InitialCopyWith<$Res> implements $AuthStateCopyWith<$Res> {
   factory _$$_InitialCopyWith(
           _$_Initial value, $Res Function(_$_Initial) then) =
       __$$_InitialCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({bool isLoading});
 }
 
 /// @nodoc
@@ -98,60 +121,86 @@ class __$$_InitialCopyWithImpl<$Res>
     implements _$$_InitialCopyWith<$Res> {
   __$$_InitialCopyWithImpl(_$_Initial _value, $Res Function(_$_Initial) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? isLoading = null,
+  }) {
+    return _then(_$_Initial(
+      isLoading: null == isLoading
+          ? _value.isLoading
+          : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$_Initial extends _Initial {
-  const _$_Initial() : super._();
+  const _$_Initial({this.isLoading = false}) : super._();
+
+  @override
+  @JsonKey()
+  final bool isLoading;
 
   @override
   String toString() {
-    return 'AuthState.initial()';
+    return 'AuthState.initial(isLoading: $isLoading)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_Initial);
+        (other.runtimeType == runtimeType &&
+            other is _$_Initial &&
+            (identical(other.isLoading, isLoading) ||
+                other.isLoading == isLoading));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, isLoading);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_InitialCopyWith<_$_Initial> get copyWith =>
+      __$$_InitialCopyWithImpl<_$_Initial>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() authenticated,
-    required TResult Function() unauthenticated,
-    required TResult Function(AuthFailure failure) failure,
+    required TResult Function(bool isLoading) initial,
+    required TResult Function(bool isLoading) authenticated,
+    required TResult Function(bool isLoading) unauthenticated,
+    required TResult Function(AuthFailure failure, bool isLoading) failure,
   }) {
-    return initial();
+    return initial(isLoading);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function()? authenticated,
-    TResult? Function()? unauthenticated,
-    TResult? Function(AuthFailure failure)? failure,
+    TResult? Function(bool isLoading)? initial,
+    TResult? Function(bool isLoading)? authenticated,
+    TResult? Function(bool isLoading)? unauthenticated,
+    TResult? Function(AuthFailure failure, bool isLoading)? failure,
   }) {
-    return initial?.call();
+    return initial?.call(isLoading);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? authenticated,
-    TResult Function()? unauthenticated,
-    TResult Function(AuthFailure failure)? failure,
+    TResult Function(bool isLoading)? initial,
+    TResult Function(bool isLoading)? authenticated,
+    TResult Function(bool isLoading)? unauthenticated,
+    TResult Function(AuthFailure failure, bool isLoading)? failure,
     required TResult orElse(),
   }) {
     if (initial != null) {
-      return initial();
+      return initial(isLoading);
     }
     return orElse();
   }
@@ -195,15 +244,26 @@ class _$_Initial extends _Initial {
 }
 
 abstract class _Initial extends AuthState {
-  const factory _Initial() = _$_Initial;
+  const factory _Initial({final bool isLoading}) = _$_Initial;
   const _Initial._() : super._();
+
+  @override
+  bool get isLoading;
+  @override
+  @JsonKey(ignore: true)
+  _$$_InitialCopyWith<_$_Initial> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_AuthenticatedCopyWith<$Res> {
+abstract class _$$_AuthenticatedCopyWith<$Res>
+    implements $AuthStateCopyWith<$Res> {
   factory _$$_AuthenticatedCopyWith(
           _$_Authenticated value, $Res Function(_$_Authenticated) then) =
       __$$_AuthenticatedCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({bool isLoading});
 }
 
 /// @nodoc
@@ -213,60 +273,86 @@ class __$$_AuthenticatedCopyWithImpl<$Res>
   __$$_AuthenticatedCopyWithImpl(
       _$_Authenticated _value, $Res Function(_$_Authenticated) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? isLoading = null,
+  }) {
+    return _then(_$_Authenticated(
+      isLoading: null == isLoading
+          ? _value.isLoading
+          : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$_Authenticated extends _Authenticated {
-  const _$_Authenticated() : super._();
+  const _$_Authenticated({this.isLoading = false}) : super._();
+
+  @override
+  @JsonKey()
+  final bool isLoading;
 
   @override
   String toString() {
-    return 'AuthState.authenticated()';
+    return 'AuthState.authenticated(isLoading: $isLoading)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_Authenticated);
+        (other.runtimeType == runtimeType &&
+            other is _$_Authenticated &&
+            (identical(other.isLoading, isLoading) ||
+                other.isLoading == isLoading));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, isLoading);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_AuthenticatedCopyWith<_$_Authenticated> get copyWith =>
+      __$$_AuthenticatedCopyWithImpl<_$_Authenticated>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() authenticated,
-    required TResult Function() unauthenticated,
-    required TResult Function(AuthFailure failure) failure,
+    required TResult Function(bool isLoading) initial,
+    required TResult Function(bool isLoading) authenticated,
+    required TResult Function(bool isLoading) unauthenticated,
+    required TResult Function(AuthFailure failure, bool isLoading) failure,
   }) {
-    return authenticated();
+    return authenticated(isLoading);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function()? authenticated,
-    TResult? Function()? unauthenticated,
-    TResult? Function(AuthFailure failure)? failure,
+    TResult? Function(bool isLoading)? initial,
+    TResult? Function(bool isLoading)? authenticated,
+    TResult? Function(bool isLoading)? unauthenticated,
+    TResult? Function(AuthFailure failure, bool isLoading)? failure,
   }) {
-    return authenticated?.call();
+    return authenticated?.call(isLoading);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? authenticated,
-    TResult Function()? unauthenticated,
-    TResult Function(AuthFailure failure)? failure,
+    TResult Function(bool isLoading)? initial,
+    TResult Function(bool isLoading)? authenticated,
+    TResult Function(bool isLoading)? unauthenticated,
+    TResult Function(AuthFailure failure, bool isLoading)? failure,
     required TResult orElse(),
   }) {
     if (authenticated != null) {
-      return authenticated();
+      return authenticated(isLoading);
     }
     return orElse();
   }
@@ -310,15 +396,26 @@ class _$_Authenticated extends _Authenticated {
 }
 
 abstract class _Authenticated extends AuthState {
-  const factory _Authenticated() = _$_Authenticated;
+  const factory _Authenticated({final bool isLoading}) = _$_Authenticated;
   const _Authenticated._() : super._();
+
+  @override
+  bool get isLoading;
+  @override
+  @JsonKey(ignore: true)
+  _$$_AuthenticatedCopyWith<_$_Authenticated> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_UnauthenticatedCopyWith<$Res> {
+abstract class _$$_UnauthenticatedCopyWith<$Res>
+    implements $AuthStateCopyWith<$Res> {
   factory _$$_UnauthenticatedCopyWith(
           _$_Unauthenticated value, $Res Function(_$_Unauthenticated) then) =
       __$$_UnauthenticatedCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({bool isLoading});
 }
 
 /// @nodoc
@@ -328,60 +425,86 @@ class __$$_UnauthenticatedCopyWithImpl<$Res>
   __$$_UnauthenticatedCopyWithImpl(
       _$_Unauthenticated _value, $Res Function(_$_Unauthenticated) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? isLoading = null,
+  }) {
+    return _then(_$_Unauthenticated(
+      isLoading: null == isLoading
+          ? _value.isLoading
+          : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$_Unauthenticated extends _Unauthenticated {
-  const _$_Unauthenticated() : super._();
+  const _$_Unauthenticated({this.isLoading = false}) : super._();
+
+  @override
+  @JsonKey()
+  final bool isLoading;
 
   @override
   String toString() {
-    return 'AuthState.unauthenticated()';
+    return 'AuthState.unauthenticated(isLoading: $isLoading)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_Unauthenticated);
+        (other.runtimeType == runtimeType &&
+            other is _$_Unauthenticated &&
+            (identical(other.isLoading, isLoading) ||
+                other.isLoading == isLoading));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, isLoading);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_UnauthenticatedCopyWith<_$_Unauthenticated> get copyWith =>
+      __$$_UnauthenticatedCopyWithImpl<_$_Unauthenticated>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() authenticated,
-    required TResult Function() unauthenticated,
-    required TResult Function(AuthFailure failure) failure,
+    required TResult Function(bool isLoading) initial,
+    required TResult Function(bool isLoading) authenticated,
+    required TResult Function(bool isLoading) unauthenticated,
+    required TResult Function(AuthFailure failure, bool isLoading) failure,
   }) {
-    return unauthenticated();
+    return unauthenticated(isLoading);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function()? authenticated,
-    TResult? Function()? unauthenticated,
-    TResult? Function(AuthFailure failure)? failure,
+    TResult? Function(bool isLoading)? initial,
+    TResult? Function(bool isLoading)? authenticated,
+    TResult? Function(bool isLoading)? unauthenticated,
+    TResult? Function(AuthFailure failure, bool isLoading)? failure,
   }) {
-    return unauthenticated?.call();
+    return unauthenticated?.call(isLoading);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? authenticated,
-    TResult Function()? unauthenticated,
-    TResult Function(AuthFailure failure)? failure,
+    TResult Function(bool isLoading)? initial,
+    TResult Function(bool isLoading)? authenticated,
+    TResult Function(bool isLoading)? unauthenticated,
+    TResult Function(AuthFailure failure, bool isLoading)? failure,
     required TResult orElse(),
   }) {
     if (unauthenticated != null) {
-      return unauthenticated();
+      return unauthenticated(isLoading);
     }
     return orElse();
   }
@@ -425,17 +548,25 @@ class _$_Unauthenticated extends _Unauthenticated {
 }
 
 abstract class _Unauthenticated extends AuthState {
-  const factory _Unauthenticated() = _$_Unauthenticated;
+  const factory _Unauthenticated({final bool isLoading}) = _$_Unauthenticated;
   const _Unauthenticated._() : super._();
+
+  @override
+  bool get isLoading;
+  @override
+  @JsonKey(ignore: true)
+  _$$_UnauthenticatedCopyWith<_$_Unauthenticated> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_FailureCopyWith<$Res> {
+abstract class _$$_FailureCopyWith<$Res> implements $AuthStateCopyWith<$Res> {
   factory _$$_FailureCopyWith(
           _$_Failure value, $Res Function(_$_Failure) then) =
       __$$_FailureCopyWithImpl<$Res>;
+  @override
   @useResult
-  $Res call({AuthFailure failure});
+  $Res call({AuthFailure failure, bool isLoading});
 
   $AuthFailureCopyWith<$Res> get failure;
 }
@@ -451,12 +582,17 @@ class __$$_FailureCopyWithImpl<$Res>
   @override
   $Res call({
     Object? failure = null,
+    Object? isLoading = null,
   }) {
     return _then(_$_Failure(
       null == failure
           ? _value.failure
           : failure // ignore: cast_nullable_to_non_nullable
               as AuthFailure,
+      isLoading: null == isLoading
+          ? _value.isLoading
+          : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 
@@ -472,14 +608,17 @@ class __$$_FailureCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_Failure extends _Failure {
-  const _$_Failure(this.failure) : super._();
+  const _$_Failure(this.failure, {this.isLoading = false}) : super._();
 
   @override
   final AuthFailure failure;
+  @override
+  @JsonKey()
+  final bool isLoading;
 
   @override
   String toString() {
-    return 'AuthState.failure(failure: $failure)';
+    return 'AuthState.failure(failure: $failure, isLoading: $isLoading)';
   }
 
   @override
@@ -487,11 +626,13 @@ class _$_Failure extends _Failure {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_Failure &&
-            (identical(other.failure, failure) || other.failure == failure));
+            (identical(other.failure, failure) || other.failure == failure) &&
+            (identical(other.isLoading, isLoading) ||
+                other.isLoading == isLoading));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, failure);
+  int get hashCode => Object.hash(runtimeType, failure, isLoading);
 
   @JsonKey(ignore: true)
   @override
@@ -502,36 +643,36 @@ class _$_Failure extends _Failure {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() authenticated,
-    required TResult Function() unauthenticated,
-    required TResult Function(AuthFailure failure) failure,
+    required TResult Function(bool isLoading) initial,
+    required TResult Function(bool isLoading) authenticated,
+    required TResult Function(bool isLoading) unauthenticated,
+    required TResult Function(AuthFailure failure, bool isLoading) failure,
   }) {
-    return failure(this.failure);
+    return failure(this.failure, isLoading);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function()? authenticated,
-    TResult? Function()? unauthenticated,
-    TResult? Function(AuthFailure failure)? failure,
+    TResult? Function(bool isLoading)? initial,
+    TResult? Function(bool isLoading)? authenticated,
+    TResult? Function(bool isLoading)? unauthenticated,
+    TResult? Function(AuthFailure failure, bool isLoading)? failure,
   }) {
-    return failure?.call(this.failure);
+    return failure?.call(this.failure, isLoading);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? authenticated,
-    TResult Function()? unauthenticated,
-    TResult Function(AuthFailure failure)? failure,
+    TResult Function(bool isLoading)? initial,
+    TResult Function(bool isLoading)? authenticated,
+    TResult Function(bool isLoading)? unauthenticated,
+    TResult Function(AuthFailure failure, bool isLoading)? failure,
     required TResult orElse(),
   }) {
     if (failure != null) {
-      return failure(this.failure);
+      return failure(this.failure, isLoading);
     }
     return orElse();
   }
@@ -575,10 +716,14 @@ class _$_Failure extends _Failure {
 }
 
 abstract class _Failure extends AuthState {
-  const factory _Failure(final AuthFailure failure) = _$_Failure;
+  const factory _Failure(final AuthFailure failure, {final bool isLoading}) =
+      _$_Failure;
   const _Failure._() : super._();
 
   AuthFailure get failure;
+  @override
+  bool get isLoading;
+  @override
   @JsonKey(ignore: true)
   _$$_FailureCopyWith<_$_Failure> get copyWith =>
       throw _privateConstructorUsedError;

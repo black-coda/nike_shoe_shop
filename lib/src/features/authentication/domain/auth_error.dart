@@ -12,6 +12,8 @@ enum AuthError {
   error,
 }
 
+
+
 AuthError determineError(FirebaseAuthException exception) {
   switch (exception.code) {
     case 'invalid-email':

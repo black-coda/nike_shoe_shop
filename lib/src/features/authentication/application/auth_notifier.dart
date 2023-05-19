@@ -8,10 +8,14 @@ part 'auth_notifier.freezed.dart';
 @freezed
 class AuthState with _$AuthState {
   const AuthState._();
-  const factory AuthState.initial() = _Initial;
-  const factory AuthState.authenticated() = _Authenticated;
-  const factory AuthState.unauthenticated() = _Unauthenticated;
-  const factory AuthState.failure(AuthFailure failure) = _Failure;
+  // const factory AuthState() = _AuthState;
+  const factory AuthState.initial({@Default(false) bool isLoading}) = _Initial;
+  const factory AuthState.authenticated({@Default(false) bool isLoading}) =
+      _Authenticated;
+  const factory AuthState.unauthenticated({@Default(false) bool isLoading}) =
+      _Unauthenticated;
+  const factory AuthState.failure(AuthFailure failure,
+      {@Default(false) bool isLoading}) = _Failure;
 }
 
 class AuthStateNotifier extends StateNotifier<AuthState> {
@@ -24,7 +28,7 @@ class AuthStateNotifier extends StateNotifier<AuthState> {
         : const AuthState.unauthenticated();
   }
 
-  //login in with google
+  //? login in with google
 
   Future<void> loginWithGoogle() async {
     final failureOrSuccess = await _authenticator.loginWithGoogleProvider();
@@ -35,16 +39,30 @@ class AuthStateNotifier extends StateNotifier<AuthState> {
     );
   }
 
-  //login With email
-  Future<void> loginWithEmailAndPassword(UserModel userModel) async {
+  //? create account With email
+  Future<void> createUserWithEmailAndPassword(UserModel userModel) async {
     final failureOrSuccess =
-        await _authenticator.loginWithEmailAndPassword(userModel);
+        await _authenticator.createUserWithEmailAndPassword(userModel);
 
     state = failureOrSuccess.fold(
       (failure) => AuthState.failure(failure),
       (success) => const AuthState.authenticated(),
     );
   }
+
+  //? create account With email
+  Future<void> loginUserWithEmailAndPassword(UserModel userModel) async {
+    final failureOrSuccess =
+        await _authenticator.createUserWithEmailAndPassword(userModel);
+
+    state = failureOrSuccess.fold(
+      (failure) => AuthState.failure(failure),
+      (success) => const AuthState.authenticated(),
+    );
+  }
+
+  Future<void> logoutUser() async {
+    await _authenticator.logOut();
+    state = const AuthState.authenticated();
+  }
 }
-
-

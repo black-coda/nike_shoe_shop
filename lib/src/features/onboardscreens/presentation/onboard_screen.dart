@@ -134,7 +134,7 @@ class PageView2 extends StatelessWidget {
           backgroundColor: const Color(0xFF1483C2),
           body: SafeArea(
             child: Padding(
-              padding: const EdgeInsets.all(10.0),
+              padding: const EdgeInsets.all(8.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -148,7 +148,7 @@ class PageView2 extends StatelessWidget {
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox(
-                    height: 18,
+                    height: 45,
                   ),
                   const Text(
                     "There Are Many Beautiful And Attractive Plants To Your Room",

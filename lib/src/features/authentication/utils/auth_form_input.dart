@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:nike_shoe_shop/src/utils/formWidget.dart';
+import 'package:nike_shoe_shop/src/utils/form_widget.dart';
 
 class LoginFormInputWidget extends StatefulWidget {
   const LoginFormInputWidget({super.key});
@@ -195,3 +195,7 @@ class _RegFormInputWidgetState extends State<RegFormInputWidget> {
     );
   }
 }
+
+
+
+
