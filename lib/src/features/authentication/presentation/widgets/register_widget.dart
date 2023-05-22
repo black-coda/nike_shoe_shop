@@ -73,6 +73,7 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // key: _registrationScaffold,
       body: SafeArea(
         child: SingleChildScrollView(
           // controller: controller,
@@ -196,7 +197,7 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
                                 password: passwordText);
                             await ref
                                 .read(authStateNotifierProvider.notifier)
-                                .createUserWithEmailAndPassword(userModel);
+                                .createUserWithEmailAndPassword(userModel, context);
                           }
                         },
                         style: ElevatedButton.styleFrom(
@@ -221,7 +222,9 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
                     SizedBox(
                       width: MediaQuery.of(context).size.width - 40,
                       child: IconButton(
-                        onPressed: () {},
+                        onPressed: () async{
+                            await ref.read(authStateNotifierProvider.notifier).loginWithGoogle();
+                        },
                         style: ElevatedButton.styleFrom(
                           padding: const EdgeInsets.all(18),
                           backgroundColor: const Color(0xffF7F7F9),

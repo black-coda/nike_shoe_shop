@@ -16,20 +16,20 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$AuthFailure {
-  AuthError? get message => throw _privateConstructorUsedError;
+  String? get message => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(AuthError? message) error,
+    required TResult Function(String? message) error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(AuthError? message)? error,
+    TResult? Function(String? message)? error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(AuthError? message)? error,
+    TResult Function(String? message)? error,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -61,7 +61,7 @@ abstract class $AuthFailureCopyWith<$Res> {
           AuthFailure value, $Res Function(AuthFailure) then) =
       _$AuthFailureCopyWithImpl<$Res, AuthFailure>;
   @useResult
-  $Res call({AuthError? message});
+  $Res call({String? message});
 }
 
 /// @nodoc
@@ -83,7 +83,7 @@ class _$AuthFailureCopyWithImpl<$Res, $Val extends AuthFailure>
       message: freezed == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
-              as AuthError?,
+              as String?,
     ) as $Val);
   }
 }
@@ -94,7 +94,7 @@ abstract class _$$_ErrorCopyWith<$Res> implements $AuthFailureCopyWith<$Res> {
       __$$_ErrorCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({AuthError? message});
+  $Res call({String? message});
 }
 
 /// @nodoc
@@ -113,7 +113,7 @@ class __$$_ErrorCopyWithImpl<$Res>
       freezed == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
-              as AuthError?,
+              as String?,
     ));
   }
 }
@@ -124,7 +124,7 @@ class _$_Error implements _Error {
   const _$_Error([this.message]);
 
   @override
-  final AuthError? message;
+  final String? message;
 
   @override
   String toString() {
@@ -151,7 +151,7 @@ class _$_Error implements _Error {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(AuthError? message) error,
+    required TResult Function(String? message) error,
   }) {
     return error(message);
   }
@@ -159,7 +159,7 @@ class _$_Error implements _Error {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(AuthError? message)? error,
+    TResult? Function(String? message)? error,
   }) {
     return error?.call(message);
   }
@@ -167,7 +167,7 @@ class _$_Error implements _Error {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(AuthError? message)? error,
+    TResult Function(String? message)? error,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -206,10 +206,10 @@ class _$_Error implements _Error {
 }
 
 abstract class _Error implements AuthFailure {
-  const factory _Error([final AuthError? message]) = _$_Error;
+  const factory _Error([final String? message]) = _$_Error;
 
   @override
-  AuthError? get message;
+  String? get message;
   @override
   @JsonKey(ignore: true)
   _$$_ErrorCopyWith<_$_Error> get copyWith =>

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:nike_shoe_shop/src/features/authentication/domain/user_model.dart';
-import 'package:nike_shoe_shop/src/features/authentication/utils/auth_form_input.dart';
 import 'package:nike_shoe_shop/src/features/authentication/utils/provider.dart';
 import 'package:nike_shoe_shop/src/utils/form_widget.dart';
 
@@ -15,6 +15,8 @@ class LoginView extends ConsumerStatefulWidget {
 
 class _LoginViewState extends ConsumerState<LoginView> {
   final _formKey = GlobalKey<FormState>();
+  final GlobalKey<ScaffoldMessengerState> loginScaffold =
+      GlobalKey<ScaffoldMessengerState>();
 
   final AuthValidators authValidators = AuthValidators();
 
@@ -61,9 +63,12 @@ class _LoginViewState extends ConsumerState<LoginView> {
     });
   }
 
+  //? Global Key
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: loginScaffold,
       body: SafeArea(
         child: SingleChildScrollView(
           // controller: controller,
@@ -97,7 +102,34 @@ class _LoginViewState extends ConsumerState<LoginView> {
                     ),
                     const SizedBox(height: 30),
                     //? Email and Password Form Field
-                    const LoginFormInputWidget(),
+                    Column(
+                      children: [
+                        // Email
+                        DynamicInputWidget(
+                          labelText: "Email Address",
+                          controller: emailController,
+                          focusNode: emailFocusNode,
+                          isNonPasswordField: true,
+                          obscureText: false,
+                          prefIcon: const Icon(MdiIcons.email),
+                          textInputAction: TextInputAction.next,
+                        ),
+
+                        //Password
+                        const SizedBox(height: 35),
+                        DynamicInputWidget(
+                          labelText: "Password",
+                          controller: passwordController,
+                          focusNode: passwordFocusNode,
+                          isNonPasswordField: false,
+                          validator: authValidators.passwordWordValidator,
+                          obscureText: obscureText,
+                          toggleObscureText: toggleObscureText,
+                          prefIcon: const Icon(MdiIcons.formTextboxPassword),
+                          textInputAction: TextInputAction.done,
+                        ),
+                      ],
+                    ),
 
                     const SizedBox(height: 12),
                     //? Recover password
@@ -134,9 +166,11 @@ class _LoginViewState extends ConsumerState<LoginView> {
                               email: emailText,
                               password: passwordText,
                               displayName: '');
+                          debugPrint(userModel.toString());
                           await ref
                               .read(authStateNotifierProvider.notifier)
-                              .loginUserWithEmailAndPassword(userModel);
+                              .loginUserWithEmailAndPassword(
+                                  userModel, context);
                         },
                         style: ElevatedButton.styleFrom(
                           padding: const EdgeInsets.all(18),

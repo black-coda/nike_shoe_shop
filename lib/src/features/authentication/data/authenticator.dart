@@ -11,7 +11,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class Authenticator {
   Authenticator();
 
-  //* General declaration
+  //? General declaration
   final auth = FirebaseAuth.instance;
 
   // get currently signed in user ID
@@ -29,7 +29,7 @@ class Authenticator {
   }
 
   Future<Either<AuthFailure, Unit>> loginWithGoogleProvider() async {
-    //* Create Google sign in object
+    //? Create Google sign in object
 
     final GoogleSignIn googleLogin = GoogleSignIn(scopes: [
       AuthKonstant.emailScope,
