@@ -76,8 +76,8 @@ class _LoginViewState extends ConsumerState<LoginView> {
             key: _formKey,
             child: Center(
               child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 29.0, vertical: 78),
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 29.0, vertical: 30.0),
                 child: Column(
                   children: [
                     const Text(
@@ -120,7 +120,6 @@ class _LoginViewState extends ConsumerState<LoginView> {
                         const SizedBox(height: 35),
                         DynamicInputWidget(
                           labelText: "Password",
-        
                           controller: passwordController,
                           focusNode: passwordFocusNode,
                           isNonPasswordField: false,
@@ -135,16 +134,19 @@ class _LoginViewState extends ConsumerState<LoginView> {
 
                     const SizedBox(height: 12),
                     //? Recover password
-                    const Row(
+                    Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        Text(
-                          "Recover Password",
-                          style: TextStyle(
-                            color: Color(0xff707B81),
-                            fontWeight: FontWeight.normal,
-                            fontSize: 12,
-                            fontFamily: 'Poppins',
+                        GestureDetector(
+                          onTap: () => context.go("/reset-password"),
+                          child: const Text(
+                            "Recover Password",
+                            style: TextStyle(
+                              color: Color(0xff707B81),
+                              fontWeight: FontWeight.normal,
+                              fontSize: 12,
+                              fontFamily: 'Poppins',
+                            ),
                           ),
                         ),
                       ],

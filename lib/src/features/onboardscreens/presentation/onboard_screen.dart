@@ -239,7 +239,7 @@ class PageView3 extends StatelessWidget {
                   child: SizedBox(
                     width: MediaQuery.of(context).size.width - 40,
                     child: ElevatedButton(
-                      onPressed: () => context.go('/login'),
+                      onPressed: ()async => context.go('/login'),
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.all(18),
                         backgroundColor: const Color(0xffECECEC),
@@ -299,19 +299,18 @@ class PageView1 extends StatelessWidget {
                 child: SizedBox(
                   width: MediaQuery.of(context).size.width - 40,
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      return  context.go("/login");
+                    },
                     style: ElevatedButton.styleFrom(
                       padding: const EdgeInsets.all(18),
                       backgroundColor: const Color(0xffECECEC),
                       shape: const RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(Radius.circular(14))),
                     ),
-                    child: GestureDetector(
-                      onTap: () => context.go("/login"),
-                      child: Text(
-                        "Get Started",
-                        style: Theme.of(context).textTheme.labelMedium,
-                      ),
+                    child: Text(
+                      "Get Started",
+                      style: Theme.of(context).textTheme.labelMedium,
                     ),
                   ),
                 ),

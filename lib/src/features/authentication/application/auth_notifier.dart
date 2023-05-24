@@ -91,90 +91,72 @@ class AuthStateNotifier extends StateNotifier<AuthState> {
       },
     );
 
-    // state.maybeMap(
+    await _authenticator.loginUserWithEmailAndPassword(userModel).then(
+      (authState) {
+        Navigator.of(context).pop(); // Close the loading dialog
+        state = authState.fold(
+          (failure) {
+            //!TODO: To Build custom error and success message
 
-    //   orElse: () async {
-    //     final failureOrSuccess =
-    //     await _authenticator.loginUserWithEmailAndPassword(userModel);
-    //     state = failureOrSuccess.fold((l) => null, (r) => null);
-    //   },
-    // );`
+            showDialog(
+              context: context,
+              barrierDismissible:
+                  true, // Prevent dismissing the dialog by tapping outside
+              builder: (BuildContext context) {
+                return AlertDialog(
+                  title: Center(
+                      child: Text(
+                    failure.message!,
+                    style: const TextStyle(
+                      color: Color(0xffe3342f),
+                      fontWeight: FontWeight.w500,
+                      fontSize: 23,
+                    ),
+                    textAlign: TextAlign.center,
+                  )),
+                  content: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Lottie.asset("assets/lottie/41791-loading-wrong.json"),
+                      const SizedBox(height: 16),
+                      const Text("Oopsss...😪"),
+                    ],
+                  ),
+                );
+              },
+            );
+            state.log();
+            return AuthState.failure(failure);
+          },
+          (success) {
+            showDialog(
+              context: context,
+              barrierDismissible:
+                  true, // Prevent dismissing the dialog by tapping outside
+              builder: (context) {
+                return AlertDialog(
+                  title: Center(child: Text(success.toString())),
+                  content: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Lottie.asset("assets/lottie/41793-correct.json"),
+                      const SizedBox(height: 16),
+                      const Text("Please wait..."),
+                    ],
+                  ),
+                );
+              },
+            );
 
-    // ScaffoldMessenger.of(context).showMaterialBanner(materialBanner)
-    // ScaffoldMessenger.of(context).showSnackBar(
-    //   SnackBar(
-    //     content: Text(failure.message.toString()),
-    //     duration: const Duration(seconds: 2),
-    //   ),
-    // );
+            Future.delayed(const Duration(seconds: 3), () {});
 
-    // customDialog(context, state);
+            state.log();
 
-    // Show SnackBar with error message
-    // final a =loginScaffold.currentState?.showSnackBar(
-    //   SnackBar(
-    //     content: Text(failure.toString()),
-    //     duration: const Duration(seconds: 2),
-    //   ),
-    // );
-    // _registrationScaffold.currentState
-
-    await _authenticator
-        .loginUserWithEmailAndPassword(userModel)
-        .then((authState) {
-      Navigator.of(context).pop(); // Close the loading dialog
-      state = authState.fold(
-        (failure) {
-          //!TODO: To Build custom error and success message
-
-          showDialog(
-            context: context,
-            barrierDismissible:
-                true, // Prevent dismissing the dialog by tapping outside
-            builder: (BuildContext context) {
-              return AlertDialog(
-                title: Center(child: Text(failure.message!)),
-                content: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Lottie.asset("assets/lottie/41791-loading-wrong.json"),
-                    const SizedBox(height: 16),
-                    const Text("Please wait..."),
-                  ],
-                ),
-              );
-            },
-          );
-          state.log();
-          return AuthState.failure(failure);
-        },
-        (success) {
-          debugPrint("statement");
-          // context.go("/dashboard");
-          showDialog(
-            context: context,
-            barrierDismissible:
-                true, // Prevent dismissing the dialog by tapping outside
-            builder: (BuildContext context) {
-              return AlertDialog(
-                title: Center(child: Text(success.toString())),
-                content: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Lottie.asset("assets/lottie/41793-correct.json"),
-                    const SizedBox(height: 16),
-                    const Text("Please wait..."),
-                  ],
-                ),
-              );
-            },
-          );
-          state.log();
-          state.log();
-          return const AuthState.authenticated();
-        },
-      );
-    });
+            return const AuthState.authenticated();
+          },
+        );
+      },
+    );
 
     state.toString().log();
   }

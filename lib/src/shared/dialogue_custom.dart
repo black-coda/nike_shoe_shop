@@ -1,6 +1,5 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
 import 'package:nike_shoe_shop/src/features/authentication/domain/auth_failure.dart';
 
 //TODO: Continue from here
@@ -32,9 +31,7 @@ Future<Object?> customDialog(context, {AuthFailure? failure, Unit? success}) {
         child: const Scaffold(
           backgroundColor: Colors.transparent,
           body: Column(
-            children: [
-              
-            ],
+            children: [],
           ),
         ),
       );

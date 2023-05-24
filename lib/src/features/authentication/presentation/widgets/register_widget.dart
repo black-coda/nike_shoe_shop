@@ -69,11 +69,38 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
 
   // Register
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // key: _registrationScaffold,
+      appBar: AppBar(
+        centerTitle: true,
+        title: const Text(
+          "Register Account",
+          style: TextStyle(
+            color: Color(0xff2B2B2B),
+            fontWeight: FontWeight.w900,
+            fontSize: 28,
+            fontFamily: 'RaleWay',
+          ),
+        ),
+        elevation: 0,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        leading: Padding(
+          padding: const EdgeInsets.only(left: 18.0),
+          child: GestureDetector(
+            onTap: () => context.go("/login"),
+            child: const CircleAvatar(
+              radius: 2,
+              backgroundColor: Color(0xffF7F7F9),
+              child: Icon(
+                Icons.arrow_back_ios_new_rounded,
+                size: 15,
+                color: Color(0xff2B2B2B),
+              ),
+            ),
+          ),
+        ),
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           // controller: controller,
@@ -82,32 +109,10 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
             key: _formKey,
             child: Center(
               child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 29.0, vertical: 43),
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 29.0, vertical: 29.0),
                 child: Column(
                   children: [
-                    Row(
-                      children: [
-                        IconButton(
-                          icon: const Icon(
-                            MdiIcons.arrowLeftDropCircleOutline,
-                            color: Color(0xff6A6A6A),
-                          ),
-                          onPressed: () => context.go("/login"),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 8),
-                    const Text(
-                      "Register Account",
-                      style: TextStyle(
-                        color: Color(0xff2B2B2B),
-                        fontWeight: FontWeight.w900,
-                        fontSize: 32,
-                        fontFamily: 'RaleWay',
-                      ),
-                    ),
-                    const SizedBox(height: 8),
                     const Text(
                       "Fill your details or continue with\nsocial media",
                       style: TextStyle(
@@ -156,28 +161,7 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
                       prefIcon: const Icon(MdiIcons.formTextboxPassword),
                       textInputAction: TextInputAction.done,
                     ),
-                    const SizedBox(height: 35),
-
-                    const SizedBox(height: 12),
-                    //? Recover password
-                    const Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Text(
-                          "Recover Password",
-                          style: TextStyle(
-                            color: Color(0xff707B81),
-                            fontWeight: FontWeight.normal,
-                            fontSize: 12,
-                            fontFamily: 'Poppins',
-                          ),
-                        ),
-                      ],
-                    ),
-
-                    const SizedBox(
-                      height: 36,
-                    ),
+                    const SizedBox(height: 40),
 
                     //? Register with email/password Button
 
@@ -185,9 +169,8 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
                       width: MediaQuery.of(context).size.width - 40,
                       child: ElevatedButton(
                         onPressed: () async {
-
                           if (_formKey.currentState!.validate()) {
-                             final emailText = emailController.text.trim();
+                            final emailText = emailController.text.trim();
                             final nameText = fullNameController.text.trim();
                             final passwordText = passwordController.text.trim();
 
@@ -197,7 +180,8 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
                                 password: passwordText);
                             await ref
                                 .read(authStateNotifierProvider.notifier)
-                                .createUserWithEmailAndPassword(userModel, context);
+                                .createUserWithEmailAndPassword(
+                                    userModel, context);
                           }
                         },
                         style: ElevatedButton.styleFrom(
@@ -217,13 +201,15 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 24),
+                    const SizedBox(height: 30),
                     //? Sign in with Google Button
                     SizedBox(
                       width: MediaQuery.of(context).size.width - 40,
                       child: IconButton(
-                        onPressed: () async{
-                            await ref.read(authStateNotifierProvider.notifier).loginWithGoogle(context);
+                        onPressed: () async {
+                          await ref
+                              .read(authStateNotifierProvider.notifier)
+                              .loginWithGoogle(context);
                         },
                         style: ElevatedButton.styleFrom(
                           padding: const EdgeInsets.all(18),
