@@ -223,7 +223,7 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
                       width: MediaQuery.of(context).size.width - 40,
                       child: IconButton(
                         onPressed: () async{
-                            await ref.read(authStateNotifierProvider.notifier).loginWithGoogle();
+                            await ref.read(authStateNotifierProvider.notifier).loginWithGoogle(context);
                         },
                         style: ElevatedButton.styleFrom(
                           padding: const EdgeInsets.all(18),

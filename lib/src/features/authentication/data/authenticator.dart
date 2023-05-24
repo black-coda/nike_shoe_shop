@@ -70,6 +70,7 @@ class Authenticator {
   //? Create user with email and password
   Future<Either<AuthFailure, Unit>> createUserWithEmailAndPassword(
       UserModel userModel) async {
+        
     final auth = FirebaseAuth.instance;
     final email = userModel.email;
     final password = userModel.password;
@@ -101,7 +102,7 @@ class Authenticator {
     }
   }
 
-  //? Create user with email and password
+  //? sign in with email and password
   Future<Either<AuthFailure, Unit>> loginUserWithEmailAndPassword(
       UserModel userModel) async {
     final auth = FirebaseAuth.instance;

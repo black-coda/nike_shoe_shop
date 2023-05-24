@@ -46,6 +46,7 @@ dependencies:
   google_sign_in: ^6.1.0
   http: ^0.13.5
   json_annotation: ^4.8.1
+  lottie: ^2.3.2
   material_design_icons_flutter: ^6.0.7096
   smooth_page_indicator: ^1.1.0
 
@@ -81,6 +82,7 @@ flutter:
     - assets/images/others/
     - assets/svg/
     - assets/images/splash/
+    - assets/lottie/
   #   - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

@@ -113,12 +113,14 @@ class _LoginViewState extends ConsumerState<LoginView> {
                           obscureText: false,
                           prefIcon: const Icon(MdiIcons.email),
                           textInputAction: TextInputAction.next,
+                          validator: authValidators.emailValidator,
                         ),
 
                         //Password
                         const SizedBox(height: 35),
                         DynamicInputWidget(
                           labelText: "Password",
+        
                           controller: passwordController,
                           focusNode: passwordFocusNode,
                           isNonPasswordField: false,

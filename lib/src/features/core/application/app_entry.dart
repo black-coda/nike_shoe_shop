@@ -16,6 +16,9 @@ class AppEntry extends ConsumerWidget {
     ref.watch(authStateNotifierProvider).maybeMap(
           authenticated: (value) => routes.go("/dashboard"),
           unauthenticated: (value) => routes.go("/"),
+          isLoading: (value) {
+            
+          },
           orElse: () {},
         );
         // final s =ref.watch(authStateNotifierProvider);
