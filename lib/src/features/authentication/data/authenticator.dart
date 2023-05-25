@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:nike_shoe_shop/src/constant/konstant.dart';
 import 'package:nike_shoe_shop/src/features/authentication/domain/auth_error.dart';
 import 'package:nike_shoe_shop/src/features/authentication/domain/auth_failure.dart';
@@ -21,7 +22,13 @@ class Authenticator {
         (userId) => userId != null,
       );
 
-  Future<String?> get email async => auth.currentUser?.email;
+  Future<String?> get email async {
+    debugPrint(auth.currentUser?.email);
+    return auth.currentUser?.email;
+  }
+
+  
+
 
   Future<void> authLogout() async {
     await auth.signOut();

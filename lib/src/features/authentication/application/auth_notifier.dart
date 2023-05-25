@@ -32,6 +32,14 @@ class AuthStateNotifier extends StateNotifier<AuthState> {
     );
   }
 
+  Future<String?> get email async => await _authenticator.email;
+
+  
+
+  Future<bool> checkSignedIn() async{
+    return _authenticator.isSignedIn();
+  }
+
   Future<void> checkAndUpdateAuthState() async {
     state = await _authenticator.isSignedIn()
         ? const AuthState.authenticated()
@@ -67,8 +75,9 @@ class AuthStateNotifier extends StateNotifier<AuthState> {
   //? sign in user With email
   Future<void> loginUserWithEmailAndPassword(
       UserModel userModel, context) async {
+        
+        
     //? Implementation
-
     state = const AuthState.isLoading();
     state.log();
 

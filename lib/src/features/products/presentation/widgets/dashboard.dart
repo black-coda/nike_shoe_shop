@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:nike_shoe_shop/src/features/authentication/utils/provider.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
@@ -19,7 +20,7 @@ class DashBoardView extends ConsumerWidget {
         ],
       ),
       body: Padding(
-        padding: const EdgeInsets.all(29.0),
+        padding: const EdgeInsets.all(2.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -34,10 +35,14 @@ class DashBoardView extends ConsumerWidget {
                             .logoutUser();
                       },
                       child: const Icon(Icons.logout)),
-                  const Text(
-                    "Home Dashboard",
-                    style: TextStyle(color: Colors.deepPurple),
+                  GestureDetector(
+                    onTap: () => context.go("location"),
+                    child: const Text(
+                      "Home Dashboard",
+                      style: TextStyle(color: Colors.deepPurple),
+                    ),
                   ),
+                  
                 ],
               ),
             ),

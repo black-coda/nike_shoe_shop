@@ -18,7 +18,6 @@ final isSignedInProvider = FutureProvider((ref) async {
   await authStateNotifier.checkAndUpdateAuthState();
 });
 
-
 final goRouterProvider = Provider<GoRouter>((ref) {
   return RouteManager.router;
 });

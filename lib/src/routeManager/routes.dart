@@ -4,15 +4,19 @@ import 'package:nike_shoe_shop/src/features/authentication/presentation/widgets/
 import 'package:nike_shoe_shop/src/features/authentication/presentation/widgets/reset_password.dart';
 import 'package:nike_shoe_shop/src/features/onboardscreens/presentation/onboard_screen.dart';
 import 'package:nike_shoe_shop/src/features/products/presentation/widgets/dashboard.dart';
+import 'package:nike_shoe_shop/src/routeManager/error_page_screen.dart';
 
 class RouteManager {
-  // RouteManager(),
-  // Authenticator();
   static final GoRouter router = GoRouter(
+    errorBuilder: (context, state) => const ErrorScreen(),
+    // redirect: (context, state){
+
+    // },
     routes: <RouteBase>[
       GoRoute(
         path: "/",
         builder: (context, state) => const OnBoardScreen(),
+        
       ),
       GoRoute(
         path: "/login",
@@ -34,3 +38,4 @@ class RouteManager {
   );
 }
 
+class RouterManager {}
