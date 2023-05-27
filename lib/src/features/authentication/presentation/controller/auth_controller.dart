@@ -2,7 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:nike_shoe_shop/src/features/authentication/application/auth_notifier.dart';
 import 'package:nike_shoe_shop/src/features/authentication/data/authenticator.dart';
-import 'package:nike_shoe_shop/src/routeManager/routes.dart';
+import 'package:nike_shoe_shop/src/route/routes.dart';
 
 final authenticatorProvider = Provider<Authenticator>((ref) {
   return Authenticator();

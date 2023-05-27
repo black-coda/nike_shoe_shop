@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:nike_shoe_shop/src/Theme/theme_.dart';
-import 'package:nike_shoe_shop/src/features/authentication/utils/provider.dart';
+import 'package:nike_shoe_shop/src/features/authentication/presentation/controller/auth_controller.dart';
 import 'package:nike_shoe_shop/src/utils/devtool.dart';
 
 class AppEntry extends ConsumerWidget {
@@ -16,14 +16,14 @@ class AppEntry extends ConsumerWidget {
     ref.watch(authStateNotifierProvider).maybeMap(
           authenticated: (value) {
             debugPrint(value.toString());
-            routes.go("/dashboard");
+            routes.go("/productList");
           },
           unauthenticated: (value) => routes.go("/"),
           orElse: () {},
         );
 
     return MaterialApp.router(
-      routerConfig: routes,
+      routerConfig: routes, 
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: primaryTheme,

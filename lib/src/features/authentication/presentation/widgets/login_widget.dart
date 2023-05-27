@@ -4,7 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:nike_shoe_shop/src/features/authentication/domain/user_model.dart';
-import 'package:nike_shoe_shop/src/features/authentication/utils/provider.dart';
+import 'package:nike_shoe_shop/src/features/authentication/presentation/controller/auth_controller.dart';
 import 'package:nike_shoe_shop/src/utils/form_widget.dart';
 
 class LoginView extends ConsumerStatefulWidget {
