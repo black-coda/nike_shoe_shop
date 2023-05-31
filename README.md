@@ -46,11 +46,15 @@ To run this app on your local machine, follow these steps:
 
 ## Packages Used 📦
 
-- firebase_core: ^2.10.0
 - flutter_native_splash: ^2.2.19
+- flutter_riverpod: ^2.3.6
 - flutter_svg: ^2.0.5
-- go_router: ^6.5.8
+- freezed_annotation: ^2.2.0
+- go_router: ^7.0.0
+- google_sign_in: ^6.1.0
 - http: ^0.13.5
+- json_annotation: ^4.8.1
+- lottie: ^2.3.2
 - material_design_icons_flutter: ^6.0.7096
 - smooth_page_indicator: ^1.1.0
 
