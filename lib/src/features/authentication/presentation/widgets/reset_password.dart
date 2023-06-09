@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:nike_shoe_shop/src/features/authentication/presentation/controller/auth_controller.dart';
 import 'package:nike_shoe_shop/src/utils/form_widget.dart';
 
 class PasswordResetWidget extends ConsumerStatefulWidget {
@@ -36,6 +37,7 @@ class _PasswordResetWidgetState extends ConsumerState<PasswordResetWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final authProvider = ref.watch(authStateNotifierProvider.notifier);
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -107,7 +109,13 @@ class _PasswordResetWidgetState extends ConsumerState<PasswordResetWidget> {
                 SizedBox(
                   width: MediaQuery.of(context).size.width - 40,
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () async {
+                      if (_formKey.currentState!.validate()) {
+                        final email = emailController.text.trim();
+                        await authProvider.sendPasswordResetEmail(
+                            email, context);
+                      }
+                    },
                     style: ElevatedButton.styleFrom(
                       padding: const EdgeInsets.all(18),
                       backgroundColor: const Color(0xff0D6EFD),

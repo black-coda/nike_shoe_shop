@@ -34,9 +34,7 @@ class AuthStateNotifier extends StateNotifier<AuthState> {
 
   Future<String?> get email async => await _authenticator.email;
 
-  
-
-  Future<bool> checkSignedIn() async{
+  Future<bool> checkSignedIn() async {
     return _authenticator.isSignedIn();
   }
 
@@ -75,8 +73,6 @@ class AuthStateNotifier extends StateNotifier<AuthState> {
   //? sign in user With email
   Future<void> loginUserWithEmailAndPassword(
       UserModel userModel, context) async {
-        
-        
     //? Implementation
     state = const AuthState.isLoading();
     state.log();
@@ -102,33 +98,35 @@ class AuthStateNotifier extends StateNotifier<AuthState> {
 
     await _authenticator.loginUserWithEmailAndPassword(userModel).then(
       (authState) {
-        Navigator.of(context).pop(); // Close the loading dialog
+        //? Close the loading dialog
+        Navigator.of(context).pop();
+
+        //? Declare state using dartz
         state = authState.fold(
           (failure) {
-            //!TODO: To Build custom error and success message
-
             showDialog(
               context: context,
-              barrierDismissible:
-                  true, // Prevent dismissing the dialog by tapping outside
+              //? Prevent dismissing the dialog by tapping outside
+              barrierDismissible: true,
               builder: (BuildContext context) {
                 return AlertDialog(
                   title: Center(
-                      child: Text(
-                    failure.message!,
-                    style: const TextStyle(
-                      color: Color(0xffe3342f),
-                      fontWeight: FontWeight.w500,
-                      fontSize: 23,
+                    child: Text(
+                      failure.message!,
+                      style: const TextStyle(
+                        color: Color(0xffe3342f),
+                        fontWeight: FontWeight.w500,
+                        fontSize: 23,
+                      ),
+                      textAlign: TextAlign.center,
                     ),
-                    textAlign: TextAlign.center,
-                  )),
+                  ),
                   content: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Lottie.asset("assets/lottie/41791-loading-wrong.json"),
                       const SizedBox(height: 16),
-                      const Text("Oopsss...😪"),
+                      const Text("Oops...😪"),
                     ],
                   ),
                 );
@@ -170,9 +168,74 @@ class AuthStateNotifier extends StateNotifier<AuthState> {
     state.toString().log();
   }
 
+  //? Logout user
+
   Future<void> logoutUser() async {
     state = const AuthState.isLoading();
     await _authenticator.logOut();
     state = const AuthState.unauthenticated();
+  }
+
+  //? Send user password reset email
+
+  //todo: Check if it works
+
+  Future<void> sendPasswordResetEmail(String email, context) async {
+    state = const AuthState.unauthenticated();
+    final successOrFail = await _authenticator.passwordResetEmail(email);
+
+    successOrFail.fold(
+      (failCase) {
+        showDialog(
+          context: context,
+          barrierDismissible:
+              true, // Prevent dismissing the dialog by tapping outside
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Center(
+                  child: Text(
+                failCase.message!,
+                style: const TextStyle(
+                  color: Color(0xffe3342f),
+                  fontWeight: FontWeight.w500,
+                  fontSize: 23,
+                ),
+                textAlign: TextAlign.center,
+              )),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Lottie.asset("assets/lottie/41791-loading-wrong.json"),
+                  const SizedBox(height: 16),
+                  const Text("Oopsss...😪"),
+                ],
+              ),
+            );
+          },
+        );
+        return AuthState.failure(failCase);
+      },
+      (success) {
+        showDialog(
+          context: context,
+          barrierDismissible:
+              true, // Prevent dismissing the dialog by tapping outside
+          builder: (context) {
+            return AlertDialog(
+              title: Center(child: Text(success.toString())),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Lottie.asset("assets/lottie/41793-correct.json"),
+                  const SizedBox(height: 16),
+                  const Text("Check your email 🚀"),
+                ],
+              ),
+            );
+          },
+        );
+        return "";
+      },
+    );
   }
 }

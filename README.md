@@ -4,11 +4,16 @@ This is a Nike shoes store app built with Flutter that allows users to browse an
 
 The UI of this app was designed using Figma by the talented designer 👨‍🎨 [Emmanuel Oyiboke](https://www.figma.com/@rays_da_dev).
 
+## The UI Interface 🖼️
+
+
+
 ## Todo List 📝
 
 - [✅] Create a new Flutter project
 - [✅] Set up Firebase project and add dependencies to `pubspec.yaml` file
-- [👨🏿‍💻 ] Build UI interfaces for app
+- [👨🏿‍💻] Build UI interfaces for app
+- [👨🏿‍💻] Implement Firebase Authentication
 - [ ] Implement OTP verification using Firebase Authentication
 - [ ] Integrate Paystack payment gateway into the app
 - [ ] Fetch and display list of Nike shoes from a backend API
@@ -27,7 +32,7 @@ The UI of this app was designed using Figma by the talented designer 👨‍🎨
 
 To run this app on your local machine, follow these steps:
 
-1. Clone this repository: `git clone https://github.com/yourusername/nike-shoes-store-app.git`
+1. Clone this repository: `git clone https://github.com/black-coda/nike-shoes-store-app.git`
 2. Navigate to the project directory: `cd nike-shoes-store-app`
 3. Install dependencies: `flutter pub get`
 4. Run the app: `flutter run`

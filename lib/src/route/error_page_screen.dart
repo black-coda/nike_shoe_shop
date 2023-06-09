@@ -4,16 +4,11 @@ import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
 import 'package:nike_shoe_shop/src/features/authentication/presentation/controller/auth_controller.dart';
 
-class ErrorScreen extends ConsumerStatefulWidget {
+
+class ErrorScreen extends ConsumerWidget {
   const ErrorScreen({super.key});
-
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _ErrorScreenState();
-}
-
-class _ErrorScreenState extends ConsumerState<ErrorScreen> {
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final r = ref.watch(authStateNotifierProvider.notifier).state;
     return Scaffold(
       body: Column(

@@ -4,12 +4,11 @@ import 'package:nike_shoe_shop/src/features/authentication/presentation/widgets/
 import 'package:nike_shoe_shop/src/features/authentication/presentation/widgets/register_widget.dart';
 import 'package:nike_shoe_shop/src/features/authentication/presentation/widgets/reset_password.dart';
 import 'package:nike_shoe_shop/src/features/onboardscreens/presentation/onboard_screen.dart';
-import 'package:nike_shoe_shop/src/features/products/presentation/widgets/bottom_navigation_widget.dart';
 import 'package:nike_shoe_shop/src/features/products/presentation/widgets/dashboard.dart';
 import 'package:nike_shoe_shop/src/features/products/presentation/widgets/favorite_screen.dart';
 import 'package:nike_shoe_shop/src/features/products/presentation/widgets/notification_screen.dart';
 import 'package:nike_shoe_shop/src/features/products/presentation/widgets/product_list.dart';
-import 'package:nike_shoe_shop/src/features/products/presentation/widgets/profile_widget.dart';
+import 'package:nike_shoe_shop/src/features/profile/presentation/widgets/profile_screen.dart';
 import 'package:nike_shoe_shop/src/route/error_page_screen.dart';
 
 class RouteManager {
@@ -21,7 +20,6 @@ class RouteManager {
   static final GoRouter router = GoRouter(
     navigatorKey: _rootNavigator,
     errorBuilder: (context, state) => const ErrorScreen(),
-    
     routes: <RouteBase>[
       GoRoute(
         path: "/",
@@ -35,12 +33,15 @@ class RouteManager {
         path: "/register",
         builder: (context, state) => const RegisterView(),
       ),
-     
+      GoRoute(
+        path: "/test",
+        builder: (context, state) => const HomiePae(),
+      ),
+
       GoRoute(
         path: "/reset-password",
         builder: (context, state) => const PasswordResetWidget(),
       ),
-
 
       //? Bottom Navigation bar route
       ShellRoute(
@@ -67,6 +68,7 @@ class RouteManager {
               child: const ProfileScreen(),
               key: state.pageKey,
             ),
+
           ),
           GoRoute(
             name: "favorite",
@@ -90,4 +92,5 @@ class RouteManager {
   );
 }
 
-class RouterManager {}
+
+

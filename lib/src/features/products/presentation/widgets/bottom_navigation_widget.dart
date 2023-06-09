@@ -16,11 +16,12 @@ class _BottomNavigationWidgetState
   @override
   Widget build(BuildContext context) {
     final indexPosition = ref.watch(selectIndexStateProvider);
+    debugPrint(indexPosition.toString());
     return BottomNavigationBar(
       type: BottomNavigationBarType.fixed,
       backgroundColor: const Color(0xff1b1f50),
       selectedIconTheme: const IconThemeData().copyWith(color: Colors.pink),
-      onTap: (index) => _onTap(index),
+      onTap: (indexPosition) => _onTap(indexPosition),
       currentIndex: indexPosition,
       items: const [
         BottomNavigationBarItem(

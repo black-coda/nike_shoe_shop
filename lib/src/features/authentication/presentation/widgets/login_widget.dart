@@ -162,19 +162,21 @@ class _LoginViewState extends ConsumerState<LoginView> {
                       width: MediaQuery.of(context).size.width - 40,
                       child: ElevatedButton(
                         onPressed: () async {
-                          final emailText = emailController.text.trim();
+                          if (_formKey.currentState!.validate()) {
+                            final emailText = emailController.text.trim();
 
-                          final passwordText = passwordController.text.trim();
+                            final passwordText = passwordController.text.trim();
 
-                          final UserModel userModel = UserModel(
-                              email: emailText,
-                              password: passwordText,
-                              displayName: '');
-                          debugPrint(userModel.toString());
-                          await ref
-                              .read(authStateNotifierProvider.notifier)
-                              .loginUserWithEmailAndPassword(
-                                  userModel, context);
+                            final UserModel userModel = UserModel(
+                                email: emailText,
+                                password: passwordText,
+                                displayName: '');
+                            debugPrint(userModel.toString());
+                            await ref
+                                .read(authStateNotifierProvider.notifier)
+                                .loginUserWithEmailAndPassword(
+                                    userModel, context);
+                          }
                         },
                         style: ElevatedButton.styleFrom(
                           padding: const EdgeInsets.all(18),

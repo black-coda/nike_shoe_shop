@@ -8,6 +8,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:dartz/dartz.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:nike_shoe_shop/src/utils/devtool.dart';
 
 class Authenticator {
   Authenticator();
@@ -26,9 +27,6 @@ class Authenticator {
     debugPrint(auth.currentUser?.email);
     return auth.currentUser?.email;
   }
-
-  
-
 
   Future<void> authLogout() async {
     await auth.signOut();
@@ -77,7 +75,6 @@ class Authenticator {
   //? Create user with email and password
   Future<Either<AuthFailure, Unit>> createUserWithEmailAndPassword(
       UserModel userModel) async {
-        
     final auth = FirebaseAuth.instance;
     final email = userModel.email;
     final password = userModel.password;
@@ -136,5 +133,19 @@ class Authenticator {
   Future<void> logOut() async {
     await auth.signOut();
     await GoogleSignIn().signOut();
+  }
+
+  //? Send a password reset email
+
+  Future<Either<AuthFailure, Unit>> passwordResetEmail(String email) async {
+    final auth = FirebaseAuth.instance;
+
+    try {
+      auth.sendPasswordResetEmail(email: email);
+      return right(unit);
+    } on FirebaseAuthException catch (e) {
+      e.log();
+      return left(AuthFailure.error(e.toString()));
+    }
   }
 }

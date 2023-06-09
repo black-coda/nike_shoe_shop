@@ -1,3 +1,15 @@
 {
-    "a-file-icon-vscode.folderColor": "#979fad"
+    "a-file-icon-vscode.folderColor": "#888477",
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        "**/Thumbs.db": true,
+        "**/.freezed.dart": true,
+        "auth_notifier.freezed.dart": false,
+        "**/auth_notifier.freezed.dart": true
+    },
+    "explorerExclude.backup": {}
 }

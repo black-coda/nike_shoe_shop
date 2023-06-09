@@ -1,9 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-
 //? Bottom state decleration
 class BottomNavBarStateNotifier extends StateNotifier<int> {
-  BottomNavBarStateNotifier() : super(0);
+  BottomNavBarStateNotifier(super._state);
 
   void setIndexPositon(int indexValue) {
     state = indexValue;
@@ -12,9 +11,7 @@ class BottomNavBarStateNotifier extends StateNotifier<int> {
 
 final selectIndexStateProvider =
     StateNotifierProvider<BottomNavBarStateNotifier, int>((ref) {
-  return BottomNavBarStateNotifier();
+  return BottomNavBarStateNotifier(0);
 });
-
-
 
 
