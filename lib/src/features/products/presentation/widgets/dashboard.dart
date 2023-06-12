@@ -75,12 +75,13 @@ class _DashBoardScreenState extends ConsumerState<DashBoardScreen> {
           CurvedNavigationBarItem(iconData: MdiIcons.bell),
           CurvedNavigationBarItem(iconData: MdiIcons.account),
         ],
-        onTap: _onTap(indexPosition),
+        currentIndex: indexPosition,
+        onTap: (indexPosition) => _onTap(indexPosition),
       ),
     );
   }
 
-  _onTap(int index) {
+  void _onTap(int index) {
     ref.watch(selectIndexStateProvider.notifier).setIndexPosition(index);
     switch (index) {
       case 0:
