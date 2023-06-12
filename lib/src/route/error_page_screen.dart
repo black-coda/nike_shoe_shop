@@ -4,7 +4,6 @@ import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
 import 'package:nike_shoe_shop/src/features/authentication/presentation/controller/auth_controller.dart';
 
-
 class ErrorScreen extends ConsumerWidget {
   const ErrorScreen({super.key});
   @override

@@ -15,8 +15,8 @@ class RouteManager {
   static final GlobalKey<NavigatorState> _rootNavigator =
       GlobalKey(debugLabel: "root");
   static final GlobalKey<NavigatorState> _shellNavigator =
-      GlobalKey(debugLabel: "shell ");
-
+      GlobalKey(debugLabel: "shell");
+ 
   static final GoRouter router = GoRouter(
     navigatorKey: _rootNavigator,
     errorBuilder: (context, state) => const ErrorScreen(),
@@ -33,9 +33,10 @@ class RouteManager {
         path: "/register",
         builder: (context, state) => const RegisterView(),
       ),
+
       GoRoute(
-        path: "/test",
-        builder: (context, state) => const HomiePae(),
+        path: "/test2",
+        builder: (context, state) => const MyTest(),
       ),
 
       GoRoute(
@@ -68,7 +69,6 @@ class RouteManager {
               child: const ProfileScreen(),
               key: state.pageKey,
             ),
-
           ),
           GoRoute(
             name: "favorite",
@@ -91,6 +91,3 @@ class RouteManager {
     ],
   );
 }
-
-
-

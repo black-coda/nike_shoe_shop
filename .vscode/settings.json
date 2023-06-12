@@ -11,5 +11,8 @@
         "auth_notifier.freezed.dart": false,
         "**/auth_notifier.freezed.dart": true
     },
-    "explorerExclude.backup": {}
+    "explorerExclude.backup": {},
+    "cSpell.words": [
+        "Reclip"
+    ]
 }

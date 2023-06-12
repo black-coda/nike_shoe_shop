@@ -49,7 +49,7 @@ class _BottomNavigationWidgetState
   }
 
   void _onTap(int index) {
-    ref.watch(selectIndexStateProvider.notifier).setIndexPositon(index);
+    ref.watch(selectIndexStateProvider.notifier).setIndexPosition(index);
     switch (index) {
       case 0:
         context.go("/productList");

@@ -4,8 +4,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:nike_shoe_shop/src/features/authentication/presentation/controller/auth_controller.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-
-import 'bottom_navigation_widget.dart';
+import 'package:nike_shoe_shop/src/features/products/presentation/controllers/bottom_navbar_controller.dart';
+import 'package:nike_shoe_shop/src/utils/custom_curved_nav_bar.dart';
 
 class DashBoardView extends ConsumerWidget {
   const DashBoardView({super.key});
@@ -65,10 +65,38 @@ class DashBoardScreen extends ConsumerStatefulWidget {
 class _DashBoardScreenState extends ConsumerState<DashBoardScreen> {
   @override
   Widget build(BuildContext context) {
+    final indexPosition = ref.watch(selectIndexStateProvider);
     return Scaffold(
       body: widget.child,
-      bottomNavigationBar: const BottomNavigationWidget(),
+      bottomNavigationBar: CustomCurvedNavigationWidget(
+        items: [
+          CurvedNavigationBarItem(iconData: MdiIcons.home),
+          CurvedNavigationBarItem(iconData: MdiIcons.heart),
+          CurvedNavigationBarItem(iconData: MdiIcons.bell),
+          CurvedNavigationBarItem(iconData: MdiIcons.account),
+        ],
+        onTap: _onTap(indexPosition),
+      ),
     );
+  }
+
+  _onTap(int index) {
+    ref.watch(selectIndexStateProvider.notifier).setIndexPosition(index);
+    switch (index) {
+      case 0:
+        context.go("/productList");
+        break;
+      case 1:
+        context.go("/favorite");
+        break;
+      case 2:
+        context.go("/notification");
+        break;
+      case 3:
+        context.go("/profile");
+        break;
+      default:
+    }
   }
 }
 
@@ -84,3 +112,5 @@ class _DashBoardScreenState extends ConsumerState<DashBoardScreen> {
 //     );
 //   }
 // }
+
+      
