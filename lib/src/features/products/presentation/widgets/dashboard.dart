@@ -70,10 +70,10 @@ class _DashBoardScreenState extends ConsumerState<DashBoardScreen> {
       body: widget.child,
       bottomNavigationBar: CustomCurvedNavigationWidget(
         items: [
-          CurvedNavigationBarItem(iconData: MdiIcons.home),
-          CurvedNavigationBarItem(iconData: MdiIcons.heart),
-          CurvedNavigationBarItem(iconData: MdiIcons.bell),
-          CurvedNavigationBarItem(iconData: MdiIcons.account),
+          CurvedNavigationBarItem(iconData: MdiIcons.homeOutline, selectedIconData: MdiIcons.home),
+          CurvedNavigationBarItem(iconData: MdiIcons.heartOutline, selectedIconData: MdiIcons.heart),
+          CurvedNavigationBarItem(iconData: MdiIcons.bellOutline, selectedIconData: MdiIcons.bellAlert),
+          CurvedNavigationBarItem(iconData: MdiIcons.accountOutline, selectedIconData: MdiIcons.account),
         ],
         currentIndex: indexPosition,
         onTap: (indexPosition) => _onTap(indexPosition),
