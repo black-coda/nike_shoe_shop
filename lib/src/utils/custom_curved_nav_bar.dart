@@ -112,12 +112,15 @@ class CustomCurvedNavigationWidget extends ConsumerWidget {
           'depends on its items being exactly 4',
         );
 
+    //TODO: Try to implement onSelectedIcon
+
   final List<CurvedNavigationBarItem> items;
   final ValueChanged<int>? onTap;
   // final int Function() onTap;
   final Color unselectedColor;
   final Color selectedColor;
   final int currentIndex;
+  // final 
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -216,6 +219,7 @@ class CustomCurvedNavigationWidget extends ConsumerWidget {
 class CurvedNavigationBarItem {
   final IconData iconData;
   final IconData? selectedIconData;
+  
 
   CurvedNavigationBarItem({required this.iconData, this.selectedIconData});
 }
