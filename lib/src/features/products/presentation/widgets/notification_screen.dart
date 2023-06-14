@@ -5,6 +5,11 @@ class NotificationScreen extends ConsumerWidget {
   const NotificationScreen({super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Container();
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: const Text("Notification"),
+      ),
+    );
   }
 }
