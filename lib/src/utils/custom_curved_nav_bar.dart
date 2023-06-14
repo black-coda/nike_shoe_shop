@@ -112,7 +112,7 @@ class CustomCurvedNavigationWidget extends ConsumerWidget {
           'depends on its items being exactly 4',
         );
 
-    //TODO: Try to implement onSelectedIcon
+  //TODO: Try to implement onSelectedIcon
 
   final List<CurvedNavigationBarItem> items;
   final ValueChanged<int>? onTap;
@@ -120,12 +120,13 @@ class CustomCurvedNavigationWidget extends ConsumerWidget {
   final Color unselectedColor;
   final Color selectedColor;
   final int currentIndex;
-  // final 
+  // final
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final Size size = MediaQuery.of(context).size;
-    return SizedBox(
+    // ignore: sized_box_for_whitespace
+    return Container(
       // color: Colors.red,
       height: 80,
       child: Stack(
@@ -219,7 +220,6 @@ class CustomCurvedNavigationWidget extends ConsumerWidget {
 class CurvedNavigationBarItem {
   final IconData iconData;
   final IconData? selectedIconData;
-  
 
   CurvedNavigationBarItem({required this.iconData, this.selectedIconData});
 }

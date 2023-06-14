@@ -67,13 +67,22 @@ class _DashBoardScreenState extends ConsumerState<DashBoardScreen> {
   Widget build(BuildContext context) {
     final indexPosition = ref.watch(selectIndexStateProvider);
     return Scaffold(
+      extendBody: true,
+      backgroundColor: Colors.transparent,
       body: widget.child,
       bottomNavigationBar: CustomCurvedNavigationWidget(
         items: [
-          CurvedNavigationBarItem(iconData: MdiIcons.homeOutline, selectedIconData: MdiIcons.home),
-          CurvedNavigationBarItem(iconData: MdiIcons.heartOutline, selectedIconData: MdiIcons.heart),
-          CurvedNavigationBarItem(iconData: MdiIcons.bellOutline, selectedIconData: MdiIcons.bellAlert),
-          CurvedNavigationBarItem(iconData: MdiIcons.accountOutline, selectedIconData: MdiIcons.account),
+          CurvedNavigationBarItem(
+              iconData: MdiIcons.homeOutline, selectedIconData: MdiIcons.home),
+          CurvedNavigationBarItem(
+              iconData: MdiIcons.heartOutline,
+              selectedIconData: MdiIcons.heart),
+          CurvedNavigationBarItem(
+              iconData: MdiIcons.bellOutline,
+              selectedIconData: MdiIcons.bellAlert),
+          CurvedNavigationBarItem(
+              iconData: MdiIcons.accountOutline,
+              selectedIconData: MdiIcons.account),
         ],
         currentIndex: indexPosition,
         onTap: (indexPosition) => _onTap(indexPosition),
@@ -91,7 +100,8 @@ class _DashBoardScreenState extends ConsumerState<DashBoardScreen> {
         context.go("/favorite");
         break;
       case 2:
-        context.go("/notification");
+        // context.go("/notification");
+        GoRouter.of(context).push("/notification");
         break;
       case 3:
         context.go("/profile");
