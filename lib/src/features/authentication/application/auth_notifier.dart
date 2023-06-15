@@ -33,6 +33,7 @@ class AuthStateNotifier extends StateNotifier<AuthState> {
   }
 
   Future<String?> get email async => await _authenticator.email;
+  Future<String?> get displayName async => await _authenticator.displayName;
 
   Future<bool> checkSignedIn() async {
     return _authenticator.isSignedIn();

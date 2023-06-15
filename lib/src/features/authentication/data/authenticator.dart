@@ -27,6 +27,10 @@ class Authenticator {
     debugPrint(auth.currentUser?.email);
     return auth.currentUser?.email;
   }
+  Future<String?> get displayName async {
+    debugPrint(auth.currentUser?.displayName);
+    return auth.currentUser?.displayName;
+  }
 
   Future<void> authLogout() async {
     await auth.signOut();

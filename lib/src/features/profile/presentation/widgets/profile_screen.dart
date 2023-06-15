@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:lottie/lottie.dart';
+import 'package:nike_shoe_shop/src/features/profile/presentation/controllers/profile_controllers.dart';
+
+import 'profile_form_field.dart';
 
 class ProfileScreen extends ConsumerStatefulWidget {
   const ProfileScreen({super.key});
@@ -18,52 +22,85 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
           style: TextStyle(fontWeight: FontWeight.w600, fontSize: 24),
         ),
       ),
-      body: Center(
-        child: Form(
-          child: Column(
-            children: [
-              const SizedBox(
-                height: 30,
-              ),
-              const CircleAvatar(
-                radius: 40,
-                backgroundImage: NetworkImage(
-                  "https://images.pexels.com/photos/5876695/pexels-photo-5876695.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+      body: SingleChildScrollView(
+        child: Center(
+          child: Form(
+            child: Column(
+              children: [
+                const SizedBox(
+                  height: 18,
                 ),
-              ),
-              Container(
-                padding: const EdgeInsets.all(20),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      "Your Name",
-                      style: TextStyle(
-                          color: Color(0xff707B81),
-                          fontWeight: FontWeight.w600),
-                    ),
-                    const SizedBox(height: 12),
-                    TextFormField(
-                      
-                      decoration: const InputDecoration(
-                        filled: true,
-                        fillColor: Color(0xffF7F7F9),
-                        hintText: "Solomon Monday",
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            width: 0.0,
-                            color: Color(0xffF7F7F9),
-                            style: BorderStyle.none,
-                          ),
-                          borderRadius: BorderRadius.all(Radius.circular(14)),
-                        ),
-                      ),
-                    )
-                  ],
+                const CircleAvatar(
+                  maxRadius: 45,
+                  backgroundImage: NetworkImage(
+                    "https://images.pexels.com/photos/5876695/pexels-photo-5876695.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+                  ),
                 ),
-              )
-            ],
+                Container(
+                  padding: const EdgeInsets.all(20),
+                  child: Consumer(
+                    builder:
+                        (BuildContext context, WidgetRef ref, Widget? child) {
+                      final profileDetails =
+                          ref.watch(displayNameFutureProvider);
+
+                      return profileDetails.when(
+                        data: (data) {
+                          debugPrint(data);
+                          return Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              CustomProfileFormField(
+                                  fieldName: "Your Name", fieldHintText: data),
+                              const SizedBox(height: 10),
+                              const CustomProfileFormField(
+                                  fieldName: "Email Address",
+                                  fieldHintText: "mondaysolomon01@gmail.com"),
+                              const SizedBox(height: 10),
+                              const CustomProfileFormField(
+                                  fieldName: "Password",
+                                  fieldHintText: "********"),
+                              const SizedBox(height: 15),
+                              SizedBox(
+                                width: MediaQuery.of(context).size.width - 40,
+                                child: ElevatedButton(
+                                  onPressed: () {},
+                                  style: ElevatedButton.styleFrom(
+                                    padding: const EdgeInsets.all(18),
+                                    backgroundColor: const Color(0xff0D6EFD),
+                                    shape: const RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(14))),
+                                  ),
+                                  child: Text(
+                                    "Edit Profile",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .labelMedium
+                                        ?.copyWith(
+                                            color: const Color(0xffF7F7F9)),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          );
+                        },
+                        error: (Object error, StackTrace stackTrace) {
+                          return Text("Error: $error");
+                        },
+                        loading: () {
+                          return Center(
+                            child: LottieBuilder.asset(
+                                "assets/lottie/97204-loader.json"),
+                          );
+                        },
+                      );
+                    },
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),
