@@ -6,6 +6,7 @@ import 'package:lottie/lottie.dart';
 import 'package:nike_shoe_shop/src/features/authentication/data/authenticator.dart';
 import 'package:nike_shoe_shop/src/features/authentication/domain/auth_failure.dart';
 import 'package:nike_shoe_shop/src/features/authentication/domain/user_model.dart';
+import 'package:nike_shoe_shop/src/features/authentication/utils/user_info_storage.dart';
 import 'package:nike_shoe_shop/src/utils/devtool.dart';
 part 'auth_notifier.freezed.dart';
 
@@ -22,9 +23,15 @@ class AuthState with _$AuthState {
   const factory AuthState.isLoading() = _IsLoading;
 }
 
+
+
 class AuthStateNotifier extends StateNotifier<AuthState> {
-  final Authenticator _authenticator;
-  AuthStateNotifier(this._authenticator) : super(const AuthState.initial());
+  final Authenticator authenticator;
+ 
+  AuthStateNotifier({
+    required this.authenticator,
+   
+  }) : super(const AuthState.initial());
 
   String getErrorMessage(AuthFailure failure) {
     return failure.when(
@@ -32,22 +39,22 @@ class AuthStateNotifier extends StateNotifier<AuthState> {
     );
   }
 
-  Future<String?> get email async => await _authenticator.email;
-  Future<String?> get displayName async => await _authenticator.displayName;
+  Future<String?> get email async => await authenticator.email;
+  Future<String?> get displayName async => await authenticator.displayName;
 
   Future<bool> checkSignedIn() async {
-    return _authenticator.isSignedIn();
+    return authenticator.isSignedIn();
   }
 
   Future<void> checkAndUpdateAuthState() async {
-    state = await _authenticator.isSignedIn()
+    state = await authenticator.isSignedIn()
         ? const AuthState.authenticated()
         : const AuthState.unauthenticated();
   }
 
   //? login in with google
   Future<void> loginWithGoogle(context) async {
-    final failureOrSuccess = await _authenticator.loginWithGoogleProvider();
+    final failureOrSuccess = await authenticator.loginWithGoogleProvider();
 
     state = failureOrSuccess.fold(
       (failure) {
@@ -61,7 +68,7 @@ class AuthStateNotifier extends StateNotifier<AuthState> {
   Future<void> createUserWithEmailAndPassword(
       UserModel userModel, context) async {
     final failureOrSuccess =
-        await _authenticator.createUserWithEmailAndPassword(userModel);
+        await authenticator.createUserWithEmailAndPassword(userModel);
 
     state = failureOrSuccess.fold(
       (failure) => AuthState.failure(failure),
@@ -97,7 +104,7 @@ class AuthStateNotifier extends StateNotifier<AuthState> {
       },
     );
 
-    await _authenticator.loginUserWithEmailAndPassword(userModel).then(
+    await authenticator.loginUserWithEmailAndPassword(userModel).then(
       (authState) {
         //? Close the loading dialog
         Navigator.of(context).pop();
@@ -173,7 +180,7 @@ class AuthStateNotifier extends StateNotifier<AuthState> {
 
   Future<void> logoutUser() async {
     state = const AuthState.isLoading();
-    await _authenticator.logOut();
+    await authenticator.logOut();
     state = const AuthState.unauthenticated();
   }
 
@@ -183,7 +190,7 @@ class AuthStateNotifier extends StateNotifier<AuthState> {
 
   Future<void> sendPasswordResetEmail(String email, context) async {
     state = const AuthState.unauthenticated();
-    final successOrFail = await _authenticator.passwordResetEmail(email);
+    final successOrFail = await authenticator.passwordResetEmail(email);
 
     successOrFail.fold(
       (failCase) {

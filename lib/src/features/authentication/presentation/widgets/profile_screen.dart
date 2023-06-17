@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lottie/lottie.dart';
-import 'package:nike_shoe_shop/src/features/profile/presentation/controllers/profile_controllers.dart';
+import 'package:nike_shoe_shop/src/features/authentication/presentation/controller/profile_controllers.dart';
 
 import 'profile_form_field.dart';
 
