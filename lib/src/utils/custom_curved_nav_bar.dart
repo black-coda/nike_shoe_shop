@@ -112,8 +112,6 @@ class CustomCurvedNavigationWidget extends ConsumerWidget {
           'depends on its items being exactly 4',
         );
 
-  //TODO: Try to implement onSelectedIcon
-
   final List<CurvedNavigationBarItem> items;
   final ValueChanged<int>? onTap;
   // final int Function() onTap;

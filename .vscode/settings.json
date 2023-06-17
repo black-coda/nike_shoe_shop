@@ -1,5 +1,5 @@
 {
-    "a-file-icon-vscode.folderColor": "#888477",
+    "a-file-icon-vscode.folderColor": "#90a7b2",
     "files.exclude": {
         "**/.git": true,
         "**/.svn": true,
@@ -9,10 +9,15 @@
         "**/Thumbs.db": true,
         "**/.freezed.dart": true,
         "auth_notifier.freezed.dart": false,
-        "**/auth_notifier.freezed.dart": true
+        "**/auth_notifier.freezed.dart": true,
+        "**/user_info_payload.freezed.dart": true,
+        "user_info_payload.freezed.dart": true,
+        "**/user_info_payload.g.dart": true,
+        "user_info_payload.g.dart": true
     },
     "explorerExclude.backup": {},
     "cSpell.words": [
+        "konstant",
         "Reclip"
     ]
 }

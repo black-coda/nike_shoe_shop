@@ -3,6 +3,7 @@ import 'package:nike_shoe_shop/src/constant/konstant.dart';
 import 'package:nike_shoe_shop/src/features/authentication/domain/auth_error.dart';
 import 'package:nike_shoe_shop/src/features/authentication/domain/auth_failure.dart';
 import 'package:nike_shoe_shop/src/features/authentication/domain/user_model.dart';
+import 'package:nike_shoe_shop/src/features/authentication/utils/user_info_storage.dart';
 import 'package:nike_shoe_shop/src/features/core/domain/user_id.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:dartz/dartz.dart';
@@ -11,7 +12,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:nike_shoe_shop/src/utils/devtool.dart';
 
 class Authenticator {
-  Authenticator();
+  final UserInfoStorage userInfoStorage;
+  Authenticator({required this.userInfoStorage});
 
   //? General declaration
   final auth = FirebaseAuth.instance;
@@ -26,6 +28,12 @@ class Authenticator {
   Future<String?> get email async {
     debugPrint(auth.currentUser?.email);
     return auth.currentUser?.email;
+  }
+
+  Future<String?> get displayName async {
+    debugPrint(auth.currentUser?.displayName);
+    auth.currentUser?.displayName?.log();
+    return auth.currentUser?.displayName;
   }
 
   Future<void> authLogout() async {
@@ -84,15 +92,13 @@ class Authenticator {
     try {
       final UserCredential cred = await auth.createUserWithEmailAndPassword(
           email: email, password: password);
+      final userId = cred.user!.uid;
+      //TODO: Continue from here !!!
       if (cred.user?.uid != null) {
-        await firestore.collection("users").doc(cred.user!.uid).set(
-          {
-            "email": email,
-            "displayName": displayName,
-            "address": "",
-            "mobileNumber": '',
-            "cart": [],
-          },
+        await saveUserInformation(
+          userId: userId,
+          displayName: displayName,
+          email: email,
         );
       }
 
@@ -104,6 +110,18 @@ class Authenticator {
         ),
       );
     }
+  }
+
+  //* save user information
+  Future<void> saveUserInformation(
+      {required UserId userId,
+      required String displayName,
+      required String email}) {
+    return userInfoStorage.saveUserInformation(
+      userId: userId,
+      displayName: displayName,
+      email: email,
+    );
   }
 
   //? sign in with email and password
