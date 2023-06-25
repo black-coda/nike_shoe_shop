@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lottie/lottie.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:nike_shoe_shop/src/features/authentication/presentation/controller/profile_controllers.dart';
 
 import 'profile_form_field.dart';
@@ -16,6 +17,10 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        actions: const [
+          Icon(MdiIcons.logout),
+          SizedBox(width: 20),
+        ],
         centerTitle: true,
         title: const Text(
           "Profile",
