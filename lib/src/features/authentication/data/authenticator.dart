@@ -8,7 +8,6 @@ import 'package:nike_shoe_shop/src/features/core/domain/user_id.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:dartz/dartz.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:nike_shoe_shop/src/utils/devtool.dart';
 
 class Authenticator {
@@ -69,7 +68,17 @@ class Authenticator {
     );
 
     try {
-      await auth.signInWithCredential(oauthCredential);
+      final userCredential = await auth.signInWithCredential(oauthCredential);
+      final email = userCredential.user!.email;
+      final displayName = userCredential.user!.displayName;
+      final UserId userId = userCredential.user!.uid;
+
+      debugPrint("herer 😪😪😪😪👨‍🍳");
+
+      if (email != null && displayName != null) {
+        await saveUserInformation(
+            userId: userId, displayName: displayName, email: email);
+      }
       return right(unit);
     } on FirebaseAuthException catch (e) {
       return left(
@@ -87,7 +96,6 @@ class Authenticator {
     final email = userModel.email;
     final password = userModel.password;
     final displayName = userModel.displayName;
-    final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
     try {
       final UserCredential cred = await auth.createUserWithEmailAndPassword(

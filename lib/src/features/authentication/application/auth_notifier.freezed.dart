@@ -18,27 +18,27 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$AuthState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(bool isLoading) initial,
-    required TResult Function(bool isLoading) authenticated,
-    required TResult Function(bool isLoading) unauthenticated,
+    required TResult Function() initial,
+    required TResult Function() authenticated,
+    required TResult Function() unauthenticated,
     required TResult Function(AuthFailure failure) failure,
     required TResult Function() isLoading,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(bool isLoading)? initial,
-    TResult? Function(bool isLoading)? authenticated,
-    TResult? Function(bool isLoading)? unauthenticated,
+    TResult? Function()? initial,
+    TResult? Function()? authenticated,
+    TResult? Function()? unauthenticated,
     TResult? Function(AuthFailure failure)? failure,
     TResult? Function()? isLoading,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(bool isLoading)? initial,
-    TResult Function(bool isLoading)? authenticated,
-    TResult Function(bool isLoading)? unauthenticated,
+    TResult Function()? initial,
+    TResult Function()? authenticated,
+    TResult Function()? unauthenticated,
     TResult Function(AuthFailure failure)? failure,
     TResult Function()? isLoading,
     required TResult orElse(),
@@ -96,8 +96,6 @@ abstract class _$$_InitialCopyWith<$Res> {
   factory _$$_InitialCopyWith(
           _$_Initial value, $Res Function(_$_Initial) then) =
       __$$_InitialCopyWithImpl<$Res>;
-  @useResult
-  $Res call({bool isLoading});
 }
 
 /// @nodoc
@@ -106,97 +104,69 @@ class __$$_InitialCopyWithImpl<$Res>
     implements _$$_InitialCopyWith<$Res> {
   __$$_InitialCopyWithImpl(_$_Initial _value, $Res Function(_$_Initial) _then)
       : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? isLoading = null,
-  }) {
-    return _then(_$_Initial(
-      isLoading: null == isLoading
-          ? _value.isLoading
-          : isLoading // ignore: cast_nullable_to_non_nullable
-              as bool,
-    ));
-  }
 }
 
 /// @nodoc
 
 class _$_Initial extends _Initial with DiagnosticableTreeMixin {
-  const _$_Initial({this.isLoading = false}) : super._();
-
-  @override
-  @JsonKey()
-  final bool isLoading;
+  const _$_Initial() : super._();
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'AuthState.initial(isLoading: $isLoading)';
+    return 'AuthState.initial()';
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'AuthState.initial'))
-      ..add(DiagnosticsProperty('isLoading', isLoading));
+    properties.add(DiagnosticsProperty('type', 'AuthState.initial'));
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_Initial &&
-            (identical(other.isLoading, isLoading) ||
-                other.isLoading == isLoading));
+        (other.runtimeType == runtimeType && other is _$_Initial);
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, isLoading);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$_InitialCopyWith<_$_Initial> get copyWith =>
-      __$$_InitialCopyWithImpl<_$_Initial>(this, _$identity);
+  int get hashCode => runtimeType.hashCode;
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(bool isLoading) initial,
-    required TResult Function(bool isLoading) authenticated,
-    required TResult Function(bool isLoading) unauthenticated,
+    required TResult Function() initial,
+    required TResult Function() authenticated,
+    required TResult Function() unauthenticated,
     required TResult Function(AuthFailure failure) failure,
     required TResult Function() isLoading,
   }) {
-    return initial(this.isLoading);
+    return initial();
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(bool isLoading)? initial,
-    TResult? Function(bool isLoading)? authenticated,
-    TResult? Function(bool isLoading)? unauthenticated,
+    TResult? Function()? initial,
+    TResult? Function()? authenticated,
+    TResult? Function()? unauthenticated,
     TResult? Function(AuthFailure failure)? failure,
     TResult? Function()? isLoading,
   }) {
-    return initial?.call(this.isLoading);
+    return initial?.call();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(bool isLoading)? initial,
-    TResult Function(bool isLoading)? authenticated,
-    TResult Function(bool isLoading)? unauthenticated,
+    TResult Function()? initial,
+    TResult Function()? authenticated,
+    TResult Function()? unauthenticated,
     TResult Function(AuthFailure failure)? failure,
     TResult Function()? isLoading,
     required TResult orElse(),
   }) {
     if (initial != null) {
-      return initial(this.isLoading);
+      return initial();
     }
     return orElse();
   }
@@ -243,13 +213,8 @@ class _$_Initial extends _Initial with DiagnosticableTreeMixin {
 }
 
 abstract class _Initial extends AuthState {
-  const factory _Initial({final bool isLoading}) = _$_Initial;
+  const factory _Initial() = _$_Initial;
   const _Initial._() : super._();
-
-  bool get isLoading;
-  @JsonKey(ignore: true)
-  _$$_InitialCopyWith<_$_Initial> get copyWith =>
-      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -257,8 +222,6 @@ abstract class _$$_AuthenticatedCopyWith<$Res> {
   factory _$$_AuthenticatedCopyWith(
           _$_Authenticated value, $Res Function(_$_Authenticated) then) =
       __$$_AuthenticatedCopyWithImpl<$Res>;
-  @useResult
-  $Res call({bool isLoading});
 }
 
 /// @nodoc
@@ -268,97 +231,69 @@ class __$$_AuthenticatedCopyWithImpl<$Res>
   __$$_AuthenticatedCopyWithImpl(
       _$_Authenticated _value, $Res Function(_$_Authenticated) _then)
       : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? isLoading = null,
-  }) {
-    return _then(_$_Authenticated(
-      isLoading: null == isLoading
-          ? _value.isLoading
-          : isLoading // ignore: cast_nullable_to_non_nullable
-              as bool,
-    ));
-  }
 }
 
 /// @nodoc
 
 class _$_Authenticated extends _Authenticated with DiagnosticableTreeMixin {
-  const _$_Authenticated({this.isLoading = false}) : super._();
-
-  @override
-  @JsonKey()
-  final bool isLoading;
+  const _$_Authenticated() : super._();
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'AuthState.authenticated(isLoading: $isLoading)';
+    return 'AuthState.authenticated()';
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'AuthState.authenticated'))
-      ..add(DiagnosticsProperty('isLoading', isLoading));
+    properties.add(DiagnosticsProperty('type', 'AuthState.authenticated'));
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_Authenticated &&
-            (identical(other.isLoading, isLoading) ||
-                other.isLoading == isLoading));
+        (other.runtimeType == runtimeType && other is _$_Authenticated);
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, isLoading);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$_AuthenticatedCopyWith<_$_Authenticated> get copyWith =>
-      __$$_AuthenticatedCopyWithImpl<_$_Authenticated>(this, _$identity);
+  int get hashCode => runtimeType.hashCode;
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(bool isLoading) initial,
-    required TResult Function(bool isLoading) authenticated,
-    required TResult Function(bool isLoading) unauthenticated,
+    required TResult Function() initial,
+    required TResult Function() authenticated,
+    required TResult Function() unauthenticated,
     required TResult Function(AuthFailure failure) failure,
     required TResult Function() isLoading,
   }) {
-    return authenticated(this.isLoading);
+    return authenticated();
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(bool isLoading)? initial,
-    TResult? Function(bool isLoading)? authenticated,
-    TResult? Function(bool isLoading)? unauthenticated,
+    TResult? Function()? initial,
+    TResult? Function()? authenticated,
+    TResult? Function()? unauthenticated,
     TResult? Function(AuthFailure failure)? failure,
     TResult? Function()? isLoading,
   }) {
-    return authenticated?.call(this.isLoading);
+    return authenticated?.call();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(bool isLoading)? initial,
-    TResult Function(bool isLoading)? authenticated,
-    TResult Function(bool isLoading)? unauthenticated,
+    TResult Function()? initial,
+    TResult Function()? authenticated,
+    TResult Function()? unauthenticated,
     TResult Function(AuthFailure failure)? failure,
     TResult Function()? isLoading,
     required TResult orElse(),
   }) {
     if (authenticated != null) {
-      return authenticated(this.isLoading);
+      return authenticated();
     }
     return orElse();
   }
@@ -405,13 +340,8 @@ class _$_Authenticated extends _Authenticated with DiagnosticableTreeMixin {
 }
 
 abstract class _Authenticated extends AuthState {
-  const factory _Authenticated({final bool isLoading}) = _$_Authenticated;
+  const factory _Authenticated() = _$_Authenticated;
   const _Authenticated._() : super._();
-
-  bool get isLoading;
-  @JsonKey(ignore: true)
-  _$$_AuthenticatedCopyWith<_$_Authenticated> get copyWith =>
-      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -419,8 +349,6 @@ abstract class _$$_UnauthenticatedCopyWith<$Res> {
   factory _$$_UnauthenticatedCopyWith(
           _$_Unauthenticated value, $Res Function(_$_Unauthenticated) then) =
       __$$_UnauthenticatedCopyWithImpl<$Res>;
-  @useResult
-  $Res call({bool isLoading});
 }
 
 /// @nodoc
@@ -430,97 +358,69 @@ class __$$_UnauthenticatedCopyWithImpl<$Res>
   __$$_UnauthenticatedCopyWithImpl(
       _$_Unauthenticated _value, $Res Function(_$_Unauthenticated) _then)
       : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? isLoading = null,
-  }) {
-    return _then(_$_Unauthenticated(
-      isLoading: null == isLoading
-          ? _value.isLoading
-          : isLoading // ignore: cast_nullable_to_non_nullable
-              as bool,
-    ));
-  }
 }
 
 /// @nodoc
 
 class _$_Unauthenticated extends _Unauthenticated with DiagnosticableTreeMixin {
-  const _$_Unauthenticated({this.isLoading = false}) : super._();
-
-  @override
-  @JsonKey()
-  final bool isLoading;
+  const _$_Unauthenticated() : super._();
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'AuthState.unauthenticated(isLoading: $isLoading)';
+    return 'AuthState.unauthenticated()';
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'AuthState.unauthenticated'))
-      ..add(DiagnosticsProperty('isLoading', isLoading));
+    properties.add(DiagnosticsProperty('type', 'AuthState.unauthenticated'));
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_Unauthenticated &&
-            (identical(other.isLoading, isLoading) ||
-                other.isLoading == isLoading));
+        (other.runtimeType == runtimeType && other is _$_Unauthenticated);
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, isLoading);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$_UnauthenticatedCopyWith<_$_Unauthenticated> get copyWith =>
-      __$$_UnauthenticatedCopyWithImpl<_$_Unauthenticated>(this, _$identity);
+  int get hashCode => runtimeType.hashCode;
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(bool isLoading) initial,
-    required TResult Function(bool isLoading) authenticated,
-    required TResult Function(bool isLoading) unauthenticated,
+    required TResult Function() initial,
+    required TResult Function() authenticated,
+    required TResult Function() unauthenticated,
     required TResult Function(AuthFailure failure) failure,
     required TResult Function() isLoading,
   }) {
-    return unauthenticated(this.isLoading);
+    return unauthenticated();
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(bool isLoading)? initial,
-    TResult? Function(bool isLoading)? authenticated,
-    TResult? Function(bool isLoading)? unauthenticated,
+    TResult? Function()? initial,
+    TResult? Function()? authenticated,
+    TResult? Function()? unauthenticated,
     TResult? Function(AuthFailure failure)? failure,
     TResult? Function()? isLoading,
   }) {
-    return unauthenticated?.call(this.isLoading);
+    return unauthenticated?.call();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(bool isLoading)? initial,
-    TResult Function(bool isLoading)? authenticated,
-    TResult Function(bool isLoading)? unauthenticated,
+    TResult Function()? initial,
+    TResult Function()? authenticated,
+    TResult Function()? unauthenticated,
     TResult Function(AuthFailure failure)? failure,
     TResult Function()? isLoading,
     required TResult orElse(),
   }) {
     if (unauthenticated != null) {
-      return unauthenticated(this.isLoading);
+      return unauthenticated();
     }
     return orElse();
   }
@@ -567,13 +467,8 @@ class _$_Unauthenticated extends _Unauthenticated with DiagnosticableTreeMixin {
 }
 
 abstract class _Unauthenticated extends AuthState {
-  const factory _Unauthenticated({final bool isLoading}) = _$_Unauthenticated;
+  const factory _Unauthenticated() = _$_Unauthenticated;
   const _Unauthenticated._() : super._();
-
-  bool get isLoading;
-  @JsonKey(ignore: true)
-  _$$_UnauthenticatedCopyWith<_$_Unauthenticated> get copyWith =>
-      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -657,9 +552,9 @@ class _$_Failure extends _Failure with DiagnosticableTreeMixin {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(bool isLoading) initial,
-    required TResult Function(bool isLoading) authenticated,
-    required TResult Function(bool isLoading) unauthenticated,
+    required TResult Function() initial,
+    required TResult Function() authenticated,
+    required TResult Function() unauthenticated,
     required TResult Function(AuthFailure failure) failure,
     required TResult Function() isLoading,
   }) {
@@ -669,9 +564,9 @@ class _$_Failure extends _Failure with DiagnosticableTreeMixin {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(bool isLoading)? initial,
-    TResult? Function(bool isLoading)? authenticated,
-    TResult? Function(bool isLoading)? unauthenticated,
+    TResult? Function()? initial,
+    TResult? Function()? authenticated,
+    TResult? Function()? unauthenticated,
     TResult? Function(AuthFailure failure)? failure,
     TResult? Function()? isLoading,
   }) {
@@ -681,9 +576,9 @@ class _$_Failure extends _Failure with DiagnosticableTreeMixin {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(bool isLoading)? initial,
-    TResult Function(bool isLoading)? authenticated,
-    TResult Function(bool isLoading)? unauthenticated,
+    TResult Function()? initial,
+    TResult Function()? authenticated,
+    TResult Function()? unauthenticated,
     TResult Function(AuthFailure failure)? failure,
     TResult Function()? isLoading,
     required TResult orElse(),
@@ -789,9 +684,9 @@ class _$_IsLoading extends _IsLoading with DiagnosticableTreeMixin {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(bool isLoading) initial,
-    required TResult Function(bool isLoading) authenticated,
-    required TResult Function(bool isLoading) unauthenticated,
+    required TResult Function() initial,
+    required TResult Function() authenticated,
+    required TResult Function() unauthenticated,
     required TResult Function(AuthFailure failure) failure,
     required TResult Function() isLoading,
   }) {
@@ -801,9 +696,9 @@ class _$_IsLoading extends _IsLoading with DiagnosticableTreeMixin {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(bool isLoading)? initial,
-    TResult? Function(bool isLoading)? authenticated,
-    TResult? Function(bool isLoading)? unauthenticated,
+    TResult? Function()? initial,
+    TResult? Function()? authenticated,
+    TResult? Function()? unauthenticated,
     TResult? Function(AuthFailure failure)? failure,
     TResult? Function()? isLoading,
   }) {
@@ -813,9 +708,9 @@ class _$_IsLoading extends _IsLoading with DiagnosticableTreeMixin {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(bool isLoading)? initial,
-    TResult Function(bool isLoading)? authenticated,
-    TResult Function(bool isLoading)? unauthenticated,
+    TResult Function()? initial,
+    TResult Function()? authenticated,
+    TResult Function()? unauthenticated,
     TResult Function(AuthFailure failure)? failure,
     TResult Function()? isLoading,
     required TResult orElse(),

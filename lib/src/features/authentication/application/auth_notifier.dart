@@ -6,7 +6,6 @@ import 'package:lottie/lottie.dart';
 import 'package:nike_shoe_shop/src/features/authentication/data/authenticator.dart';
 import 'package:nike_shoe_shop/src/features/authentication/domain/auth_failure.dart';
 import 'package:nike_shoe_shop/src/features/authentication/domain/user_model.dart';
-import 'package:nike_shoe_shop/src/features/authentication/utils/user_info_storage.dart';
 import 'package:nike_shoe_shop/src/utils/devtool.dart';
 part 'auth_notifier.freezed.dart';
 
@@ -14,23 +13,20 @@ part 'auth_notifier.freezed.dart';
 class AuthState with _$AuthState {
   const AuthState._();
 
-  const factory AuthState.initial({@Default(false) bool isLoading}) = _Initial;
-  const factory AuthState.authenticated({@Default(false) bool isLoading}) =
+  const factory AuthState.initial() = _Initial;
+  const factory AuthState.authenticated() =
       _Authenticated;
-  const factory AuthState.unauthenticated({@Default(false) bool isLoading}) =
+  const factory AuthState.unauthenticated() =
       _Unauthenticated;
   const factory AuthState.failure(AuthFailure failure) = _Failure;
   const factory AuthState.isLoading() = _IsLoading;
 }
 
-
-
 class AuthStateNotifier extends StateNotifier<AuthState> {
   final Authenticator authenticator;
- 
+
   AuthStateNotifier({
     required this.authenticator,
-   
   }) : super(const AuthState.initial());
 
   String getErrorMessage(AuthFailure failure) {
@@ -215,7 +211,7 @@ class AuthStateNotifier extends StateNotifier<AuthState> {
                 children: [
                   Lottie.asset("assets/lottie/41791-loading-wrong.json"),
                   const SizedBox(height: 16),
-                  const Text("Oopsss...😪"),
+                  const Text("Oops...😪"),
                 ],
               ),
             );

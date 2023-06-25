@@ -20,14 +20,14 @@ class _LoginViewState extends ConsumerState<LoginView> {
 
   final AuthValidators authValidators = AuthValidators();
 
-  bool obscureText = false;
+  bool obscureText = true;
 
   // controllers
 
   late TextEditingController emailController;
   late TextEditingController passwordController;
 
-// create focus nodes
+  //* create focus nodes
 
   late FocusNode emailFocusNode;
   late FocusNode passwordFocusNode;
@@ -48,11 +48,11 @@ class _LoginViewState extends ConsumerState<LoginView> {
   void dispose() {
     super.dispose();
 
-    // controller
+    //* controller
     emailController.dispose();
     passwordController.dispose();
 
-    // Focus node
+    //* Focus node
     emailFocusNode.dispose();
     passwordFocusNode.dispose();
   }
@@ -64,7 +64,6 @@ class _LoginViewState extends ConsumerState<LoginView> {
   }
 
   //? Global Key
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -104,7 +103,7 @@ class _LoginViewState extends ConsumerState<LoginView> {
                     //? Email and Password Form Field
                     Column(
                       children: [
-                        // Email
+                        //* Email
                         DynamicInputWidget(
                           labelText: "Email Address",
                           controller: emailController,
@@ -116,7 +115,7 @@ class _LoginViewState extends ConsumerState<LoginView> {
                           validator: authValidators.emailValidator,
                         ),
 
-                        //Password
+                        //* Password
                         const SizedBox(height: 35),
                         DynamicInputWidget(
                           labelText: "Password",
@@ -133,7 +132,7 @@ class _LoginViewState extends ConsumerState<LoginView> {
                     ),
 
                     const SizedBox(height: 12),
-                    //? Recover password
+                    //* Recover password
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
@@ -156,26 +155,29 @@ class _LoginViewState extends ConsumerState<LoginView> {
                       height: 36,
                     ),
 
-                    //? Sign in with email/password Button
-
+                    //? Sign-in with email/password Button
                     SizedBox(
                       width: MediaQuery.of(context).size.width - 40,
                       child: ElevatedButton(
                         onPressed: () async {
                           if (_formKey.currentState!.validate()) {
-                            final emailText = emailController.text.trim();
+                            if (emailController.text.isNotEmpty &&
+                                passwordController.text.isNotEmpty) {
+                              final emailText = emailController.text.trim();
 
-                            final passwordText = passwordController.text.trim();
+                              final passwordText =
+                                  passwordController.text.trim();
 
-                            final UserModel userModel = UserModel(
-                                email: emailText,
-                                password: passwordText,
-                                displayName: '');
-                            debugPrint(userModel.toString());
-                            await ref
-                                .read(authStateNotifierProvider.notifier)
-                                .loginUserWithEmailAndPassword(
-                                    userModel, context);
+                              final UserModel userModel = UserModel(
+                                  email: emailText,
+                                  password: passwordText,
+                                  displayName: '');
+                              debugPrint(userModel.toString());
+                              await ref
+                                  .read(authStateNotifierProvider.notifier)
+                                  .loginUserWithEmailAndPassword(
+                                      userModel, context);
+                            }
                           }
                         },
                         style: ElevatedButton.styleFrom(
@@ -200,7 +202,9 @@ class _LoginViewState extends ConsumerState<LoginView> {
                     SizedBox(
                       width: MediaQuery.of(context).size.width - 40,
                       child: IconButton(
-                        onPressed: () {},
+                        onPressed: () async{
+                          await ref.read(authStateNotifierProvider.notifier).loginWithGoogle(context);
+                        },
                         style: ElevatedButton.styleFrom(
                           padding: const EdgeInsets.all(18),
                           backgroundColor: const Color(0xffF7F7F9),

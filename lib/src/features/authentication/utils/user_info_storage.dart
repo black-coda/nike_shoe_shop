@@ -32,9 +32,9 @@ class UserInfoStorage {
         });
         return true;
       }
-      //? user not present
+      //? if is user not present
 
-      // creare
+      //* create user-info payload
       final newUserPayload = UserInfoPayload(
         userId: userId,
         displayName: displayName,
