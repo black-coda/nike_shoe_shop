@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-//? Bottom state decleration
+//? Bottom state declaration
 class BottomNavBarStateNotifier extends StateNotifier<int> {
   BottomNavBarStateNotifier(super._state);
 

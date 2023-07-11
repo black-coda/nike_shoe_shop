@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -14,10 +15,8 @@ class AuthState with _$AuthState {
   const AuthState._();
 
   const factory AuthState.initial() = _Initial;
-  const factory AuthState.authenticated() =
-      _Authenticated;
-  const factory AuthState.unauthenticated() =
-      _Unauthenticated;
+  const factory AuthState.authenticated() = _Authenticated;
+  const factory AuthState.unauthenticated() = _Unauthenticated;
   const factory AuthState.failure(AuthFailure failure) = _Failure;
   const factory AuthState.isLoading() = _IsLoading;
 }
@@ -28,6 +27,9 @@ class AuthStateNotifier extends StateNotifier<AuthState> {
   AuthStateNotifier({
     required this.authenticator,
   }) : super(const AuthState.initial());
+
+
+  Future<List<UserInfo>?> get getUserProfile async => await authenticator.getUserProfile;
 
   String getErrorMessage(AuthFailure failure) {
     return failure.when(
@@ -91,7 +93,11 @@ class AuthStateNotifier extends StateNotifier<AuthState> {
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Lottie.asset("assets/lottie/97204-loader.json"),
+              SizedBox(
+                height: 150,
+                width: 150,
+                child: Lottie.asset("assets/lottie/97204-loader.json"),
+              ),
               const SizedBox(height: 16),
               const Text("Please wait..."),
             ],

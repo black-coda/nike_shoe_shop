@@ -1,5 +1,6 @@
 import 'package:go_router/go_router.dart';
 import 'package:flutter/material.dart';
+import 'package:nike_shoe_shop/src/features/authentication/presentation/widgets/edit_profile.dart';
 import 'package:nike_shoe_shop/src/features/authentication/presentation/widgets/login_widget.dart';
 import 'package:nike_shoe_shop/src/features/authentication/presentation/widgets/profile_screen.dart';
 import 'package:nike_shoe_shop/src/features/authentication/presentation/widgets/register_widget.dart';
@@ -25,6 +26,8 @@ class RouteManager {
         path: "/",
         builder: (context, state) => const OnBoardScreen(),
       ),
+
+      //? Auth Route
       GoRoute(
         path: "/login",
         builder: (context, state) => const LoginView(),
@@ -33,15 +36,21 @@ class RouteManager {
         path: "/register",
         builder: (context, state) => const RegisterView(),
       ),
-
-      GoRoute(
-        path: "/test2",
-        builder: (context, state) => const MyTest(),
-      ),
-
       GoRoute(
         path: "/reset-password",
         builder: (context, state) => const PasswordResetWidget(),
+      ),
+      GoRoute(
+        path: "/edit",
+        name: "edit",
+        pageBuilder: (context, state) =>
+            const NoTransitionPage(child: UpdateProfile()),
+      ),
+
+      //? Testing Widget
+      GoRoute(
+        path: "/test2",
+        builder: (context, state) => const MyTest(),
       ),
 
       //? Bottom Navigation bar route
@@ -63,13 +72,20 @@ class RouteManager {
             ),
           ),
           GoRoute(
-            name: "profile",
-            path: '/profile',
-            pageBuilder: (context, state) => NoTransitionPage(
-              child: const ProfileScreen(),
-              key: state.pageKey,
-            ),
-          ),
+              name: "profile",
+              path: '/profile',
+              pageBuilder: (context, state) => NoTransitionPage(
+                    child: const UserProfileScreen(),
+                    key: state.pageKey,
+                  ),
+              routes: [
+                GoRoute(
+                  path: "edited",
+                  name: "edited",
+                  pageBuilder: (context, state) =>
+                      const NoTransitionPage(child: UpdateProfile()),
+                ),
+              ]),
           GoRoute(
             name: "favorite",
             path: '/favorite',

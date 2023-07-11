@@ -17,15 +17,29 @@ class Authenticator {
   //? General declaration
   final auth = FirebaseAuth.instance;
 
-  // get currently signed in user ID
-  Future<UserId?> getUserCredential() async => auth.currentUser?.uid;
+  //? user information
 
-  Future<bool> isSignedIn() async => getUserCredential().then(
+  Future<List<UserInfo>?> get getUserProfile async => getUserUID().then(
+        (uid) {
+          if (uid != null) {
+            final providerData = auth.currentUser?.providerData;
+
+            return providerData;
+          }
+          return null;
+        },
+      );
+
+  // get currently signed in user ID
+  Future<UserId?> getUserUID() async => auth.currentUser?.uid;
+
+  Future<bool> isSignedIn() async => getUserUID().then(
         (userId) => userId != null,
       );
 
   Future<String?> get email async {
     debugPrint(auth.currentUser?.email);
+
     return auth.currentUser?.email;
   }
 
@@ -73,7 +87,7 @@ class Authenticator {
       final displayName = userCredential.user!.displayName;
       final UserId userId = userCredential.user!.uid;
 
-      debugPrint("herer 😪😪😪😪👨‍🍳");
+      debugPrint("here 😪😪😪😪👨‍🍳");
 
       if (email != null && displayName != null) {
         await saveUserInformation(

@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:nike_shoe_shop/src/features/authentication/application/auth_notifier.dart';
@@ -34,4 +35,13 @@ final goRouterProvider = Provider<GoRouter>((ref) {
 
 final firebaseInformationProvider = Provider<UserInfoStorage>((ref) {
   return UserInfoStorage();
+});
+
+
+
+//? User Profile
+final userProfileProvider = FutureProvider<List<UserInfo>?>((ref) async {
+  final authStateNotifier = ref.watch(authStateNotifierProvider.notifier);
+  final profileFieldList = authStateNotifier.getUserProfile;
+  return profileFieldList;
 });
