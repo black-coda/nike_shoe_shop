@@ -17,8 +17,7 @@ class Authenticator {
   //? General declaration
   final auth = FirebaseAuth.instance;
 
-  //? user information
-
+  //? user information from 
   Future<List<UserInfo>?> get getUserProfile async => getUserUID().then(
         (uid) {
           if (uid != null) {
@@ -111,11 +110,13 @@ class Authenticator {
     final password = userModel.password;
     final displayName = userModel.displayName;
 
+    displayName.log();
+
     try {
       final UserCredential cred = await auth.createUserWithEmailAndPassword(
           email: email, password: password);
       final userId = cred.user!.uid;
-      //TODO: Continue from here !!!
+      
       if (cred.user?.uid != null) {
         await saveUserInformation(
           userId: userId,

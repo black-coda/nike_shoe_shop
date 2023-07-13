@@ -10,6 +10,13 @@ import 'package:nike_shoe_shop/src/utils/devtool.dart';
 class UserInfoStorage {
   final db = FirebaseFirestore.instance;
 
+  //* Retrieve user information
+  Future<DocumentReference<Map<String, dynamic>>> getuserInformation() async {
+    final alovelaceDocumentRef = await db.collection("users").doc("alovelace");
+    return alovelaceDocumentRef;
+  }
+
+  //* Save user information to firegase db
   Future<bool> saveUserInformation({
     required UserId userId,
     required String displayName,
@@ -19,17 +26,19 @@ class UserInfoStorage {
       final userInformation = await db
           .collection(FirebaseCollectionName.user)
           .where(
-            FirebaseFieldName.userId,
-            isEqualTo: userId,
+            FirebaseFieldName.displayName,
+            isEqualTo: displayName,
           )
           .limit(1)
-          .get();
+          .get(); 
       if (userInformation.docs.isNotEmpty) {
         //? user's info present
-        await userInformation.docs.first.reference.update({
-          FirebaseFieldName.displayName: displayName,
-          FirebaseFieldName.email: email,
-        });
+        await userInformation.docs.first.reference.update(
+          {
+            FirebaseFieldName.displayName: displayName,
+            FirebaseFieldName.email: email,
+          },
+        );
         return true;
       }
       //? if is user not present
@@ -42,11 +51,8 @@ class UserInfoStorage {
       ).toJson();
       await db
           .collection(FirebaseCollectionName.user)
-          .add(newUserPayload)
-          .then((value) {
-        value.log();
-        debugPrint("new user is created : ${value.id} ${value.toString()}");
-      });
+          .doc(displayName)
+          .set(newUserPayload).then((value) => debugPrint("New User Created 🚀🚀🚀🚀"));
       return false;
     } catch (e) {
       e.log();
@@ -54,3 +60,6 @@ class UserInfoStorage {
     }
   }
 }
+
+
+

@@ -7,6 +7,7 @@ import 'package:lottie/lottie.dart';
 import 'package:nike_shoe_shop/src/features/authentication/data/authenticator.dart';
 import 'package:nike_shoe_shop/src/features/authentication/domain/auth_failure.dart';
 import 'package:nike_shoe_shop/src/features/authentication/domain/user_model.dart';
+import 'package:nike_shoe_shop/src/features/authentication/utils/dialogs.dart';
 import 'package:nike_shoe_shop/src/utils/devtool.dart';
 part 'auth_notifier.freezed.dart';
 
@@ -28,8 +29,8 @@ class AuthStateNotifier extends StateNotifier<AuthState> {
     required this.authenticator,
   }) : super(const AuthState.initial());
 
-
-  Future<List<UserInfo>?> get getUserProfile async => await authenticator.getUserProfile;
+  Future<List<UserInfo>?> get getUserProfile async =>
+      await authenticator.getUserProfile;
 
   String getErrorMessage(AuthFailure failure) {
     return failure.when(
@@ -83,28 +84,7 @@ class AuthStateNotifier extends StateNotifier<AuthState> {
     state = const AuthState.isLoading();
     state.log();
 
-    showDialog(
-      context: context,
-      barrierDismissible:
-          false, // Prevent dismissing the dialog by tapping outside
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Center(child: Text("Logging In")),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              SizedBox(
-                height: 150,
-                width: 150,
-                child: Lottie.asset("assets/lottie/97204-loader.json"),
-              ),
-              const SizedBox(height: 16),
-              const Text("Please wait..."),
-            ],
-          ),
-        );
-      },
-    );
+    DialogScreen.loaderDialog(context);
 
     await authenticator.loginUserWithEmailAndPassword(userModel).then(
       (authState) {
@@ -113,57 +93,15 @@ class AuthStateNotifier extends StateNotifier<AuthState> {
 
         //? Declare state using dartz
         state = authState.fold(
-          (failure) {
-            showDialog(
-              context: context,
-              //? Prevent dismissing the dialog by tapping outside
-              barrierDismissible: true,
-              builder: (BuildContext context) {
-                return AlertDialog(
-                  title: Center(
-                    child: Text(
-                      failure.message!,
-                      style: const TextStyle(
-                        color: Color(0xffe3342f),
-                        fontWeight: FontWeight.w500,
-                        fontSize: 23,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                  content: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Lottie.asset("assets/lottie/41791-loading-wrong.json"),
-                      const SizedBox(height: 16),
-                      const Text("Oops...😪"),
-                    ],
-                  ),
-                );
-              },
-            );
+          (failCase) {
+            debugPrint("${state.toString()} debug");
+            DialogScreen.errorDialog(context, failCase);
             state.log();
-            return AuthState.failure(failure);
+            return AuthState.failure(failCase);
           },
           (success) {
-            showDialog(
-              context: context,
-              barrierDismissible:
-                  true, // Prevent dismissing the dialog by tapping outside
-              builder: (context) {
-                return AlertDialog(
-                  title: Center(child: Text(success.toString())),
-                  content: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Lottie.asset("assets/lottie/41793-correct.json"),
-                      const SizedBox(height: 16),
-                      const Text("Please wait..."),
-                    ],
-                  ),
-                );
-              },
-            );
+            debugPrint("${state.toString()} debug");
+            DialogScreen.successDialog(context, success);
 
             Future.delayed(const Duration(seconds: 3), () {});
 
@@ -188,7 +126,7 @@ class AuthStateNotifier extends StateNotifier<AuthState> {
 
   //? Send user password reset email
 
-  //todo: Check if it works
+  //TODO: Check if it works
 
   Future<void> sendPasswordResetEmail(String email, context) async {
     state = const AuthState.unauthenticated();
@@ -196,33 +134,7 @@ class AuthStateNotifier extends StateNotifier<AuthState> {
 
     successOrFail.fold(
       (failCase) {
-        showDialog(
-          context: context,
-          barrierDismissible:
-              true, // Prevent dismissing the dialog by tapping outside
-          builder: (BuildContext context) {
-            return AlertDialog(
-              title: Center(
-                  child: Text(
-                failCase.message!,
-                style: const TextStyle(
-                  color: Color(0xffe3342f),
-                  fontWeight: FontWeight.w500,
-                  fontSize: 23,
-                ),
-                textAlign: TextAlign.center,
-              )),
-              content: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Lottie.asset("assets/lottie/41791-loading-wrong.json"),
-                  const SizedBox(height: 16),
-                  const Text("Oops...😪"),
-                ],
-              ),
-            );
-          },
-        );
+        DialogScreen.errorDialog(context, failCase);
         return AuthState.failure(failCase);
       },
       (success) {

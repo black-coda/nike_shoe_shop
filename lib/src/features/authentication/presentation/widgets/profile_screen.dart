@@ -4,9 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:nike_shoe_shop/src/constant/konstant.dart';
 import 'package:nike_shoe_shop/src/features/authentication/presentation/controller/auth_controller.dart';
-import 'package:nike_shoe_shop/src/features/authentication/presentation/controller/profile_controllers.dart';
-import 'package:nike_shoe_shop/src/features/authentication/presentation/widgets/edit_profile.dart';
 
 import 'profile_form_field.dart';
 
@@ -46,8 +45,7 @@ class UserProfileScreen extends ConsumerWidget {
                     CircleAvatar(
                       maxRadius: 45,
                       backgroundImage: NetworkImage(
-                        data?[0].photoURL ??
-                            "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png",
+                        data?[0].photoURL ?? AuthKonstant.defaultPhoto,
                       ),
                     ),
                     Container(
@@ -57,9 +55,9 @@ class UserProfileScreen extends ConsumerWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           CustomProfileFormField(
-                              fieldName: "Your Name",
-                              fieldHintText:
-                                  data?[0].displayName ?? "Anonymous"),
+                            fieldName: "Your Name",
+                            fieldHintText: data?[0].displayName ?? "",
+                          ),
                           const SizedBox(height: 10),
                           CustomProfileFormField(
                               fieldName: "Email Address",
@@ -67,12 +65,20 @@ class UserProfileScreen extends ConsumerWidget {
                                   data?[0].email ?? "anonymous@mail.com"),
                           const SizedBox(height: 10),
                           const CustomProfileFormField(
-                              fieldName: "Password", fieldHintText: "********"),
+                              fieldName: "Password", fieldHintText: "*****************"),
                           const SizedBox(height: 20),
                           SizedBox(
                             width: MediaQuery.of(context).size.width - 40,
                             child: ElevatedButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                GoRouter.of(context)
+                                    .push("/profile/editProfile");
+                                // context.go("profile/edit");
+                                // Navigator.push(context, MaterialPageRoute(
+                                //     builder: (BuildContext context) {
+                                //   return const UpdateProfile();
+                                // }));
+                              },
                               style: ElevatedButton.styleFrom(
                                 padding: const EdgeInsets.all(18),
                                 backgroundColor: const Color(0xff0D6EFD),
@@ -80,24 +86,12 @@ class UserProfileScreen extends ConsumerWidget {
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(14))),
                               ),
-                              child: InkWell(
-                                onTap: () {
-                                  // TODO: Continue from here
-                                  GoRouter.of(context).push("/edit");
-                                  // context.go("/profile/edit");
-                                  Navigator.push(context, MaterialPageRoute(
-                                      builder: (BuildContext context) {
-                                    return const UpdateProfile();
-                                  }));
-                                },
-                                child: Text(
-                                  "Edit Profile",
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .labelMedium
-                                      ?.copyWith(
-                                          color: const Color(0xffF7F7F9)),
-                                ),
+                              child: Text(
+                                "Edit Profile",
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .labelMedium
+                                    ?.copyWith(color: const Color(0xffF7F7F9)),
                               ),
                             ),
                           ),
@@ -111,10 +105,12 @@ class UserProfileScreen extends ConsumerWidget {
                 return Dialog(
                   backgroundColor: Colors.white,
                   child: Container(
+                    decoration: const BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(25))),
                     height: 350,
                     child: Center(
-                      child:
-                          LottieBuilder.asset("assets/lottie/97204-loader.json"),
+                      child: LottieBuilder.asset(
+                          "assets/lottie/97204-loader.json"),
                     ),
                   ),
                 );

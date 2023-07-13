@@ -40,7 +40,7 @@ final firebaseInformationProvider = Provider<UserInfoStorage>((ref) {
 
 
 //? User Profile
-final userProfileProvider = FutureProvider<List<UserInfo>?>((ref) async {
+final userProfileProvider = FutureProvider.autoDispose<List<UserInfo>?>((ref) async {
   final authStateNotifier = ref.watch(authStateNotifierProvider.notifier);
   final profileFieldList = authStateNotifier.getUserProfile;
   return profileFieldList;
