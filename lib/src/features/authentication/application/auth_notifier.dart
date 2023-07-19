@@ -29,8 +29,24 @@ class AuthStateNotifier extends StateNotifier<AuthState> {
     required this.authenticator,
   }) : super(const AuthState.initial());
 
-  Future<List<UserInfo>?> get getUserProfile async =>
-      await authenticator.getUserProfile;
+  //? update user profile
+
+  Future<void> updateUserProfile({
+    required String newDisplayName,
+    required String newEmail,
+    
+  }) async {
+    //TODO: Continue from here
+    await authenticator.updateUserProfile(
+      newDisplayName: newDisplayName,
+      newEmail: newEmail,
+    );
+  }
+
+  //? Get users profile detail
+  Future<Map<String, dynamic>?> getUserProfile() async {
+    return authenticator.getUserProfile();
+  }
 
   String getErrorMessage(AuthFailure failure) {
     return failure.when(

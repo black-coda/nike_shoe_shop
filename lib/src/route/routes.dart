@@ -40,15 +40,6 @@ class RouteManager {
         path: "/reset-password",
         builder: (context, state) => const PasswordResetWidget(),
       ),
-      // GoRoute(
-      //   path: "/edit",
-      //   name: "edit",
-      //   pageBuilder: (context, state) => NoTransitionPage(
-      //     child: UpdateProfile(
-      //       key: state.pageKey,
-      //     ),
-      //   ),
-      // ),
 
       //? Testing Widget
       GoRoute(
@@ -91,7 +82,7 @@ class RouteManager {
                 name: "editedProfile",
                 parentNavigatorKey: _rootNavigator,
                 pageBuilder: (context, state) => NoTransitionPage(
-                  child: UpdatedProfiled(
+                  child: UpdateProfile(
                     key: state.pageKey,
                   ),
                 ),

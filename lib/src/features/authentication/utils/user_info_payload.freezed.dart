@@ -23,6 +23,7 @@ mixin _$UserInfoPayload {
   String get userId => throw _privateConstructorUsedError;
   String? get displayName => throw _privateConstructorUsedError;
   String? get email => throw _privateConstructorUsedError;
+  String? get photoUrl => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -36,7 +37,8 @@ abstract class $UserInfoPayloadCopyWith<$Res> {
           UserInfoPayload value, $Res Function(UserInfoPayload) then) =
       _$UserInfoPayloadCopyWithImpl<$Res, UserInfoPayload>;
   @useResult
-  $Res call({String userId, String? displayName, String? email});
+  $Res call(
+      {String userId, String? displayName, String? email, String? photoUrl});
 }
 
 /// @nodoc
@@ -55,6 +57,7 @@ class _$UserInfoPayloadCopyWithImpl<$Res, $Val extends UserInfoPayload>
     Object? userId = null,
     Object? displayName = freezed,
     Object? email = freezed,
+    Object? photoUrl = freezed,
   }) {
     return _then(_value.copyWith(
       userId: null == userId
@@ -69,6 +72,10 @@ class _$UserInfoPayloadCopyWithImpl<$Res, $Val extends UserInfoPayload>
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String?,
+      photoUrl: freezed == photoUrl
+          ? _value.photoUrl
+          : photoUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -81,7 +88,8 @@ abstract class _$$_UserInfoPayloadCopyWith<$Res>
       __$$_UserInfoPayloadCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String userId, String? displayName, String? email});
+  $Res call(
+      {String userId, String? displayName, String? email, String? photoUrl});
 }
 
 /// @nodoc
@@ -98,6 +106,7 @@ class __$$_UserInfoPayloadCopyWithImpl<$Res>
     Object? userId = null,
     Object? displayName = freezed,
     Object? email = freezed,
+    Object? photoUrl = freezed,
   }) {
     return _then(_$_UserInfoPayload(
       userId: null == userId
@@ -112,6 +121,10 @@ class __$$_UserInfoPayloadCopyWithImpl<$Res>
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String?,
+      photoUrl: freezed == photoUrl
+          ? _value.photoUrl
+          : photoUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -120,7 +133,10 @@ class __$$_UserInfoPayloadCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_UserInfoPayload implements _UserInfoPayload {
   const _$_UserInfoPayload(
-      {required this.userId, required this.displayName, required this.email});
+      {required this.userId,
+      required this.displayName,
+      required this.email,
+      this.photoUrl});
 
   factory _$_UserInfoPayload.fromJson(Map<String, dynamic> json) =>
       _$$_UserInfoPayloadFromJson(json);
@@ -131,10 +147,12 @@ class _$_UserInfoPayload implements _UserInfoPayload {
   final String? displayName;
   @override
   final String? email;
+  @override
+  final String? photoUrl;
 
   @override
   String toString() {
-    return 'UserInfoPayload(userId: $userId, displayName: $displayName, email: $email)';
+    return 'UserInfoPayload(userId: $userId, displayName: $displayName, email: $email, photoUrl: $photoUrl)';
   }
 
   @override
@@ -145,12 +163,15 @@ class _$_UserInfoPayload implements _UserInfoPayload {
             (identical(other.userId, userId) || other.userId == userId) &&
             (identical(other.displayName, displayName) ||
                 other.displayName == displayName) &&
-            (identical(other.email, email) || other.email == email));
+            (identical(other.email, email) || other.email == email) &&
+            (identical(other.photoUrl, photoUrl) ||
+                other.photoUrl == photoUrl));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, userId, displayName, email);
+  int get hashCode =>
+      Object.hash(runtimeType, userId, displayName, email, photoUrl);
 
   @JsonKey(ignore: true)
   @override
@@ -170,7 +191,8 @@ abstract class _UserInfoPayload implements UserInfoPayload {
   const factory _UserInfoPayload(
       {required final String userId,
       required final String? displayName,
-      required final String? email}) = _$_UserInfoPayload;
+      required final String? email,
+      final String? photoUrl}) = _$_UserInfoPayload;
 
   factory _UserInfoPayload.fromJson(Map<String, dynamic> json) =
       _$_UserInfoPayload.fromJson;
@@ -181,6 +203,8 @@ abstract class _UserInfoPayload implements UserInfoPayload {
   String? get displayName;
   @override
   String? get email;
+  @override
+  String? get photoUrl;
   @override
   @JsonKey(ignore: true)
   _$$_UserInfoPayloadCopyWith<_$_UserInfoPayload> get copyWith =>

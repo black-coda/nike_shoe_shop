@@ -11,15 +11,44 @@ class UserInfoStorage {
   final db = FirebaseFirestore.instance;
 
   //* Retrieve user information
-  Future<DocumentReference<Map<String, dynamic>>> getuserInformation() async {
-    final alovelaceDocumentRef = await db.collection("users").doc("alovelace");
-    return alovelaceDocumentRef;
+  Future<Map<String, dynamic>> getUserInformation(
+      UserId id, String displayName) async {
+    
+    final userInstance = db.collection("users");
+  
+  
+    final userQuery = await userInstance
+        .where("displayName", isEqualTo: displayName)
+        .limit(1)
+        .get();
+        // .then(
+        //   (queries) {
+            
+        //     for (var query in queries.docs) {
+        //       return query.data();
+        //     }
+        //   },
+        // );
+
+    final userData = userQuery.docs.first.data();
+    return userData;
+    // for (var data in userData) {
+    //   final udata =  data.data();
+    // }
+
+    
+    
+
+      // return null;
+
+    
   }
 
-  //* Save user information to firegase db
+  //* Save user information to firebase db
   Future<bool> saveUserInformation({
     required UserId userId,
     required String displayName,
+    String ? photoUrl,
     String? email,
   }) async {
     try {
@@ -30,13 +59,14 @@ class UserInfoStorage {
             isEqualTo: displayName,
           )
           .limit(1)
-          .get(); 
+          .get();
       if (userInformation.docs.isNotEmpty) {
         //? user's info present
         await userInformation.docs.first.reference.update(
           {
             FirebaseFieldName.displayName: displayName,
             FirebaseFieldName.email: email,
+            
           },
         );
         return true;
@@ -48,11 +78,14 @@ class UserInfoStorage {
         userId: userId,
         displayName: displayName,
         email: email,
+        photoUrl: photoUrl,
       ).toJson();
+      newUserPayload.log();
       await db
           .collection(FirebaseCollectionName.user)
           .doc(displayName)
-          .set(newUserPayload).then((value) => debugPrint("New User Created 🚀🚀🚀🚀"));
+          .set(newUserPayload)
+          .then((value) => debugPrint("New User Created 🚀🚀🚀🚀"));
       return false;
     } catch (e) {
       e.log();
@@ -60,6 +93,3 @@ class UserInfoStorage {
     }
   }
 }
-
-
-

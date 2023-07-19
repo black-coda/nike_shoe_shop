@@ -1,8 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:nike_shoe_shop/src/constant/konstant.dart';
 import 'package:nike_shoe_shop/src/features/authentication/domain/auth_error.dart';
 import 'package:nike_shoe_shop/src/features/authentication/domain/auth_failure.dart';
 import 'package:nike_shoe_shop/src/features/authentication/domain/user_model.dart';
+import 'package:nike_shoe_shop/src/features/authentication/utils/firebase_collection_name.dart';
 import 'package:nike_shoe_shop/src/features/authentication/utils/user_info_storage.dart';
 import 'package:nike_shoe_shop/src/features/core/domain/user_id.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -16,14 +18,46 @@ class Authenticator {
 
   //? General declaration
   final auth = FirebaseAuth.instance;
+  final db = FirebaseFirestore.instance;
 
-  //? user information from 
-  Future<List<UserInfo>?> get getUserProfile async => getUserUID().then(
-        (uid) {
+
+  //*update user profile
+
+  Future<bool> updateUserProfile({
+    required String newDisplayName,
+    required String newEmail,
+  }) async {
+    //TODO: to create if
+    final authId = auth.currentUser!.uid;
+    final displayName = auth.currentUser!.displayName;
+    final dbId = await db
+        .collection(FirebaseCollectionName.user)
+        .where(FirebaseCollectionName.user, isEqualTo: authId)
+        .get()
+        .then(
+      (value) async {
+        if (value.docs.isNotEmpty) {
+          await auth.currentUser!.updateEmail(newEmail);
+          await auth.currentUser!.updateDisplayName(displayName);
+          return true;
+        }
+      },
+    );
+
+    return dbId ?? false;
+  }
+
+  //? get current user information
+
+  Future<Map<String, dynamic>?> getUserProfile() async => getUserUID().then(
+        (uid) async {
           if (uid != null) {
-            final providerData = auth.currentUser?.providerData;
-
-            return providerData;
+            final displayName = auth.currentUser?.displayName;
+            final userProfile = await db
+                .collection(FirebaseCollectionName.user)
+                .doc(displayName)
+                .get();
+            return userProfile.data();
           }
           return null;
         },
@@ -85,13 +119,19 @@ class Authenticator {
       final email = userCredential.user!.email;
       final displayName = userCredential.user!.displayName;
       final UserId userId = userCredential.user!.uid;
+      final photoUrl = userCredential.user!.photoURL;
 
       debugPrint("here 😪😪😪😪👨‍🍳");
 
       if (email != null && displayName != null) {
         await saveUserInformation(
-            userId: userId, displayName: displayName, email: email);
+          userId: userId,
+          displayName: displayName,
+          email: email,
+          photoUrl: photoUrl,
+        );
       }
+
       return right(unit);
     } on FirebaseAuthException catch (e) {
       return left(
@@ -116,13 +156,16 @@ class Authenticator {
       final UserCredential cred = await auth.createUserWithEmailAndPassword(
           email: email, password: password);
       final userId = cred.user!.uid;
-      
-      if (cred.user?.uid != null) {
+      final user = cred.user;
+
+      if (cred.user?.uid != null && user != null) {
         await saveUserInformation(
           userId: userId,
           displayName: displayName,
           email: email,
         );
+
+        await user.updateDisplayName(displayName);
       }
 
       return right(unit);
@@ -135,15 +178,20 @@ class Authenticator {
     }
   }
 
+  
+
   //* save user information
-  Future<void> saveUserInformation(
-      {required UserId userId,
-      required String displayName,
-      required String email}) {
+  Future<void> saveUserInformation({
+    required UserId userId,
+    required String displayName,
+    required String email,
+    String? photoUrl,
+  }) {
     return userInfoStorage.saveUserInformation(
       userId: userId,
       displayName: displayName,
       email: email,
+      photoUrl: photoUrl,
     );
   }
 

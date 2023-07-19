@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nike_shoe_shop/src/utils/form_widget.dart';
 
 class CustomProfileFormField extends StatelessWidget {
   const CustomProfileFormField({
@@ -51,6 +52,90 @@ class CustomProfileFormField extends StatelessWidget {
             ),
           ),
         )
+      ],
+    );
+  }
+}
+
+class ProfileUpdateField extends StatefulWidget {
+  const ProfileUpdateField({
+    super.key,
+    required this.fieldName,
+    required this.fieldHintText,
+    this.isPasswordField,
+  });
+
+  final String fieldName;
+  final String fieldHintText;
+  final bool? isPasswordField;
+
+  @override
+  State<ProfileUpdateField> createState() => _ProfileUpdateFieldState();
+}
+
+class _ProfileUpdateFieldState extends State<ProfileUpdateField> {
+  final AuthValidators authValidators = AuthValidators();
+
+  bool obscureText = true;
+
+  // controllers
+
+  late TextEditingController emailController;
+  late TextEditingController passwordController;
+
+  //* create focus nodes
+
+  late FocusNode emailFocusNode;
+  late FocusNode passwordFocusNode;
+
+  @override
+  void initState() {
+    super.initState();
+    emailController = TextEditingController();
+
+    passwordController = TextEditingController();
+
+    emailFocusNode = FocusNode();
+
+    passwordFocusNode = FocusNode();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+
+    //* controller
+    emailController.dispose();
+    passwordController.dispose();
+
+    //* Focus node
+    emailFocusNode.dispose();
+    passwordFocusNode.dispose();
+  }
+
+  void toggleObscureText() {
+    setState(() {
+      obscureText = !obscureText;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const SizedBox(height: 10),
+        DynamicInputWidget(
+          isNonPasswordField: true,
+          enabled: false,
+          controller: emailController,
+          obscureText: obscureText,
+          focusNode: emailFocusNode,
+          prefIcon: const Icon(Icons.edit),
+          labelText: "Password",
+          textInputAction: TextInputAction.done,
+        ),
       ],
     );
   }

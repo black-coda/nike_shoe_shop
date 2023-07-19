@@ -6,6 +6,7 @@ class FirebaseFieldName{
   static const userId = "userId";
   static const email = "email";
   static const displayName = "displayName";
+  static const photoUrl = "photoUrl";
 
   static const productId = "productId";
   static const customerReview = "";

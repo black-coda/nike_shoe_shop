@@ -1,10 +1,10 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:nike_shoe_shop/src/features/authentication/application/auth_notifier.dart';
 import 'package:nike_shoe_shop/src/features/authentication/data/authenticator.dart';
 import 'package:nike_shoe_shop/src/features/authentication/utils/user_info_storage.dart';
 import 'package:nike_shoe_shop/src/route/routes.dart';
+import 'package:nike_shoe_shop/src/utils/devtool.dart';
 
 final authenticatorProvider = Provider<Authenticator>((ref) {
   final userInfoStorage = ref.watch(firebaseInformationProvider);
@@ -37,11 +37,12 @@ final firebaseInformationProvider = Provider<UserInfoStorage>((ref) {
   return UserInfoStorage();
 });
 
-
-
 //? User Profile
-final userProfileProvider = FutureProvider.autoDispose<List<UserInfo>?>((ref) async {
+final userProfileProvider =
+    FutureProvider.autoDispose<Map<String, dynamic>?>((ref) async {
   final authStateNotifier = ref.watch(authStateNotifierProvider.notifier);
-  final profileFieldList = authStateNotifier.getUserProfile;
-  return profileFieldList;
+  final displayName = await authStateNotifier.displayName;
+  displayName?.log();
+  final userProfileDetails = await authStateNotifier.getUserProfile();
+  return userProfileDetails;
 });
