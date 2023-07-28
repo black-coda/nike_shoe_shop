@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
 
 class DynamicInputWidget extends StatelessWidget {
-  const DynamicInputWidget(
-      {super.key,
-      required this.isNonPasswordField,
-      required this.controller,
-      this.toggleObscureText,
-      required this.obscureText,
-      required this.focusNode,
-      this.validator,
-      required this.prefIcon,
-      required this.labelText,
-      required this.textInputAction});
+  const DynamicInputWidget({
+    super.key,
+    required this.isNonPasswordField,
+    required this.controller,
+    this.toggleObscureText,
+    required this.obscureText,
+    required this.focusNode,
+    this.validator,
+    required this.prefIcon,
+    required this.labelText,
+    required this.textInputAction,
+    this.enabled = true,
+  });
 
   // bool to check if the text field is for password or not
   final bool isNonPasswordField;
@@ -32,11 +34,14 @@ class DynamicInputWidget extends StatelessWidget {
   // The keyword action to display
   final TextInputAction textInputAction;
 
+  final bool enabled;
+
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       controller: controller,
       decoration: InputDecoration(
+        enabled: enabled,
         focusedBorder: const OutlineInputBorder(
             // Make border edge circular
             borderRadius: BorderRadius.all(Radius.circular(14.0)),

@@ -1,11 +1,12 @@
 import 'package:go_router/go_router.dart';
 import 'package:flutter/material.dart';
+import 'package:nike_shoe_shop/src/features/authentication/presentation/widgets/edit_profile.dart';
 import 'package:nike_shoe_shop/src/features/authentication/presentation/widgets/login_widget.dart';
 import 'package:nike_shoe_shop/src/features/authentication/presentation/widgets/profile_screen.dart';
 import 'package:nike_shoe_shop/src/features/authentication/presentation/widgets/register_widget.dart';
 import 'package:nike_shoe_shop/src/features/authentication/presentation/widgets/reset_password.dart';
 import 'package:nike_shoe_shop/src/features/onboardscreens/presentation/onboard_screen.dart';
-import 'package:nike_shoe_shop/src/features/products/presentation/widgets/dashboard.dart';
+import 'package:nike_shoe_shop/src/features/products/presentation/widgets/bottom_navbar_scaffold.dart';
 import 'package:nike_shoe_shop/src/features/products/presentation/widgets/favorite_screen.dart';
 import 'package:nike_shoe_shop/src/features/products/presentation/widgets/notification_screen.dart';
 import 'package:nike_shoe_shop/src/features/products/presentation/widgets/product_list.dart';
@@ -25,6 +26,8 @@ class RouteManager {
         path: "/",
         builder: (context, state) => const OnBoardScreen(),
       ),
+
+      //? Auth Route
       GoRoute(
         path: "/login",
         builder: (context, state) => const LoginView(),
@@ -33,22 +36,22 @@ class RouteManager {
         path: "/register",
         builder: (context, state) => const RegisterView(),
       ),
-
-      GoRoute(
-        path: "/test2",
-        builder: (context, state) => const MyTest(),
-      ),
-
       GoRoute(
         path: "/reset-password",
         builder: (context, state) => const PasswordResetWidget(),
+      ),
+
+      //? Testing Widget
+      GoRoute(
+        path: "/test2",
+        builder: (context, state) => const MyTest(),
       ),
 
       //? Bottom Navigation bar route
       ShellRoute(
         navigatorKey: _shellNavigator,
         builder: (context, state, child) {
-          return DashBoardScreen(
+          return ScaffoldWithNavBar(
             child,
             key: state.pageKey,
           );
@@ -58,32 +61,50 @@ class RouteManager {
             name: "productList",
             path: '/productList',
             pageBuilder: (context, state) => NoTransitionPage(
-              child: const ProductListScreen(),
-              key: state.pageKey,
+              child: ProductListScreen(
+                key: state.pageKey,
+              ),
             ),
           ),
           GoRoute(
             name: "profile",
             path: '/profile',
             pageBuilder: (context, state) => NoTransitionPage(
-              child: const ProfileScreen(),
-              key: state.pageKey,
+              child: UserProfileScreen(
+                key: state.pageKey,
+              ),
             ),
+
+            //* Sub routes for BottomNavBar profile
+            routes: [
+              GoRoute(
+                path: "editProfile",
+                name: "editedProfile",
+                parentNavigatorKey: _rootNavigator,
+                pageBuilder: (context, state) => NoTransitionPage(
+                  child: UpdateProfile(
+                    key: state.pageKey,
+                  ),
+                ),
+              ),
+            ],
           ),
           GoRoute(
             name: "favorite",
             path: '/favorite',
             pageBuilder: (context, state) => NoTransitionPage(
-              child: const FavoriteScreen(),
-              key: state.pageKey,
+              child: FavoriteScreen(
+                key: state.pageKey,
+              ),
             ),
           ),
           GoRoute(
             name: "notification",
             path: '/notification',
             pageBuilder: (context, state) => NoTransitionPage(
-              child: const NotificationScreen(),
-              key: state.pageKey,
+              child: NotificationScreen(
+                key: state.pageKey,
+              ),
             ),
           ),
         ],

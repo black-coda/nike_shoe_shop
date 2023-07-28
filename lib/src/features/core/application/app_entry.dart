@@ -19,7 +19,9 @@ class AppEntry extends ConsumerWidget {
             routes.go("/productList");
           },
           unauthenticated: (value) => routes.go("/"),
-          orElse: () {},
+          orElse: () {
+            routes.go("/");
+          },
         );
 
     return MaterialApp.router(

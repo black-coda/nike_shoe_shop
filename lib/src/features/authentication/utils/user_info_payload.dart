@@ -10,6 +10,7 @@ class UserInfoPayload with _$UserInfoPayload {
     required UserId userId,
     required String? displayName,
     required String? email,
+  String ? photoUrl,
   }) = _UserInfoPayload;
 
   factory UserInfoPayload.fromJson(Map<String, dynamic> json) =>

@@ -11,6 +11,7 @@ _$_UserInfoPayload _$$_UserInfoPayloadFromJson(Map<String, dynamic> json) =>
       userId: json['userId'] as String,
       displayName: json['displayName'] as String?,
       email: json['email'] as String?,
+      photoUrl: json['photoUrl'] as String?,
     );
 
 Map<String, dynamic> _$$_UserInfoPayloadToJson(_$_UserInfoPayload instance) =>
@@ -18,4 +19,5 @@ Map<String, dynamic> _$$_UserInfoPayloadToJson(_$_UserInfoPayload instance) =>
       'userId': instance.userId,
       'displayName': instance.displayName,
       'email': instance.email,
+      'photoUrl': instance.photoUrl,
     };

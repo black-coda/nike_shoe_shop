@@ -64,6 +64,7 @@ class _BottomNavigationWidgetState
         context.go("/profile");
         break;
       default:
+      
     }
   }
 }

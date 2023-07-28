@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-//? Bottom state decleration
+//? Bottom state declaration
 class BottomNavBarStateNotifier extends StateNotifier<int> {
   BottomNavBarStateNotifier(super._state);
 
@@ -10,6 +10,6 @@ class BottomNavBarStateNotifier extends StateNotifier<int> {
 }
 
 final selectIndexStateProvider =
-    StateNotifierProvider<BottomNavBarStateNotifier, int>((ref) {
+    StateNotifierProvider.autoDispose<BottomNavBarStateNotifier, int>((ref) {
   return BottomNavBarStateNotifier(0);
 });
