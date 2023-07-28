@@ -13,22 +13,20 @@ class UserInfoStorage {
   //* Retrieve user information
   Future<Map<String, dynamic>> getUserInformation(
       UserId id, String displayName) async {
-    
     final userInstance = db.collection("users");
-  
-  
+
     final userQuery = await userInstance
         .where("displayName", isEqualTo: displayName)
         .limit(1)
         .get();
-        // .then(
-        //   (queries) {
-            
-        //     for (var query in queries.docs) {
-        //       return query.data();
-        //     }
-        //   },
-        // );
+    // .then(
+    //   (queries) {
+
+    //     for (var query in queries.docs) {
+    //       return query.data();
+    //     }
+    //   },
+    // );
 
     final userData = userQuery.docs.first.data();
     return userData;
@@ -36,27 +34,22 @@ class UserInfoStorage {
     //   final udata =  data.data();
     // }
 
-    
-    
-
-      // return null;
-
-    
+    // return null;
   }
 
   //* Save user information to firebase db
   Future<bool> saveUserInformation({
     required UserId userId,
     required String displayName,
-    String ? photoUrl,
+    String? photoUrl,
     String? email,
   }) async {
     try {
       final userInformation = await db
           .collection(FirebaseCollectionName.user)
           .where(
-            FirebaseFieldName.displayName,
-            isEqualTo: displayName,
+            FirebaseFieldName.userId,
+            isEqualTo: userId,
           )
           .limit(1)
           .get();
@@ -66,7 +59,6 @@ class UserInfoStorage {
           {
             FirebaseFieldName.displayName: displayName,
             FirebaseFieldName.email: email,
-            
           },
         );
         return true;
@@ -83,7 +75,7 @@ class UserInfoStorage {
       newUserPayload.log();
       await db
           .collection(FirebaseCollectionName.user)
-          .doc(displayName)
+          .doc(userId)
           .set(newUserPayload)
           .then((value) => debugPrint("New User Created 🚀🚀🚀🚀"));
       return false;

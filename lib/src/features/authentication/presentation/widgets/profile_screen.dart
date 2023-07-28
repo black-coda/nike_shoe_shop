@@ -5,15 +5,18 @@ import 'package:lottie/lottie.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:nike_shoe_shop/src/constant/konstant.dart';
 import 'package:nike_shoe_shop/src/features/authentication/presentation/controller/auth_controller.dart';
+import 'package:nike_shoe_shop/src/utils/devtool.dart';
 
 import 'profile_form_field.dart';
 
 class UserProfileScreen extends ConsumerWidget {
   const UserProfileScreen({super.key});
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    
-    final userProfileDetail = ref.watch(userProfileProvider);
+    final userProfileDetail = ref.watch(authChangesFutureProvider);
+
+    // Check if userProfileDetail has data and is not null
 
     return Scaffold(
       appBar: AppBar(
@@ -93,13 +96,15 @@ class UserProfileScreen extends ConsumerWidget {
                         ],
                       ),
                     ),
+
+                    
                   ],
                 );
               },
               loading: () {
                 return Center(
                   child: LottieBuilder.asset(
-                    "assets//97204-loader.json",
+                    "assets/lottie/97204-loader.json",
                   ),
                 );
               },

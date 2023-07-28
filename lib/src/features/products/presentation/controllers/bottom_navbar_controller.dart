@@ -10,6 +10,6 @@ class BottomNavBarStateNotifier extends StateNotifier<int> {
 }
 
 final selectIndexStateProvider =
-    StateNotifierProvider<BottomNavBarStateNotifier, int>((ref) {
+    StateNotifierProvider.autoDispose<BottomNavBarStateNotifier, int>((ref) {
   return BottomNavBarStateNotifier(0);
 });
