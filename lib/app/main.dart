@@ -13,7 +13,7 @@ void main() async {
 
   runApp(
     const ProviderScope(
-      child: AppEntry(),  
+      child: AppEntry(),
     ),
   );
 }

@@ -8,7 +8,6 @@ import 'package:nike_shoe_shop/src/features/authentication/domain/auth_failure.d
 import 'package:nike_shoe_shop/src/features/authentication/domain/user_model.dart';
 import 'package:nike_shoe_shop/src/features/authentication/utils/dialogs.dart';
 import 'package:nike_shoe_shop/src/features/core/domain/user_id.dart';
-
 import 'package:nike_shoe_shop/src/utils/devtool.dart';
 
 part 'auth_notifier.freezed.dart';
