@@ -1,36 +1,71 @@
-import 'dart:collection';
+import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' show debugPrint;
+import 'package:flutter/services.dart';
 import 'package:nike_shoe_shop/src/constant/konstant.dart';
 import 'package:nike_shoe_shop/src/features/authentication/domain/auth_error.dart';
 import 'package:nike_shoe_shop/src/features/authentication/domain/auth_failure.dart';
 import 'package:nike_shoe_shop/src/features/authentication/domain/user_model.dart';
 import 'package:nike_shoe_shop/src/features/authentication/utils/firebase_collection_name.dart';
-import 'package:nike_shoe_shop/src/features/authentication/utils/firebase_field_name.dart';
 import 'package:nike_shoe_shop/src/features/authentication/utils/user_info_storage.dart';
 import 'package:nike_shoe_shop/src/features/core/domain/user_id.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:dartz/dartz.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:nike_shoe_shop/src/features/products/data/models/product_model.dart';
 import 'package:nike_shoe_shop/src/utils/devtool.dart';
 
 class Authenticator {
   final UserInfoStorage userInfoStorage;
 
-  Authenticator({required this.userInfoStorage});
+  Authenticator({
+    required this.userInfoStorage,
+    required this.auth,
+    required this.db,
+  });
 
   //? General declaration
-  final auth = FirebaseAuth.instance;
-  final db = FirebaseFirestore.instance;
+  final FirebaseAuth auth;
+  final FirebaseFirestore db;
+
+  //?
+  Future<void> uploadJsonToFirestore4() async {
+    List<ProductModel> prod = [];
+    // Initialize Firebase app (if not already initialized)
+
+    final productRef = await db.collection("product").get();
+    for (var element in productRef.docs) {
+      ProductModel product = ProductModel.fromFirestore(snapshot: element);
+      // product.log();
+      prod.add(product);
+    }
+    prod.log();
+  }
+
+  Future<void> uploadJsonToFirestore() async {
+    // Initialize Firebase app (if not already initialized)
+
+    // Read JSON data from file
+    String jsonString = await rootBundle.loadString('assets/json/api.json');
+    List<dynamic> jsonData = jsonDecode(jsonString);
+
+    // Upload data to Firestore
+    CollectionReference collectionRef =
+        FirebaseFirestore.instance.collection(FirebaseCollectionName.product);
+
+    for (var data in jsonData) {
+      await collectionRef.doc(data["id"].toString()).set(data);
+    }
+
+    debugPrint("statement 🚀🚀🚀😪");
+  }
 
   //! Refresh
 
-  Future<void> refresh() async{
+  Future<void> refresh() async {
     await auth.currentUser?.reload();
   }
-
-
 
   //* update user profile with stream
   Stream<Map<String, dynamic>> streamUpdateUserProfile() {
@@ -43,7 +78,6 @@ class Authenticator {
           (snapshot) => snapshot.data() as Map<String, dynamic>,
         );
   }
-
 
   //
   //*update user profile
@@ -125,9 +159,9 @@ class Authenticator {
 
     final userSnapshot =
         db.collection(FirebaseCollectionName.user).doc(uid).get();
-    final userdata = await userSnapshot;
-    userdata.data().toString().log();
-    yield userdata.data()!;
+    final userData = await userSnapshot;
+    userData.data().toString().log();
+    yield userData.data()!;
   }
 
   // get currently signed in user ID

@@ -21,22 +21,25 @@ class _DashBoardScreenState extends ConsumerState<ScaffoldWithNavBar> {
       extendBody: true,
       backgroundColor: Colors.transparent,
       body: widget.child,
-      bottomNavigationBar: CustomCurvedNavigationWidget(
-        items: [
-          CurvedNavigationBarItem(
-              iconData: MdiIcons.homeOutline, selectedIconData: MdiIcons.home),
-          CurvedNavigationBarItem(
-              iconData: MdiIcons.heartOutline,
-              selectedIconData: MdiIcons.heart),
-          CurvedNavigationBarItem(
-              iconData: MdiIcons.bellOutline,
-              selectedIconData: MdiIcons.bellAlert),
-          CurvedNavigationBarItem(
-              iconData: MdiIcons.accountOutline,
-              selectedIconData: MdiIcons.account),
-        ],
-        currentIndex: indexPosition,
-        onTap: (indexPosition) => _onTap(indexPosition),
+      bottomNavigationBar: Material(
+        elevation: 2,
+        child: CustomCurvedNavigationWidget(
+          items: [
+            CurvedNavigationBarItem(
+                iconData: MdiIcons.homeOutline, selectedIconData: MdiIcons.home),
+            CurvedNavigationBarItem(
+                iconData: MdiIcons.heartOutline,
+                selectedIconData: MdiIcons.heart),
+            CurvedNavigationBarItem(
+                iconData: MdiIcons.bellOutline,
+                selectedIconData: MdiIcons.bellAlert),
+            CurvedNavigationBarItem(
+                iconData: MdiIcons.accountOutline,
+                selectedIconData: MdiIcons.account),
+          ],
+          currentIndex: indexPosition,
+          onTap: (indexPosition) => _onTap(indexPosition),
+        ),
       ),
     );
   }
