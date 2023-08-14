@@ -1,4 +1,4 @@
-extension addDollarSignToString on String {
+extension AddDollarSignToString on String {
   String dollar() {
     return "\$$this";
   }
