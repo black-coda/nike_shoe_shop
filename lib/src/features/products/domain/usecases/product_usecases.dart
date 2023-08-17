@@ -1,6 +1,6 @@
 import 'package:nike_shoe_shop/src/features/products/data/repository/product_repository_impl.dart';
 import 'package:nike_shoe_shop/src/features/products/domain/entities/product_entity.dart';
-import 'package:nike_shoe_shop/src/shared/usecases/usecases.dart';
+import 'package:nike_shoe_shop/src/features/core/usecases/usecases.dart';
 
 class GetAllProductUsecases extends UseCase<List<ProductEntity?>, void> {
   final ProductRepositoryImpl _productRepository;

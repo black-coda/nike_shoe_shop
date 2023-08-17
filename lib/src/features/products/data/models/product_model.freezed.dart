@@ -30,7 +30,7 @@ mixin _$ProductModel {
   num? get retailPriceCents => throw _privateConstructorUsedError;
   List<num>? get sizeRange => throw _privateConstructorUsedError;
   String? get storyHtml => throw _privateConstructorUsedError;
-  bool? get isFavorite => throw _privateConstructorUsedError;
+  String? get productImage => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -55,7 +55,7 @@ abstract class $ProductModelCopyWith<$Res> {
       num? retailPriceCents,
       List<num>? sizeRange,
       String? storyHtml,
-      bool? isFavorite});
+      String? productImage});
 }
 
 /// @nodoc
@@ -81,7 +81,7 @@ class _$ProductModelCopyWithImpl<$Res, $Val extends ProductModel>
     Object? retailPriceCents = freezed,
     Object? sizeRange = freezed,
     Object? storyHtml = freezed,
-    Object? isFavorite = freezed,
+    Object? productImage = freezed,
   }) {
     return _then(_value.copyWith(
       brandName: freezed == brandName
@@ -124,10 +124,10 @@ class _$ProductModelCopyWithImpl<$Res, $Val extends ProductModel>
           ? _value.storyHtml
           : storyHtml // ignore: cast_nullable_to_non_nullable
               as String?,
-      isFavorite: freezed == isFavorite
-          ? _value.isFavorite
-          : isFavorite // ignore: cast_nullable_to_non_nullable
-              as bool?,
+      productImage: freezed == productImage
+          ? _value.productImage
+          : productImage // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -151,7 +151,7 @@ abstract class _$$_ProductModelCopyWith<$Res>
       num? retailPriceCents,
       List<num>? sizeRange,
       String? storyHtml,
-      bool? isFavorite});
+      String? productImage});
 }
 
 /// @nodoc
@@ -175,7 +175,7 @@ class __$$_ProductModelCopyWithImpl<$Res>
     Object? retailPriceCents = freezed,
     Object? sizeRange = freezed,
     Object? storyHtml = freezed,
-    Object? isFavorite = freezed,
+    Object? productImage = freezed,
   }) {
     return _then(_$_ProductModel(
       brandName: freezed == brandName
@@ -218,10 +218,10 @@ class __$$_ProductModelCopyWithImpl<$Res>
           ? _value.storyHtml
           : storyHtml // ignore: cast_nullable_to_non_nullable
               as String?,
-      isFavorite: freezed == isFavorite
-          ? _value.isFavorite
-          : isFavorite // ignore: cast_nullable_to_non_nullable
-              as bool?,
+      productImage: freezed == productImage
+          ? _value.productImage
+          : productImage // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -240,7 +240,7 @@ class _$_ProductModel extends _ProductModel {
       this.retailPriceCents,
       final List<num>? sizeRange,
       this.storyHtml,
-      this.isFavorite = false})
+      this.productImage})
       : _category = category,
         _gender = gender,
         _sizeRange = sizeRange,
@@ -294,12 +294,11 @@ class _$_ProductModel extends _ProductModel {
   @override
   final String? storyHtml;
   @override
-  @JsonKey()
-  final bool? isFavorite;
+  final String? productImage;
 
   @override
   String toString() {
-    return 'ProductModel(brandName: $brandName, category: $category, color: $color, gender: $gender, id: $id, name: $name, releaseYear: $releaseYear, retailPriceCents: $retailPriceCents, sizeRange: $sizeRange, storyHtml: $storyHtml, isFavorite: $isFavorite)';
+    return 'ProductModel(brandName: $brandName, category: $category, color: $color, gender: $gender, id: $id, name: $name, releaseYear: $releaseYear, retailPriceCents: $retailPriceCents, sizeRange: $sizeRange, storyHtml: $storyHtml, productImage: $productImage)';
   }
 
   @override
@@ -322,8 +321,8 @@ class _$_ProductModel extends _ProductModel {
                 .equals(other._sizeRange, _sizeRange) &&
             (identical(other.storyHtml, storyHtml) ||
                 other.storyHtml == storyHtml) &&
-            (identical(other.isFavorite, isFavorite) ||
-                other.isFavorite == isFavorite));
+            (identical(other.productImage, productImage) ||
+                other.productImage == productImage));
   }
 
   @JsonKey(ignore: true)
@@ -340,7 +339,7 @@ class _$_ProductModel extends _ProductModel {
       retailPriceCents,
       const DeepCollectionEquality().hash(_sizeRange),
       storyHtml,
-      isFavorite);
+      productImage);
 
   @JsonKey(ignore: true)
   @override
@@ -368,7 +367,7 @@ abstract class _ProductModel extends ProductModel {
       final num? retailPriceCents,
       final List<num>? sizeRange,
       final String? storyHtml,
-      final bool? isFavorite}) = _$_ProductModel;
+      final String? productImage}) = _$_ProductModel;
   _ProductModel._() : super._();
 
   factory _ProductModel.fromJson(Map<String, dynamic> json) =
@@ -395,7 +394,7 @@ abstract class _ProductModel extends ProductModel {
   @override
   String? get storyHtml;
   @override
-  bool? get isFavorite;
+  String? get productImage;
   @override
   @JsonKey(ignore: true)
   _$$_ProductModelCopyWith<_$_ProductModel> get copyWith =>

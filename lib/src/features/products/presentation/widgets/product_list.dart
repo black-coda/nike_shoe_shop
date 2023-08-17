@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:nike_shoe_shop/src/features/products/presentation/controllers/product_controller.dart';
-import 'package:nike_shoe_shop/src/shared/extension/dollar_extension.dart';
+import 'package:nike_shoe_shop/src/features/core/extension/dollar_extension.dart';
+import 'package:nike_shoe_shop/src/features/core/extension/price_formatter_extension.dart';
 
 import 'app_bar.dart';
 import 'header.dart';
@@ -22,9 +24,13 @@ class ProductListScreen extends ConsumerWidget {
 
     final productNotifier = ref.watch(productStateNotifier);
 
-    if (isLoading) {
+    if (isLoading || productNotifier.isEmpty) {
       return const Center(
-        child: SizedBox(height: 100, width: 100),
+        child: SizedBox(
+          height: 100,
+          width: 100,
+          child: CircularProgressIndicator(),
+        ),
       );
     }
     return Scaffold(
@@ -53,7 +59,9 @@ class ProductListScreen extends ConsumerWidget {
             ),
           ),
         ),
+        //* Header
         const HeaderWidget(title: "Popular Shoes", isMore: true),
+        //* product Card
         SliverPadding(
           padding: const EdgeInsets.symmetric(vertical: 0),
           sliver: SliverGrid.builder(
@@ -78,6 +86,7 @@ class ProductListScreen extends ConsumerWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        //* Favorite Icon Button
                         Row(
                           children: [
                             GestureDetector(
@@ -93,29 +102,37 @@ class ProductListScreen extends ConsumerWidget {
                         ),
                         SizedBox(
                           child: Image.network(
-                            "https://image.goat.com/500/attachments/product_template_pictures/images/017/794/455/original/394710_00.png.png",
+                            productNotifier[index].productImage!,
                             fit: BoxFit.contain,
                             height: 120,
                             width: 150,
                           ),
                         ),
-                        const Text(
-                          "Best Seller",
-                          style: TextStyle(
+                        Text(
+                          productNotifier[index].brandName!,
+                          style: const TextStyle(
                             color: Color(0xff0D6EFD),
                             fontSize: 12,
                             fontWeight: FontWeight.w800,
                           ),
                         ),
-                        // const SizedBox(height: 4),
-                        Text(
-                          productNotifier[index].name ?? '',
-                          style: const TextStyle(
-                            color: Color(0xff6A6A6A),
-                            fontSize: 10,
-                            fontWeight: FontWeight.w600,
+                        const SizedBox(height: 2),
+                        GestureDetector(
+                          onTap: () async{
+                            final id = productNotifier[index].id.toString();
+                            final product = await ref.read(productStateNotifier.notifier).getProductById(id);
+                            GoRouter.of(context).push("location");
+                            
+                          },
+                          child: Text(
+                            productNotifier[index].name ?? '',
+                            style: const TextStyle(
+                              color: Color(0xff6A6A6A),
+                              fontSize: 10,
+                              fontWeight: FontWeight.w600,
+                            ),
+                            // textAlign: TextAlign.,
                           ),
-                          // textAlign: TextAlign.,
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -123,7 +140,7 @@ class ProductListScreen extends ConsumerWidget {
                             Text(
                               productNotifier[index]
                                   .retailPriceCents!
-                                  .toDouble()
+                                  .toPriceFormat()
                                   .toString()
                                   .dollar(),
                               style: const TextStyle(

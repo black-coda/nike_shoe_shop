@@ -18,7 +18,7 @@ abstract class ProductModel with _$ProductModel {
     num? retailPriceCents,
     List<num>? sizeRange,
     String? storyHtml,
-    @Default(false) bool ? isFavorite,
+    String? productImage,
   }) = _ProductModel;
 
   const ProductModel._();
@@ -40,7 +40,7 @@ abstract class ProductModel with _$ProductModel {
       name: data?["name"],
       releaseYear: data?["release_year"],
       retailPriceCents: data?["retail_price_cents"],
-      isFavorite: data?["isFavorite"],
+      productImage: data?["original_picture_url"],
       // sizeRange: data?["size_range"] is Iterable
       //     ? List.from(data?["size_range"])
       //     : null,
@@ -61,7 +61,7 @@ abstract class ProductModel with _$ProductModel {
       retailPriceCents: retailPriceCents,
       sizeRange: sizeRange,
       storyHtml: storyHtml,
-      isFavorite: isFavorite,
+      productImage: productImage,
     );
   }
 
@@ -81,9 +81,9 @@ abstract class ProductModel with _$ProductModel {
 //     );
 //   }
 
-  Map<String, dynamic> toFirestore(){
+  Map<String, dynamic> toFirestore() {
     return {
-     if (brandName != null) "brandName": brandName,
+      if (brandName != null) "brandName": brandName,
       if (category != null) "category": category,
       if (color != null) "color": color,
       if (gender != null) "gender": gender,
@@ -93,9 +93,7 @@ abstract class ProductModel with _$ProductModel {
       if (retailPriceCents != null) "retailPriceCents": retailPriceCents,
       if (sizeRange != null) "sizeRange": sizeRange,
       if (storyHtml != null) "storyHtml": storyHtml,
-  if(isFavorite != null) "isFaVorite": isFavorite,
+      if (productImage != null) "isFaVorite": productImage,
     };
   }
 }
-
-

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:nike_shoe_shop/src/shared/custom_divider.dart';
+import 'package:nike_shoe_shop/src/features/core/presentation/custom_divider.dart';
 
 class SideMenu extends StatelessWidget {
   const SideMenu({

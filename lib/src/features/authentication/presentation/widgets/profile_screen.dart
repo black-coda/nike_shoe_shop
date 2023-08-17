@@ -5,6 +5,7 @@ import 'package:lottie/lottie.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:nike_shoe_shop/src/constant/konstant.dart';
 import 'package:nike_shoe_shop/src/features/authentication/presentation/controller/auth_controller.dart';
+import 'package:nike_shoe_shop/src/features/core/presentation/widget/btn.dart';
 import 'package:nike_shoe_shop/src/utils/devtool.dart';
 
 import 'profile_form_field.dart';
@@ -72,32 +73,13 @@ class UserProfileScreen extends ConsumerWidget {
                           const SizedBox(height: 20),
                           SizedBox(
                             width: MediaQuery.of(context).size.width - 40,
-                            child: ElevatedButton(
-                              onPressed: () {
-                                GoRouter.of(context)
-                                    .push("/profile/editProfile");
-                              },
-                              style: ElevatedButton.styleFrom(
-                                padding: const EdgeInsets.all(18),
-                                backgroundColor: const Color(0xff0D6EFD),
-                                shape: const RoundedRectangleBorder(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(14))),
-                              ),
-                              child: Text(
-                                "Edit Profile",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .labelMedium
-                                    ?.copyWith(color: const Color(0xffF7F7F9)),
-                              ),
+                            child: const mainBtn(
+                              location: "/profile/editProfile",
                             ),
                           ),
                         ],
                       ),
                     ),
-
-                    
                   ],
                 );
               },

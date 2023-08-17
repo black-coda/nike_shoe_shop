@@ -22,7 +22,7 @@ class ProductStateNotifier extends StateNotifier<List<ProductEntity>> {
   Future<void> getAllProduct() async {
     _isLoading = true;
     try {
-      // state = [];
+      
       final productCall = await _getPAllProductUsecases.call();
 
       if (productCall != null) {

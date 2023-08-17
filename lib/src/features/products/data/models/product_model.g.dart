@@ -21,7 +21,7 @@ _$_ProductModel _$$_ProductModelFromJson(Map<String, dynamic> json) =>
       sizeRange:
           (json['sizeRange'] as List<dynamic>?)?.map((e) => e as num).toList(),
       storyHtml: json['storyHtml'] as String?,
-      isFavorite: json['isFavorite'] as bool? ?? false,
+      productImage: json['productImage'] as String?,
     );
 
 Map<String, dynamic> _$$_ProductModelToJson(_$_ProductModel instance) =>
@@ -36,5 +36,5 @@ Map<String, dynamic> _$$_ProductModelToJson(_$_ProductModel instance) =>
       'retailPriceCents': instance.retailPriceCents,
       'sizeRange': instance.sizeRange,
       'storyHtml': instance.storyHtml,
-      'isFavorite': instance.isFavorite,
+      'productImage': instance.productImage,
     };

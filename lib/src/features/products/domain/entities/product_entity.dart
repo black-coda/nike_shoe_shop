@@ -14,6 +14,6 @@ abstract class ProductEntity with _$ProductEntity {
     num? retailPriceCents,
     List<num>? sizeRange,
     String? storyHtml,
-    bool? isFavorite,
+   String? productImage,
   }) = _ProductEntity;
 }

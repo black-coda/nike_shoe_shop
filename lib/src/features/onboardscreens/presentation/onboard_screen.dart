@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:nike_shoe_shop/src/features/core/presentation/widget/btn.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 // import 'package:flutter_svg_provider/flutter_svg_provider.dart';
 
@@ -237,22 +238,8 @@ class PageView3 extends StatelessWidget {
                 Align(
                   alignment: const Alignment(0, 0.94),
                   child: SizedBox(
-                    width: MediaQuery.of(context).size.width - 40,
-                    child: ElevatedButton(
-                      onPressed: ()async => context.go('/login'),
-                      style: ElevatedButton.styleFrom(
-                        padding: const EdgeInsets.all(18),
-                        backgroundColor: const Color(0xffECECEC),
-                        shape: const RoundedRectangleBorder(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(14))),
-                      ),
-                      child: Text(
-                        "Get Started",
-                        style: Theme.of(context).textTheme.labelMedium,
-                      ),
-                    ),
-                  ),
+                      width: MediaQuery.of(context).size.width - 40,
+                      child: const OnBoardBtn()),
                 ),
               ],
             ),
@@ -298,21 +285,7 @@ class PageView1 extends StatelessWidget {
                 alignment: Alignment.bottomCenter,
                 child: SizedBox(
                   width: MediaQuery.of(context).size.width - 40,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      return  context.go("/login");
-                    },
-                    style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.all(18),
-                      backgroundColor: const Color(0xffECECEC),
-                      shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(14))),
-                    ),
-                    child: Text(
-                      "Get Started",
-                      style: Theme.of(context).textTheme.labelMedium,
-                    ),
-                  ),
+                  child: const OnBoardBtn(),
                 ),
               ),
             ],

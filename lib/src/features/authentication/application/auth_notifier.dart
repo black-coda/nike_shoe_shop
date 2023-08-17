@@ -14,15 +14,10 @@ part 'auth_notifier.freezed.dart';
 @freezed
 class AuthState with _$AuthState {
   const AuthState._();
-
-
-
+  const factory AuthState.initial() = _Initial;
   const factory AuthState.authenticated() = _Authenticated;
-
   const factory AuthState.unauthenticated() = _Unauthenticated;
-
   const factory AuthState.failure(AuthFailure failure) = _Failure;
-
   const factory AuthState.isLoading() = _IsLoading;
 }
 
@@ -31,7 +26,7 @@ class AuthStateNotifier extends StateNotifier<AuthState> {
 
   AuthStateNotifier({
     required this.authenticator,
-  }) : super(const AuthState.unauthenticated());
+  }) : super(const AuthState.initial());
 
   //! Productive
   Future<void> upload() async => await authenticator.uploadJsonToFirestore();
