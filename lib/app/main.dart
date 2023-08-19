@@ -5,6 +5,7 @@ import 'package:nike_shoe_shop/src/features/core/application/app_entry.dart';
 import '../firebase_options.dart';
 
 void main() async {
+  //  GoRouter.setUrlPathStrategy(UrlPathStrategy.path);
   WidgetsFlutterBinding.ensureInitialized();
   // FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   await Firebase.initializeApp(
@@ -17,4 +18,3 @@ void main() async {
     ),
   );
 }
-  

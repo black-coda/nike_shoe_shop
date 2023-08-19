@@ -9,6 +9,7 @@ import 'package:nike_shoe_shop/src/features/onboardscreens/presentation/onboard_
 import 'package:nike_shoe_shop/src/features/products/presentation/widgets/nav_bar/bottom_navbar_scaffold.dart';
 import 'package:nike_shoe_shop/src/features/products/presentation/widgets/favorite_screen.dart';
 import 'package:nike_shoe_shop/src/features/products/presentation/widgets/notification_screen.dart';
+import 'package:nike_shoe_shop/src/features/products/presentation/widgets/product_details.dart';
 import 'package:nike_shoe_shop/src/features/products/presentation/widgets/product_list.dart';
 import 'package:nike_shoe_shop/src/route/error_page_screen.dart';
 
@@ -59,6 +60,20 @@ class RouteManager {
                 key: state.pageKey,
               ),
             ),
+            routes: [
+              GoRoute(
+                path: "productDetail/:productId",
+                name: "productDetail",
+                parentNavigatorKey: _rootNavigator,
+                pageBuilder: (context, state) => NoTransitionPage(
+                  
+                  child: ProductDetailScreen(
+                    key: state.pageKey,
+                    productID: state.pathParameters["productId"]!,
+                  ),
+                ),
+              )
+            ],
           ),
           GoRoute(
             name: "profile",

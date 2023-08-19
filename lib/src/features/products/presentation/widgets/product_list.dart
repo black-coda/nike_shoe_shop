@@ -118,11 +118,18 @@ class ProductListScreen extends ConsumerWidget {
                         ),
                         const SizedBox(height: 2),
                         GestureDetector(
-                          onTap: () async{
+                          onTap: () async {
                             final id = productNotifier[index].id.toString();
-                            final product = await ref.read(productStateNotifier.notifier).getProductById(id);
-                            GoRouter.of(context).push("location");
-                            
+                            final product = await ref
+                                .read(productStateNotifier.notifier)
+                                .getProductById(id);
+                            final productID = product.id.toString();
+                            GoRouter.of(context).pushNamed(
+                              "productDetail",
+                              pathParameters: {
+                                "productId" : productID,
+                              },
+                            );
                           },
                           child: Text(
                             productNotifier[index].name ?? '',

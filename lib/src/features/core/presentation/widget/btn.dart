@@ -11,7 +11,7 @@ class LeadReturnBtn extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15.0),
       child: IconButton(
-        icon: const Icon(Icons.arrow_back_ios),
+        icon: const Icon(Icons.arrow_back_ios, size: 20),
         onPressed: () {
           GoRouter.of(context).pop();
         },
