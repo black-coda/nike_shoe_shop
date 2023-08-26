@@ -26,7 +26,8 @@ class _DashBoardScreenState extends ConsumerState<ScaffoldWithNavBar> {
         child: CustomCurvedNavigationWidget(
           items: [
             CurvedNavigationBarItem(
-                iconData: MdiIcons.homeOutline, selectedIconData: MdiIcons.home),
+                iconData: MdiIcons.homeOutline,
+                selectedIconData: MdiIcons.home),
             CurvedNavigationBarItem(
                 iconData: MdiIcons.heartOutline,
                 selectedIconData: MdiIcons.heart),
@@ -63,7 +64,3 @@ class _DashBoardScreenState extends ConsumerState<ScaffoldWithNavBar> {
     }
   }
 }
-
-
-
-      

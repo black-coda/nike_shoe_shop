@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 ThemeData primaryTheme = ThemeData(
+  scaffoldBackgroundColor: const Color(0xffF7F7F9),
   fontFamily: "RaleWay",
   textTheme: const TextTheme(
     headlineLarge: TextStyle(
