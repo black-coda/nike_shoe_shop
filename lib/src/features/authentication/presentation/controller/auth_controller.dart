@@ -36,7 +36,7 @@ final authChangesFutureProvider =
   }
 });
 
-final userprofileStreamProvider = StreamProvider<Map<String, dynamic>>((ref) {
+final userProfileStreamProvider = StreamProvider<Map<String, dynamic>>((ref) {
   final authProvider =
       ref.watch(authStateNotifierProvider.notifier).streamUpdateUserProfile();
   return authProvider;
@@ -92,3 +92,4 @@ final userProfileProvider =
   final userProfileDetails = await authStateNotifier.getUserProfile();
   return userProfileDetails;
 });
+

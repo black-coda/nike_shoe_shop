@@ -1,15 +1,17 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart' show debugPrint;
 import 'package:nike_shoe_shop/src/features/authentication/utils/firebase_collection_name.dart';
+import 'package:nike_shoe_shop/src/features/authentication/utils/firebase_field_name.dart';
 import 'package:nike_shoe_shop/src/features/products/domain/entities/product_entity.dart';
 import 'package:nike_shoe_shop/src/utils/devtool.dart';
+import 'package:nike_shoe_shop/src/features/core/domain/user_id.dart';
 
 import '../models/product_model.dart';
 
 abstract class BaseRemoteDataSource {
-  Future<List<ProductEntity>?> getAllProduct();
+  Future<List<ProductEntity>?> getAllProducts();
   Future<ProductEntity?> getProductById(String id);
-  Future<void> favoriteProduct();
+  Future<Set<ProductEntity>?> getFavoriteProducts(UserId userId);
 }
 
 class ProductRemoteService extends BaseRemoteDataSource {
@@ -42,11 +44,10 @@ class ProductRemoteService extends BaseRemoteDataSource {
     throw UnimplementedError();
   }
 
-
   //* Get all product
-  
+
   @override
-  Future<List<ProductEntity>?> getAllProduct() async {
+  Future<List<ProductEntity>?> getAllProducts() async {
     try {
       final productsRef = db
           .collection(FirebaseCollectionName.product)
@@ -66,10 +67,48 @@ class ProductRemoteService extends BaseRemoteDataSource {
 
     return null;
   }
-  
+
+// * Get Favorite products
   @override
-  Future<void> favoriteProduct() {
-    // TODO: implement favoriteProduct
-    throw UnimplementedError();
+  Future<Set<ProductEntity>?> getFavoriteProducts(UserId userId) async {
+    try {
+      final favoriteProductDocRef = await db
+          .collection(FirebaseCollectionName.favorite)
+          .doc(userId)
+          .get();
+          debugPrint(favoriteProductDocRef.data().toString());
+      if (favoriteProductDocRef.exists) {
+        final favoriteData = favoriteProductDocRef.data();
+        //* returns a string of id which are in the favorite collection
+        final favoriteProductsId =
+            List<String>.from(favoriteData?[FirebaseFieldName.favorite]);
+        
+        debugPrint(favoriteData.toString());
+
+        //* Get product from db through their ID
+        final productsSnapShots = await Future.wait(
+          favoriteProductsId.map(
+            (productId) => db
+                .collection(FirebaseCollectionName.product)
+                .doc(productId)
+                .get(),
+          ),
+        );
+
+        final favoriteProducts = productsSnapShots
+            .where((product) => product.exists)
+            .map((existedProductSnapshot) =>
+                ProductModel.fromFirestore(snapshot: existedProductSnapshot)
+                    .toEntity())
+            .toSet();
+
+        return favoriteProducts;
+      } else {
+        return <ProductEntity>{};
+      }
+    } on Exception catch (e) {
+      e.log();
+    }
+    return null;
   }
 }

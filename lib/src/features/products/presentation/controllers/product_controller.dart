@@ -10,7 +10,12 @@ final productStateNotifier =
     StateNotifierProvider<ProductStateNotifier, List<ProductEntity>>((ref) {
   final getProductAllUseCase = ref.watch(getAllProductUsecaseProvider);
   final getProductByIdUseCase = ref.watch(getProductByIdUsecaseProvider);
-  return ProductStateNotifier(getProductAllUseCase, getProductByIdUseCase);
+  final getFavoriteUsecase = ref.watch(getFavoriteUsecaseProvider);
+  return ProductStateNotifier(
+    getProductAllUseCase,
+    getProductByIdUseCase,
+    getFavoriteUsecase,
+  );
 });
 
 final getAllProductUsecaseProvider = Provider<GetAllProductUsecases>((ref) {
@@ -23,6 +28,11 @@ final getProductByIdUsecaseProvider = Provider<GetProductByIdUseCase>((ref) {
   return GetProductByIdUseCase(productRepository);
 });
 
+final getFavoriteUsecaseProvider = Provider<GetFavoriteUsecase>((ref) {
+  final productRepository = ref.watch(productRepositoryImpl);
+  return GetFavoriteUsecase(productRepository);
+});
+
 final productRepositoryImpl = Provider<ProductRepositoryImpl>((ref) {
   final service = ref.watch(serviceProvider);
   return ProductRepositoryImpl(service);
@@ -33,7 +43,16 @@ final serviceProvider = Provider<ProductRemoteService>((ref) {
   return ProductRemoteService(db);
 });
 
-final getAllProductFutureProvider = FutureProvider<List<ProductEntity>>((ref) async {
-  final products = await ref.watch(getAllProductUsecaseProvider).call(); 
-  return products!;
+final getFavoriteFutureProvider =
+    FutureProvider.autoDispose<List<ProductEntity>?>((ref) async {
+  final userId = ref.watch(firebaseAuthProvider).currentUser?.uid;
+
+  final products = await ref
+      .watch(productStateNotifier.notifier)
+      .getFavoriteProduct(userId!);
+  return products?.toList();
 });
+
+
+
+

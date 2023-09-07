@@ -7,6 +7,7 @@ class FirebaseCollectionName {
   static const thumbNail = "thumbNail";
   static const order ="order";
   static const cart ="cart";
+  static const favorite ="favorite";
 
   const FirebaseCollectionName._();
 }

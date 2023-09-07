@@ -97,3 +97,6 @@ abstract class ProductModel with _$ProductModel {
     };
   }
 }
+
+
+

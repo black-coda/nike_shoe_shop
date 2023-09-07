@@ -106,6 +106,8 @@ class RouteManager {
                 key: state.pageKey,
               ),
             ),
+
+            
           ),
           GoRoute(
             name: "notification",

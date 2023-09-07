@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:nike_shoe_shop/src/constant/konstant.dart';
@@ -60,7 +59,7 @@ class UserProfileScreen extends ConsumerWidget {
                         children: [
                           CustomProfileFormField(
                             fieldName: "Your Name",
-                            fieldHintText: data?["displayName"],
+                            fieldHintText: data?["displayName"] ?? "",
                           ),
                           const SizedBox(height: 10),
                           CustomProfileFormField(

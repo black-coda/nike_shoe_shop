@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:nike_shoe_shop/src/features/core/extension/dollar_extension.dart';
-import 'package:nike_shoe_shop/src/features/core/extension/price_formatter_extension.dart';
 import 'package:nike_shoe_shop/src/features/core/presentation/widget/btn.dart';
 import 'package:nike_shoe_shop/src/features/products/presentation/controllers/product_controller.dart';
 
@@ -78,7 +77,7 @@ class ProductDetailScreen extends StatelessWidget {
                       const SizedBox(height: 8),
                       Text(
                         product?.retailPriceCents
-                                ?.toPriceFormat()
+                                
                                 .toString()
                                 .dollar() ??
                             "",
@@ -113,7 +112,8 @@ class ProductDetailScreen extends StatelessWidget {
                         product?.storyHtml
                                 ?.replaceAll("<p>", "")
                                 .replaceAll("&#", " & ")
-                                .replaceAll("</p>", "") ??
+                                .replaceAll("</p>", "")
+                                .replaceAll("  ", " ") ??
                             "Discover a versatile and stylish choice with these shoes. Designed for comfort and crafted with care, they are the perfect addition to your wardrobe. Whether you're strolling through the city or relaxing with friends, these shoes will keep you looking great and feeling comfortable.",
                         maxLines: 8,
                         overflow: TextOverflow.ellipsis,
@@ -130,7 +130,7 @@ class ProductDetailScreen extends StatelessWidget {
                         children: [
                           InkWell(
                             onTap: () {
-                              // TODO: Add to Favorite 
+                              // TODO: Add to Favorite
                             },
                             child: const Icon(
                               MdiIcons.heartOutline,
