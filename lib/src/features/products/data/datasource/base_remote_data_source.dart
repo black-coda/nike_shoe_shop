@@ -12,6 +12,10 @@ abstract class BaseRemoteDataSource {
   Future<List<ProductEntity>?> getAllProducts();
   Future<ProductEntity?> getProductById(String id);
   Future<Set<ProductEntity>?> getFavoriteProducts(UserId userId);
+  Future<bool> addToFavoriteProduct(
+      {required String productId, required UserId userId});
+  Future<bool> removeFromFavoriteProduct(
+      {required String productId, required UserId userId});
 }
 
 class ProductRemoteService extends BaseRemoteDataSource {
@@ -76,13 +80,13 @@ class ProductRemoteService extends BaseRemoteDataSource {
           .collection(FirebaseCollectionName.favorite)
           .doc(userId)
           .get();
-          debugPrint(favoriteProductDocRef.data().toString());
+      debugPrint(favoriteProductDocRef.data().toString());
       if (favoriteProductDocRef.exists) {
         final favoriteData = favoriteProductDocRef.data();
         //* returns a string of id which are in the favorite collection
         final favoriteProductsId =
             List<String>.from(favoriteData?[FirebaseFieldName.favorite]);
-        
+
         debugPrint(favoriteData.toString());
 
         //* Get product from db through their ID
@@ -110,5 +114,85 @@ class ProductRemoteService extends BaseRemoteDataSource {
       e.log();
     }
     return null;
+  }
+
+  @override
+  Future<bool> addToFavoriteProduct(
+      {required String productId, required UserId userId}) async {
+    try {
+      final favoriteProductRef =
+          db.collection(FirebaseCollectionName.favorite).doc(userId);
+
+      final favoriteProductSnapshot = await favoriteProductRef.get();
+      final favoriteProductData = favoriteProductSnapshot.data();
+
+      // Check if the favorite field exists in the document data
+      if (favoriteProductData != null &&
+          favoriteProductData.containsKey('favorite')) {
+        final favoriteProductIdList =
+            List<String>.from(favoriteProductData['favorite']);
+
+        // Check if productId is already in the favorite list
+        if (favoriteProductIdList.contains(productId)) {
+          return true;
+          // Product is already in favorites
+        } else {
+          favoriteProductIdList.add(productId);
+          await favoriteProductRef.update({'favorite': favoriteProductIdList});
+          debugPrint("Favorite List Successfully Updated");
+          return true; // Product added to favorites
+        }
+      } else {
+        // If 'favorite' field doesn't exist, create a new one
+        await favoriteProductRef.set({
+          'favorite': [productId],
+          "user_id": userId,
+        });
+        debugPrint("Favorite List Successfully Created");
+        return true; // Product added to favorites
+      }
+    } catch (e) {
+      debugPrint("Error adding to favorites: $e");
+      return false; // An error occurred while adding to favorites
+    }
+  }
+
+  @override
+  Future<bool> removeFromFavoriteProduct(
+      {required String productId, required UserId userId}) async {
+    try {
+      final favoriteProductRef =
+          db.collection(FirebaseCollectionName.favorite).doc(userId);
+
+      final favoriteProductSnapshot = await favoriteProductRef.get();
+      final favoriteProductData = favoriteProductSnapshot.data();
+
+      // Check if the favorite field exists in the document data
+      if (favoriteProductData != null &&
+          favoriteProductData.containsKey('favorite')) {
+        final favoriteProductIdList =
+            List<String>.from(favoriteProductData['favorite']);
+
+        // Check if productId is in the favorite list
+        if (favoriteProductIdList.contains(productId)) {
+          // Remove productId from the list
+          favoriteProductIdList.remove(productId);
+
+          // Update the 'favorite' field with the modified list
+          await favoriteProductRef.update({'favorite': favoriteProductIdList});
+
+          debugPrint("Product Removed from Favorites");
+          return true; // Product removed from favorites
+        } else {
+          return true; // Product was not in favorites, so nothing to remove
+        }
+      } else {
+        // If 'favorite' field doesn't exist, there's nothing to remove
+        return true; // Product was not in favorites, so nothing to remove
+      }
+    } catch (e) {
+      debugPrint("Error removing from favorites: $e");
+      return false; // An error occurred while removing from favorites
+    }
   }
 }

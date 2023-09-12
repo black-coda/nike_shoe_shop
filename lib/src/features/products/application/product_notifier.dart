@@ -36,28 +36,15 @@ class ProductStateNotifier extends StateNotifier<List<ProductEntity>> {
     }
   }
 
-  // Future<void> getAllFavProduct(UserId userId) async {
-  //   _isLoading = true;
-  //   try {
-  //     final productCall = await _getFavoriteProductUsecase.call(params: userId);
-
-  //     if (productCall != null) {
-  //       final toList = productCall.toList();
-  //       state = toList;
-  //     }
-  //   } on Exception catch (e) {
-  //     e.log();
-  //   } finally {
-  //     _isLoading = false;
-  //   }
-  // }
-
+ 
   Future<Set<ProductEntity>?> getFavoriteProduct(UserId userId) async {
     _isLoading = true;
     try {
       final productCall = await _getFavoriteProductUsecase.call(params: userId);
       _isLoading = false;
       if (productCall != null) {
+        final favoriteList = productCall.toList();
+        state = favoriteList;
         return productCall;
       }
     } on Exception catch (e) {
@@ -79,6 +66,33 @@ class ProductStateNotifier extends StateNotifier<List<ProductEntity>> {
       e.log();
       debugPrint('Error fetching product by ID: $e');
       rethrow; // Rethrow the exception for upper layers to handle
+    }
+  }
+
+  Future<bool> addToFavoriteProduct({
+    required String productId,
+    required UserId userId,
+  }) async {
+    try {
+      final isFavorite = await _getFavoriteProductUsecase.addToFavoriteProduct(productId: productId, userId: userId);
+      return isFavorite;
+    } catch (e) {
+      debugPrint(e.toString());
+      return false;
+    }
+  }
+
+  Future<bool> removeFromFavoriteProduct({
+    required String productId,
+    required UserId userId,
+  }) async {
+    try {
+      final isFavorite = await _getFavoriteProductUsecase.removeFromFavoriteProduct(
+          productId: productId, userId: userId);
+      return isFavorite;
+    } catch (e) {
+      debugPrint(e.toString());
+      return false;
     }
   }
 }

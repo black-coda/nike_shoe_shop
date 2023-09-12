@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:nike_shoe_shop/src/features/authentication/presentation/controller/auth_controller.dart';
+import 'package:nike_shoe_shop/src/features/core/domain/user_id.dart';
 import 'package:nike_shoe_shop/src/features/products/application/product_notifier.dart';
 import 'package:nike_shoe_shop/src/features/products/data/datasource/base_remote_data_source.dart';
 import 'package:nike_shoe_shop/src/features/products/data/repository/product_repository_impl.dart';
@@ -43,6 +44,7 @@ final serviceProvider = Provider<ProductRemoteService>((ref) {
   return ProductRemoteService(db);
 });
 
+//* Favorite
 final getFavoriteFutureProvider =
     FutureProvider.autoDispose<List<ProductEntity>?>((ref) async {
   final userId = ref.watch(firebaseAuthProvider).currentUser?.uid;
@@ -52,7 +54,4 @@ final getFavoriteFutureProvider =
       .getFavoriteProduct(userId!);
   return products?.toList();
 });
-
-
-
 

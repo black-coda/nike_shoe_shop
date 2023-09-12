@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:nike_shoe_shop/src/features/core/domain/user_id.dart';
 import 'package:nike_shoe_shop/src/features/products/data/datasource/base_remote_data_source.dart';
 import 'package:nike_shoe_shop/src/features/products/domain/entities/product_entity.dart';
@@ -30,5 +31,32 @@ class ProductRepositoryImpl implements ProductRepository {
       e.log();
     }
     return null;
+  }
+
+  @override
+  Future<bool> addToFavoriteProduct({
+    required String productId,
+    required UserId userId,
+  }) async {
+    try {
+      final result = await service.addToFavoriteProduct(
+          productId: productId, userId: userId);
+      return result;
+    } catch (e) {
+      debugPrint(e.toString());
+      return false;
+    }
+  }
+  
+  @override
+  Future<bool> removeFromFavoriteProduct({required String productId, required UserId userId}) async {
+    try {
+      final result = await service.removeFromFavoriteProduct(
+          productId: productId, userId: userId);
+      return result;
+    } catch (e) {
+      debugPrint(e.toString());
+      return false;
+    }
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:nike_shoe_shop/src/features/authentication/presentation/controller/auth_controller.dart';
 import 'package:nike_shoe_shop/src/features/products/presentation/controllers/product_controller.dart';
 import 'package:nike_shoe_shop/src/features/products/presentation/widgets/product/product_grid.dart';
 
@@ -34,6 +35,7 @@ class ProductListScreen extends ConsumerWidget {
         ),
       );
     }
+   
     return Scaffold(
       backgroundColor: const Color(0xffF7F7F9),
       body: CustomScrollView(

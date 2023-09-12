@@ -37,4 +37,21 @@ class GetFavoriteUsecase extends UseCase<Set<ProductEntity>?, UserId> {
     final data = _productRepository.getFavoriteProducts(params);
     return data;
   }
+
+  Future<bool> addToFavoriteProduct({
+    required String productId,
+    required UserId userId,
+  }) async {
+    final data = _productRepository.addToFavoriteProduct(productId: productId, userId: userId);
+    return data;
+  }
+
+  Future<bool> removeFromFavoriteProduct({
+    required String productId,
+    required UserId userId,
+  }) async {
+    final data = _productRepository.removeFromFavoriteProduct(
+        productId: productId, userId: userId);
+    return data;
+  }
 }

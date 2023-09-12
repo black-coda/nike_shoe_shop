@@ -5,5 +5,8 @@ abstract class ProductRepository {
   Future<List<ProductEntity>?> getAllProducts();
   Future<ProductEntity?> getProductById(String id);
   Future<Set<ProductEntity>?> getFavoriteProducts(UserId userId);
-  // Future<void> getFilteredProduct();
+ Future<bool> addToFavoriteProduct(
+      {required String productId, required UserId userId});
+      Future<bool> removeFromFavoriteProduct(
+      {required String productId, required UserId userId});
 }

@@ -1,11 +1,16 @@
+import 'dart:async';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:nike_shoe_shop/src/features/authentication/presentation/controller/auth_controller.dart';
 import 'package:nike_shoe_shop/src/features/core/extension/dollar_extension.dart';
+import 'package:nike_shoe_shop/src/features/core/presentation/widget/animated_btn.dart';
 import 'package:nike_shoe_shop/src/features/core/presentation/widget/btn.dart';
 import 'package:nike_shoe_shop/src/features/core/presentation/widget/loader.dart';
+import 'package:nike_shoe_shop/src/features/core/presentation/widget/material_banner.dart';
 import 'package:nike_shoe_shop/src/features/products/presentation/controllers/product_controller.dart';
 import 'package:nike_shoe_shop/src/features/core/extension/price_formatter_extension.dart';
 
@@ -17,7 +22,6 @@ class FavoriteScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text("Favorite screen"),
         centerTitle: true,
-        leading: const LeadReturnBtn(),
       ),
       body: Consumer(
         builder: (BuildContext context, WidgetRef ref, Widget? child) {
@@ -30,6 +34,33 @@ class FavoriteScreen extends StatelessWidget {
             loading: () => const Center(child: CircularProgressIndicator()),
             data: (productList) => Consumer(
               builder: (BuildContext context, WidgetRef ref, Widget? child) {
+                final userId = ref.watch(firebaseAuthProvider).currentUser?.uid;
+                Future<void> onTap(int index) async {
+                  final isSuccessful = await ref
+                      .watch(productStateNotifier.notifier)
+                      .removeFromFavoriteProduct(
+                          productId: productList![index].id.toString(),
+                          userId: userId!);
+                  if (isSuccessful) {
+                    if (!context.mounted) {
+                      return;
+                    }
+                    ScaffoldMessenger.of(context)
+                        .showMaterialBanner(successBanner);
+                  } else {
+                    if (!context.mounted) {
+                      return;
+                    }
+                    ScaffoldMessenger.of(context)
+                        .showMaterialBanner(failsBanner);
+                  }
+                  Future.delayed(const Duration(seconds: 1), () {
+                    ScaffoldMessenger.of(context).hideCurrentMaterialBanner();
+                  });
+
+                  ref.invalidate(getFavoriteFutureProvider);
+                }
+
                 return productList!.isNotEmpty
                     ? CustomScrollView(
                         slivers: <Widget>[
@@ -63,15 +94,15 @@ class FavoriteScreen extends StatelessWidget {
                                           //* Favorite Icon Button
                                           Row(
                                             children: [
-                                              GestureDetector(
-                                                onTap: () {
-                                                  //TODO: To implement favorite feature
-                                                },
-                                                child: const Icon(
-                                                  MdiIcons.heartOutline,
-                                                  size: 15,
+                                              AnimatedIconButton(
+                                                mdiIcons: const Icon(
+                                                  MdiIcons.heartMinus,
+                                                  size: 20.0,
+                                                  color: Colors.red,
                                                 ),
-                                              )
+                                                onTapped: () async =>
+                                                    await onTap(index),
+                                              ),
                                             ],
                                           ),
                                           SizedBox(
@@ -114,7 +145,9 @@ class FavoriteScreen extends StatelessWidget {
                                                   .getProductById(id);
                                               final productID =
                                                   product.id.toString();
-                                              // if(!mounted) return;
+                                              if (!context.mounted) {
+                                                return;
+                                              }
                                               GoRouter.of(context).pushNamed(
                                                 "productDetail",
                                                 pathParameters: {
@@ -157,7 +190,7 @@ class FavoriteScreen extends StatelessWidget {
                                                   MdiIcons.cartPlus,
                                                   size: 24,
                                                 ),
-                                              )
+                                              ),
                                             ],
                                           )
                                         ],
