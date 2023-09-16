@@ -9,22 +9,15 @@ import 'package:nike_shoe_shop/src/features/authentication/domain/user_model.dar
 import 'package:nike_shoe_shop/src/features/authentication/utils/dialogs.dart';
 import 'package:nike_shoe_shop/src/features/core/domain/user_id.dart';
 
-import 'package:nike_shoe_shop/src/utils/devtool.dart';
-
 part 'auth_notifier.freezed.dart';
 
 @freezed
 class AuthState with _$AuthState {
   const AuthState._();
-
   const factory AuthState.initial() = _Initial;
-
   const factory AuthState.authenticated() = _Authenticated;
-
   const factory AuthState.unauthenticated() = _Unauthenticated;
-
   const factory AuthState.failure(AuthFailure failure) = _Failure;
-
   const factory AuthState.isLoading() = _IsLoading;
 }
 
@@ -35,11 +28,14 @@ class AuthStateNotifier extends StateNotifier<AuthState> {
     required this.authenticator,
   }) : super(const AuthState.initial());
 
+  //! Productive
+  Future<void> upload() async => await authenticator.uploadJsonToFirestore();
 
   //! new
-  Future<Map<String, dynamic>> getUserAuthChanges(UserId userId) async{
+  Future<Map<String, dynamic>> getUserAuthChanges(UserId userId) async {
     return authenticator.getUserAuthChanges(userId);
   }
+
   //! refresh
   Future<void> refresh() => authenticator.refresh();
   //? update user profile with stream
@@ -135,7 +131,6 @@ class AuthStateNotifier extends StateNotifier<AuthState> {
     //? Implementation
     state = const AuthState.isLoading();
 
-
     DialogScreen.loaderDialog(context);
 
     await authenticator.loginUserWithEmailAndPassword(userModel).then(
@@ -146,25 +141,19 @@ class AuthStateNotifier extends StateNotifier<AuthState> {
         //? Declare state using dartz
         state = authState.fold(
           (failCase) {
-
             DialogScreen.errorDialog(context, failCase);
             return AuthState.failure(failCase);
           },
           (success) {
-
             DialogScreen.successDialog(context, success);
 
             Future.delayed(const Duration(seconds: 3), () {});
-
-
 
             return const AuthState.authenticated();
           },
         );
       },
     );
-
-
   }
 
   //? Logout user

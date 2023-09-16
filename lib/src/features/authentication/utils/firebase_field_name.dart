@@ -14,6 +14,7 @@ class FirebaseFieldName{
   static const updated = "updated";
   static const productPrice = "productPrice";
   static const productQuantity = "productQuantity";
+  static const favorite ="favorite";
 
   const FirebaseFieldName._();
 

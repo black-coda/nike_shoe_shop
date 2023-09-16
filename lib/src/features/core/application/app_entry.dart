@@ -13,7 +13,7 @@ class AppEntry extends ConsumerWidget {
     ref.watch(isSignedInProvider).log();
     // ref.listen(isSignedInProvider, (previous, next) {});
     final routes = ref.watch(goRouterProvider);
-    ref.watch(authStateNotifierProvider).maybeMap(
+  ref.watch(authStateNotifierProvider).maybeMap(
           authenticated: (value) {
             debugPrint(value.toString());
             routes.go("/productList");

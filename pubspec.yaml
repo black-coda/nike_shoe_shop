@@ -31,6 +31,7 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  cached_network_image: ^3.2.3
   cloud_firestore: ^4.7.0
   cupertino_icons: ^1.0.2
   dartz: ^0.10.1
@@ -45,9 +46,11 @@ dependencies:
   go_router: ^7.0.0
   google_sign_in: ^6.1.0
   http: ^0.13.5
+  intl: ^0.18.1
   json_annotation: ^4.8.1
   lottie: ^2.3.2
   material_design_icons_flutter: ^6.0.7096
+  shimmer: ^3.0.0
   smooth_page_indicator: ^1.1.0
 
 dev_dependencies:
@@ -83,6 +86,7 @@ flutter:
     - assets/svg/
     - assets/images/splash/
     - assets/lottie/
+    - assets/json/
   #   - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

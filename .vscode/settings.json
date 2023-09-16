@@ -7,12 +7,15 @@
         "**/CVS": true,
         "**/.DS_Store": true,
         "**/Thumbs.db": true,
+        "**/*.freezed.dart": true,
+        "**/*.g.dart": true,
         "**/.freezed.dart": true,
         "**/.g.dart": true
     },
     "explorerExclude.backup": {},
     "cSpell.words": [
         "konstant",
-        "Reclip"
+        "Reclip",
+        "usecases"
     ]
 }

@@ -1,88 +1,81 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import 'package:nike_shoe_shop/src/features/authentication/presentation/controller/auth_controller.dart';
-import 'package:nike_shoe_shop/src/utils/custom_curved_nav_bar.dart';
+import 'package:nike_shoe_shop/src/features/products/presentation/controllers/product_controller.dart';
+import 'package:nike_shoe_shop/src/features/products/presentation/widgets/product/product_grid.dart';
+
+import 'app_bar.dart';
+import 'header.dart';
 
 class ProductListScreen extends ConsumerWidget {
   const ProductListScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Scaffold(
-      // bottomNavigationBar: const CustomCurvedNavigationBar(),
-      appBar: AppBar(
-        title: const Text("Product's Page"),
-        centerTitle: true,
-      ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 18.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            ElevatedButton(
-              onPressed: () async {
-                ref.watch(authStateNotifierProvider.notifier).logoutUser();
-              },
-              child: const Text(
-                "Logout",
-                style: TextStyle(color: Colors.red),
-              ),
+    final bool isLoading = ref.watch(productStateNotifier.notifier).isLoading;
+    // Call getAllProduct() when the widget is initialized
+    Future<void> fetchData() async {
+      await ref.watch(productStateNotifier.notifier).getAllProduct();
+    }
+
+    fetchData();
+
+    final productNotifier = ref.watch(productStateNotifier);
+
+    if (isLoading || productNotifier.isEmpty) {
+      return const Scaffold(
+        body: Center(
+          child: SizedBox(
+            height: 50,
+            width: 50,
+            child: CircularProgressIndicator(
+              color: Color(0xff0D6EFD),
             ),
-            ElevatedButton(
-              onPressed: () => context.go('/test2'),
-              child: const Text(
-                "My Text",
-                style: TextStyle(color: Colors.red),
-              ),
-            ),
-          ],
+          ),
         ),
-      ),
-    );
-  }
-}
-
-class MyTest extends StatefulWidget {
-  const MyTest({super.key});
-
-  @override
-  State<MyTest> createState() => _MyTestState();
-}
-
-class _MyTestState extends State<MyTest> {
-  @override
-  Widget build(BuildContext context) {
+      );
+    }
+   
     return Scaffold(
-      backgroundColor: Colors.deepPurple[300],
-      bottomNavigationBar: const CustomCurvedNavigationBar(),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      body: const SingleChildScrollView(
-        child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                "I am Monday",
-                style: TextStyle(),
+      backgroundColor: const Color(0xffF7F7F9),
+      body: CustomScrollView(
+        slivers: [
+          const CustomSliverAppBar(),
+          const HeaderWidget(title: "Select Category"),
+          SliverToBoxAdapter(
+            child: SizedBox(
+              height: 60,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                    child: Container(
+                      width: 140,
+                      decoration: BoxDecoration(
+                          color: index % 2 != 0
+                              ? Colors.white
+                              : const Color(0xff0D6EFD),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(8))),
+                    ),
+                  );
+                },
+                itemCount: 5,
               ),
-              TextField(),
-              Text(
-                "I am Monday",
-                style: TextStyle(),
-              ),
-              TextField(),
-              Text(
-                "I am Monday",
-                style: TextStyle(),
-              ),
-              TextField(),
-              Text(
-                "I am Monday",
-                style: TextStyle(),
-              ),
-              TextField(),
-            ]),
+            ),
+          ),
+          //* Header
+          const HeaderWidget(title: "Popular Shoes", isMore: true),
+          //* product Card
+          ProductGridView(provider: productStateNotifier),
+          const HeaderWidget(title: "Popular Shoes", isMore: true),
+          const SliverToBoxAdapter(
+            child: SizedBox(
+              height: 90,
+            ),
+          )
+        ],
       ),
     );
   }
