@@ -13,10 +13,10 @@ The UI of this app was designed using Figma by the talented designer 👨‍🎨
 - [✅] Create a new Flutter project
 - [✅] Set up Firebase project and add dependencies to `pubspec.yaml` file
 - [👨🏿‍💻] Build UI interfaces for app
-- [👨🏿‍💻] Implement Firebase Authentication
-- [ ] Implement OTP verification using Firebase Authentication
+- [✅] Implement Firebase Authentication
+- [✅] Implement OTP verification using Firebase Authentication
 - [ ] Integrate Paystack payment gateway into the app
-- [ ] Fetch and display list of Nike shoes from a backend API
+- [👨🏿‍💻] Fetch and display list of Nike shoes from a backend API
 - [ ] Implement smooth page scrolling and animations
 - [ ] Add cart functionality and checkout process
 - [ ] Implement search functionality to allow users to search for specific shoes
@@ -51,17 +51,28 @@ To run this app on your local machine, follow these steps:
 
 ## Packages Used 📦
 
-- flutter_native_splash: ^2.2.19
-- flutter_riverpod: ^2.3.6
-- flutter_svg: ^2.0.5
-- freezed_annotation: ^2.2.0
-- go_router: ^7.0.0
-- google_sign_in: ^6.1.0
-- http: ^0.13.5
-- json_annotation: ^4.8.1
-- lottie: ^2.3.2
-- material_design_icons_flutter: ^6.0.7096
-- smooth_page_indicator: ^1.1.0
+Here are the packages I've used in my Flutter project:
+
+- [cloud_firestore](https://pub.dev/packages/cloud_firestore) v4.7.0
+- [cupertino_icons](https://pub.dev/packages/cupertino_icons) v1.0.2
+- [dartz](https://pub.dev/packages/dartz) v0.10.1
+- [firebase_auth](https://pub.dev/packages/firebase_auth) v4.4.2
+- [firebase_core](https://pub.dev/packages/firebase_core) v2.10.0
+- [flutter](https://flutter.dev) (Flutter SDK)
+- [flutter_native_splash](https://pub.dev/packages/flutter_native_splash) v2.2.19
+- [flutter_riverpod](https://pub.dev/packages/flutter_riverpod) v2.3.6
+- [flutter_svg](https://pub.dev/packages/flutter_svg) v2.0.5
+- [freezed_annotation](https://pub.dev/packages/freezed_annotation) v2.2.0
+- [go_router](https://pub.dev/packages/go_router) v7.0.0
+- [google_sign_in](https://pub.dev/packages/google_sign_in) v6.1.0
+- [http](https://pub.dev/packages/http) v0.13.5
+- [json_annotation](https://pub.dev/packages/json_annotation) v4.8.1
+- [lottie](https://pub.dev/packages/lottie) v2.3.2
+- [material_design_icons_flutter](https://pub.dev/packages/material_design_icons_flutter) v6.0.7096
+- [smooth_page_indicator](https://pub.dev/packages/smooth_page_indicator) v1.1.0
+
+Feel free to explore these packages to enhance your Flutter app development experience!
+
 
 ## Contributing 👨‍💻
 
