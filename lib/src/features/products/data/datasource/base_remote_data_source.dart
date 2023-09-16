@@ -8,7 +8,7 @@ import 'package:nike_shoe_shop/src/features/core/domain/user_id.dart';
 
 import '../models/product_model.dart';
 
-abstract class BaseRemoteDataSource {
+abstract class ProductBaseRemoteDataSource {
   Future<List<ProductEntity>?> getAllProducts();
   Future<ProductEntity?> getProductById(String id);
   Future<Set<ProductEntity>?> getFavoriteProducts(UserId userId);
@@ -18,7 +18,7 @@ abstract class BaseRemoteDataSource {
       {required String productId, required UserId userId});
 }
 
-class ProductRemoteService extends BaseRemoteDataSource {
+class ProductRemoteService extends ProductBaseRemoteDataSource {
   final FirebaseFirestore db;
 
   ProductRemoteService(this.db);
