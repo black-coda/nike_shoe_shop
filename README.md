@@ -15,12 +15,12 @@ The UI of this app was designed using Figma by the talented designer 👨‍🎨
 - [👨🏿‍💻] Build UI interfaces for app
 - [✅] Implement Firebase Authentication
 - [✅] Implement OTP verification using Firebase Authentication
-- [ ] Integrate Paystack payment gateway into the app
-- [👨🏿‍💻] Fetch and display list of Nike shoes from a backend API
+- [✅] Integrate Paystack payment gateway into the app
+- [✅] Fetch and display list of Nike shoes from a backend API
 - [ ] Implement smooth page scrolling and animations
-- [ ] Add cart functionality and checkout process
+- [👨🏿‍💻] Add cart functionality and checkout process
 - [ ] Implement search functionality to allow users to search for specific shoes
-- [ ] Allow users to add shoes to their wishlist
+- [✅] Allow users to add shoes to their wishlist
 - [ ] Implement a ratings and review system for each shoe
 - [ ] Allow users to view their purchase history and track their orders
 - [ ] Implement push notifications to notify users about new shoe arrivals and sales
