@@ -1,4 +1,4 @@
-import 'dart:async';
+import 'dart:async' show Future;
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -7,15 +7,14 @@ import 'package:go_router/go_router.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:nike_shoe_shop/src/features/authentication/presentation/controller/auth_controller.dart';
 import 'package:nike_shoe_shop/src/features/core/extension/dollar_extension.dart';
+import 'package:nike_shoe_shop/src/features/core/extension/price_formatter_extension.dart';
 import 'package:nike_shoe_shop/src/features/core/presentation/widget/animated_btn.dart';
-import 'package:nike_shoe_shop/src/features/core/presentation/widget/btn.dart';
-import 'package:nike_shoe_shop/src/features/core/presentation/widget/loader.dart';
 import 'package:nike_shoe_shop/src/features/core/presentation/widget/material_banner.dart';
 import 'package:nike_shoe_shop/src/features/products/presentation/controllers/product_controller.dart';
-import 'package:nike_shoe_shop/src/features/core/extension/price_formatter_extension.dart';
 
 class FavoriteScreen extends StatelessWidget {
   const FavoriteScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -184,7 +183,7 @@ class FavoriteScreen extends StatelessWidget {
                                               ),
                                               IconButton(
                                                 onPressed: () {
-                                                  // TODO; Implemt add to cart functionality
+                                                  // TODO; Implement add to cart functionality
                                                 },
                                                 icon: const Icon(
                                                   MdiIcons.cartPlus,
