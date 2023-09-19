@@ -1,13 +1,14 @@
-import 'package:go_router/go_router.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:nike_shoe_shop/src/features/authentication/presentation/widgets/edit_profile.dart';
 import 'package:nike_shoe_shop/src/features/authentication/presentation/widgets/login_widget.dart';
 import 'package:nike_shoe_shop/src/features/authentication/presentation/widgets/profile_screen.dart';
 import 'package:nike_shoe_shop/src/features/authentication/presentation/widgets/register_widget.dart';
 import 'package:nike_shoe_shop/src/features/authentication/presentation/widgets/reset_password.dart';
+import 'package:nike_shoe_shop/src/features/cart/ui/pages/cart_screen.dart';
 import 'package:nike_shoe_shop/src/features/onboardscreens/presentation/onboard_screen.dart';
-import 'package:nike_shoe_shop/src/features/products/presentation/widgets/nav_bar/bottom_navbar_scaffold.dart';
 import 'package:nike_shoe_shop/src/features/products/presentation/widgets/favorite_screen.dart';
+import 'package:nike_shoe_shop/src/features/products/presentation/widgets/nav_bar/bottom_navbar_scaffold.dart';
 import 'package:nike_shoe_shop/src/features/products/presentation/widgets/notification_screen.dart';
 import 'package:nike_shoe_shop/src/features/products/presentation/widgets/product_details.dart';
 import 'package:nike_shoe_shop/src/features/products/presentation/widgets/product_list.dart';
@@ -42,6 +43,11 @@ class RouteManager {
         builder: (context, state) => const PasswordResetWidget(),
       ),
 
+      GoRoute(
+        path: "/cart",
+        builder: (context, state) => const CartView(),
+      ),
+
       //? Bottom Navigation bar route
       ShellRoute(
         navigatorKey: _shellNavigator,
@@ -66,7 +72,6 @@ class RouteManager {
                 name: "productDetail",
                 parentNavigatorKey: _rootNavigator,
                 pageBuilder: (context, state) => NoTransitionPage(
-                  
                   child: ProductDetailScreen(
                     key: state.pageKey,
                     productID: state.pathParameters["productId"]!,
@@ -106,8 +111,6 @@ class RouteManager {
                 key: state.pageKey,
               ),
             ),
-
-            
           ),
           GoRoute(
             name: "notification",

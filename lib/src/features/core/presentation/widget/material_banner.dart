@@ -1,3 +1,4 @@
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 
 final successBanner = MaterialBanner(
@@ -27,3 +28,42 @@ final failsBanner = MaterialBanner(
     ),
   ],
 );
+
+final successCartBanner = MaterialBanner(
+  /// need to set following properties for best effect of awesome_snackbar_content
+  elevation: 0,
+  backgroundColor: Colors.transparent,
+  forceActionsBelow: true,
+  content: AwesomeSnackbarContent(
+    title: 'Success',
+    message:
+        '👟 added to cart 🛒',
+    contentType: ContentType.success,
+    // to configure for material banner
+    inMaterialBanner: true,
+  ),
+  actions: const [SizedBox.shrink()],
+);
+
+
+final failedCartBanner = MaterialBanner(
+  /// need to set following properties for best effect of awesome_snackbar_content
+  elevation: 0,
+  backgroundColor: Colors.transparent,
+  forceActionsBelow: true,
+  content: AwesomeSnackbarContent(
+    title: 'Success',
+    message: '👟 added to cart 🛒',
+    contentType: ContentType.failure,
+    // to configure for material banner
+    inMaterialBanner: true,
+  ),
+  actions: const [SizedBox.shrink()],
+);
+
+
+void scaffoldMessenger(context) {
+  ScaffoldMessenger.of(context)
+    ..hideCurrentSnackBar()
+    ..showMaterialBanner(successCartBanner);
+}

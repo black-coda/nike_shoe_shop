@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart' show debugPrint;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:nike_shoe_shop/src/features/core/domain/user_id.dart';
-import 'package:nike_shoe_shop/src/features/products/data/models/product_model.dart';
 import 'package:nike_shoe_shop/src/features/products/domain/entities/product_entity.dart';
 import 'package:nike_shoe_shop/src/features/products/domain/usecases/product_usecases.dart';
 import 'package:nike_shoe_shop/src/utils/devtool.dart';
@@ -18,9 +17,6 @@ class ProductStateNotifier extends StateNotifier<List<ProductEntity>> {
 
   bool get isLoading => _isLoading;
 
-  void updateFavorite(
-      {required ProductModel product, required bool isFavorite}) {}
-
   Future<void> getAllProduct() async {
     _isLoading = true;
     try {
@@ -36,7 +32,6 @@ class ProductStateNotifier extends StateNotifier<List<ProductEntity>> {
     }
   }
 
- 
   Future<Set<ProductEntity>?> getFavoriteProduct(UserId userId) async {
     _isLoading = true;
     try {
@@ -74,7 +69,8 @@ class ProductStateNotifier extends StateNotifier<List<ProductEntity>> {
     required UserId userId,
   }) async {
     try {
-      final isFavorite = await _getFavoriteProductUsecase.addToFavoriteProduct(productId: productId, userId: userId);
+      final isFavorite = await _getFavoriteProductUsecase.addToFavoriteProduct(
+          productId: productId, userId: userId);
       return isFavorite;
     } catch (e) {
       debugPrint(e.toString());
@@ -87,8 +83,8 @@ class ProductStateNotifier extends StateNotifier<List<ProductEntity>> {
     required UserId userId,
   }) async {
     try {
-      final isFavorite = await _getFavoriteProductUsecase.removeFromFavoriteProduct(
-          productId: productId, userId: userId);
+      final isFavorite = await _getFavoriteProductUsecase
+          .removeFromFavoriteProduct(productId: productId, userId: userId);
       return isFavorite;
     } catch (e) {
       debugPrint(e.toString());
