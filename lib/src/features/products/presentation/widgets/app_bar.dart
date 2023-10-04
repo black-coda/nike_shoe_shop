@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:nike_shoe_shop/src/utils/devtool.dart';
 
@@ -86,13 +87,12 @@ class CustomSliverAppBar extends StatelessWidget {
       actions: [
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10.0),
-          child: CircleAvatar(
-            backgroundColor: const Color(0xffD7E7FF),
-            child: IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                MdiIcons.cart,
-              ),
+          child: IconButton(
+            onPressed: () {
+              GoRouter.of(context).push("/cart");
+            },
+            icon: const Icon(
+              MdiIcons.cart,
             ),
           ),
         )
@@ -100,7 +100,6 @@ class CustomSliverAppBar extends StatelessWidget {
       leading: IconButton(
         icon: const Icon(
           MdiIcons.menu,
-          color: Color(0xff0D6EFD),
           weight: 10,
           size: 35,
         ),

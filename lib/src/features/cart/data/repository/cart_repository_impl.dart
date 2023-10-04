@@ -3,9 +3,10 @@ import 'package:nike_shoe_shop/src/features/cart/data/datasource/base_remote_sou
 import 'package:nike_shoe_shop/src/features/cart/data/models/cart_item_model.dart';
 import 'package:nike_shoe_shop/src/features/cart/domain/infra/remote/cart_repository.dart';
 import 'package:nike_shoe_shop/src/features/core/domain/user_id.dart';
+import 'package:nike_shoe_shop/src/utils/devtool.dart';
 
 class CartRepositoryImpl implements CartRepository {
-  final CartBaseRemoteDataSource cartService;
+  final CartRemoteService cartService;
 
   CartRepositoryImpl({required this.cartService});
 
@@ -28,7 +29,8 @@ class CartRepositoryImpl implements CartRepository {
       final result = await cartService.fetchCart(userId: userId);
       return result;
     } catch (e) {
-      debugPrint(e.toString());
+      e.log();
+      debugPrint("${e.toString()} jipfppovpodsjposd");
       return [];
     }
   }
@@ -43,6 +45,17 @@ class CartRepositoryImpl implements CartRepository {
     } catch (e) {
       debugPrint(e.toString());
       return false;
+    }
+  }
+  
+  @override
+  Future<int> totalSumOfProducts({required UserId userId}) async{
+    try {
+      final r = await cartService.totalSumOfProducts(userId: userId); 
+      return r;
+    } catch (e) {
+      debugPrint(e.toString());
+      return 0;
     }
   }
 }

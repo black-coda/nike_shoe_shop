@@ -38,3 +38,25 @@ final cartStateNotifierProvider =
     return CartStateNotifier(cartUsecase: cartUsecase);
   },
 );
+
+final fetchCartProvider =
+    FutureProvider.autoDispose<List<CartProduct>>((ref) async {
+  final userId = ref.watch(firebaseAuthProvider).currentUser?.uid;
+  final cart =
+      await ref.watch(cartStateNotifierProvider.notifier).fetchCart(userId!);
+  return cart;
+});
+
+// final addToCartProvider = Provider((ref) {
+//   final cart = ref.watch(cartStateNotifierProvider.notifier).addToCart(productId: productId, userId: userId, context: context);
+// });
+
+//* product unit provider
+
+final getPriceProvider = FutureProvider.autoDispose<int>((ref) async {
+  final userId = ref.watch(firebaseAuthProvider).currentUser!.uid;
+  final cartPrice = ref
+      .watch(cartStateNotifierProvider.notifier)
+      .productTotalSum(userId: userId);
+  return cartPrice;
+});

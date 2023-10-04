@@ -26,4 +26,9 @@ class CartUsecase extends UseCase<List<CartProduct>, UserId> {
         productId: productId, userId: userId);
     return data;
   }
+
+  Future<int> totalSumOfProducts({required UserId userId}) async{
+    final data =  await _cartRepositoryImpl.totalSumOfProducts(userId: userId);
+    return data;
+  }
 }

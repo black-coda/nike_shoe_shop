@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:nike_shoe_shop/src/features/authentication/presentation/controller/auth_controller.dart';
 import 'package:nike_shoe_shop/src/features/products/presentation/controllers/product_controller.dart';
 import 'package:nike_shoe_shop/src/features/products/presentation/widgets/product/product_grid.dart';
 
@@ -25,17 +24,13 @@ class ProductListScreen extends ConsumerWidget {
     if (isLoading || productNotifier.isEmpty) {
       return const Scaffold(
         body: Center(
-          child: SizedBox(
-            height: 50,
-            width: 50,
-            child: CircularProgressIndicator(
-              color: Color(0xff0D6EFD),
-            ),
+          child: CircularProgressIndicator(
+            color: Color(0xff0D6EFD),
           ),
         ),
       );
     }
-   
+
     return Scaffold(
       backgroundColor: const Color(0xffF7F7F9),
       body: CustomScrollView(

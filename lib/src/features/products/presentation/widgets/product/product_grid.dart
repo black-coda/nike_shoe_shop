@@ -1,14 +1,15 @@
 import 'dart:async';
 
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:nike_shoe_shop/src/features/authentication/presentation/controller/auth_controller.dart';
+import 'package:nike_shoe_shop/src/features/cart/ui/controllers/cart_controller.dart';
 import 'package:nike_shoe_shop/src/features/core/extension/dollar_extension.dart';
 import 'package:nike_shoe_shop/src/features/core/extension/price_formatter_extension.dart';
 import 'package:nike_shoe_shop/src/features/core/presentation/widget/animated_btn.dart';
+import 'package:nike_shoe_shop/src/features/core/presentation/widget/image_network_func.dart';
 import 'package:nike_shoe_shop/src/features/core/presentation/widget/material_banner.dart';
 import 'package:nike_shoe_shop/src/features/products/domain/entities/product_entity.dart';
 import 'package:nike_shoe_shop/src/features/products/presentation/controllers/product_controller.dart';
@@ -26,7 +27,7 @@ class ProductGridView extends ConsumerWidget {
     final productList = ref.watch(provider!) as List<ProductEntity>;
     final userId = ref.watch(firebaseAuthProvider).currentUser?.uid;
 
-    Future<void> onTap(int index) async {
+    Future<void> addToFav(int index) async {
       final isSuccessful = await ref
           .watch(productStateNotifier.notifier)
           .addToFavoriteProduct(
@@ -35,16 +36,26 @@ class ProductGridView extends ConsumerWidget {
         if (!context.mounted) {
           return;
         }
-        ScaffoldMessenger.of(context).showMaterialBanner(successBanner);
+        ScaffoldMessenger.of(context)
+          ..hideCurrentMaterialBanner()
+          ..showMaterialBanner(successCartBanner);
       } else {
         if (!context.mounted) {
           return;
         }
-        ScaffoldMessenger.of(context).showMaterialBanner(successBanner);
+        debugPrint("😪😪😪😪");
+        // ScaffoldMessenger.of(context).showMaterialBanner(removedFromCartBanner);
       }
       Future.delayed(const Duration(seconds: 1), () {
         ScaffoldMessenger.of(context).hideCurrentMaterialBanner();
       });
+    }
+
+    Future<void> addToCart(int index) async {
+      await ref.watch(cartStateNotifierProvider.notifier).addToCart(
+          productId: productList[index].id.toString(),
+          userId: userId!,
+          context: context);
     }
 
     return SliverPadding(
@@ -79,22 +90,12 @@ class ProductGridView extends ConsumerWidget {
                             size: 20.0,
                             color: Color(0xff20daa9),
                           ),
-                          onTapped: () async => await onTap(index),
+                          onTapped: () async => await addToFav(index),
                         ),
                       ],
                     ),
                     SizedBox(
-                      child: CachedNetworkImage(
-                        imageUrl: productList[index].productImage ??
-                            "https://hips.hearstapps.com/hmg-prod/images/legacy-fre-image-placeholder-1655513735.png?resize=980:*",
-                        progressIndicatorBuilder:
-                            (context, url, downloadProgress) => Center(
-                          child: CircularProgressIndicator(
-                              value: downloadProgress.progress),
-                        ),
-                        errorWidget: (context, url, error) =>
-                            const Center(child: Icon(Icons.error)),
-                      ),
+                      child: imageNetwork(productList, index),
                     ),
                     Text(
                       productList[index].brandName!,
@@ -147,9 +148,7 @@ class ProductGridView extends ConsumerWidget {
                           ),
                         ),
                         IconButton(
-                          onPressed: () {
-                            // TODO; Implemt add to cart functionality
-                          },
+                          onPressed: () async => await addToCart(index),
                           icon: const Icon(
                             MdiIcons.cartPlus,
                             size: 24,
@@ -166,4 +165,6 @@ class ProductGridView extends ConsumerWidget {
       ),
     );
   }
+
+  
 }

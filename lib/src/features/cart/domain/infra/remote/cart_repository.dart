@@ -9,4 +9,5 @@ abstract class CartRepository{
 
   Future<bool> removeFromCartProduct(
       {required String productId, required UserId userId});
+  Future<int> totalSumOfProducts({required UserId userId});
 }

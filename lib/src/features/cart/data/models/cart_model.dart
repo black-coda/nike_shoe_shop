@@ -1,7 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:nike_shoe_shop/src/features/cart/data/datasource/base_remote_source.dart';
-import 'package:nike_shoe_shop/src/features/cart/data/models/cart_item_model.dart';
 import 'package:nike_shoe_shop/src/features/core/domain/user_id.dart';
 
 

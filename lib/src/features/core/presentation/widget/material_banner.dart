@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 
 final successBanner = MaterialBanner(
   content: const Text('👟 added to favorites!'),
-  leading: const Icon(Icons.thumb_up, color: Colors.white,),
+  leading: const Icon(
+    Icons.thumb_up,
+    color: Colors.white,
+  ),
   backgroundColor: const Color(0xff00a4d0),
   actions: [
     TextButton(
@@ -17,7 +20,10 @@ final successBanner = MaterialBanner(
 
 final failsBanner = MaterialBanner(
   content: const Text('Error during process 😪'),
-  leading: const Icon(Icons.thumb_up, color: Colors.white,),
+  leading: const Icon(
+    Icons.thumb_up,
+    color: Colors.white,
+  ),
   backgroundColor: const Color(0xff00a4d0),
   actions: [
     TextButton(
@@ -31,13 +37,14 @@ final failsBanner = MaterialBanner(
 
 final successCartBanner = MaterialBanner(
   /// need to set following properties for best effect of awesome_snackbar_content
-  elevation: 0,
-  backgroundColor: Colors.transparent,
+  elevation: 5,
+  margin: EdgeInsets.zero,
+  padding: EdgeInsets.zero,
+  backgroundColor: Colors.white,
   forceActionsBelow: true,
   content: AwesomeSnackbarContent(
     title: 'Success',
-    message:
-        '👟 added to cart 🛒',
+    message: '👟 added to cart 🛒',
     contentType: ContentType.success,
     // to configure for material banner
     inMaterialBanner: true,
@@ -45,22 +52,37 @@ final successCartBanner = MaterialBanner(
   actions: const [SizedBox.shrink()],
 );
 
-
-final failedCartBanner = MaterialBanner(
+final removedFromCartBanner = MaterialBanner(
   /// need to set following properties for best effect of awesome_snackbar_content
-  elevation: 0,
-  backgroundColor: Colors.transparent,
+  elevation: 5,
+  margin: EdgeInsets.zero,
+  backgroundColor: Colors.white,
   forceActionsBelow: true,
   content: AwesomeSnackbarContent(
     title: 'Success',
-    message: '👟 added to cart 🛒',
-    contentType: ContentType.failure,
+    message: '👟 is removed from cart 🛒',
+    contentType: ContentType.success,
     // to configure for material banner
     inMaterialBanner: true,
   ),
   actions: const [SizedBox.shrink()],
 );
 
+final errorBanner = MaterialBanner(
+  /// need to set following properties for best effect of awesome_snackbar_content
+  elevation: 0,
+  margin: EdgeInsets.zero,
+  backgroundColor: Colors.white,
+  forceActionsBelow: true,
+  content: AwesomeSnackbarContent(
+    title: 'Failed',
+    message: 'Error Processing request',
+    contentType: ContentType.failure,
+    // to configure for material banner
+    inMaterialBanner: true,
+  ),
+  actions: const [SizedBox.shrink()],
+);
 
 void scaffoldMessenger(context) {
   ScaffoldMessenger.of(context)
