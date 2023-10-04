@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 // import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -125,7 +126,7 @@ class CustomCurvedNavigationWidget extends ConsumerWidget {
     final Size size = MediaQuery.of(context).size;
     // ignore: sized_box_for_whitespace
     return Container(
-      // color: Colors.red,
+      color: Colors.transparent,
       height: 80,
       child: Stack(
         children: [
@@ -165,7 +166,9 @@ class CustomCurvedNavigationWidget extends ConsumerWidget {
                       child: FloatingActionButton(
                         backgroundColor: const Color(0xff0D6EFD),
                         elevation: 2.0,
-                        onPressed: () {},
+                        onPressed: () {
+                          GoRouter.of(context).push("/cart");
+                        },
                         shape: const CircleBorder(),
                         child: const Icon(
                           MdiIcons.cartOutline,
@@ -180,6 +183,7 @@ class CustomCurvedNavigationWidget extends ConsumerWidget {
                     height: 90,
                     // width: size.width,
                     child: Row(
+                     
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: List.generate(items.length, (index) {
                         final item = items[index];

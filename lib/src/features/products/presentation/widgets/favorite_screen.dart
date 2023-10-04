@@ -1,6 +1,5 @@
 import 'dart:async' show Future;
 
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -9,6 +8,7 @@ import 'package:nike_shoe_shop/src/features/authentication/presentation/controll
 import 'package:nike_shoe_shop/src/features/core/extension/dollar_extension.dart';
 import 'package:nike_shoe_shop/src/features/core/extension/price_formatter_extension.dart';
 import 'package:nike_shoe_shop/src/features/core/presentation/widget/animated_btn.dart';
+import 'package:nike_shoe_shop/src/features/core/presentation/widget/image_network_func.dart';
 import 'package:nike_shoe_shop/src/features/core/presentation/widget/material_banner.dart';
 import 'package:nike_shoe_shop/src/features/products/presentation/controllers/product_controller.dart';
 
@@ -30,7 +30,10 @@ class FavoriteScreen extends StatelessWidget {
             error: (error, stackTrace) => const Center(
               child: Text("Error While Trying to Load Favorite Products"),
             ),
-            loading: () => const Center(child: CircularProgressIndicator()),
+            loading: () => const Center(
+                child: CircularProgressIndicator(
+              color: Color(0xff0D6EFD),
+            )),
             data: (productList) => Consumer(
               builder: (BuildContext context, WidgetRef ref, Widget? child) {
                 final userId = ref.watch(firebaseAuthProvider).currentUser?.uid;
@@ -45,13 +48,15 @@ class FavoriteScreen extends StatelessWidget {
                       return;
                     }
                     ScaffoldMessenger.of(context)
-                        .showMaterialBanner(successBanner);
+                      ..hideCurrentMaterialBanner()
+                      ..showMaterialBanner(removedFromCartBanner);
                   } else {
                     if (!context.mounted) {
                       return;
                     }
                     ScaffoldMessenger.of(context)
-                        .showMaterialBanner(failsBanner);
+                      ..hideCurrentMaterialBanner()
+                      ..showMaterialBanner(removedFromCartBanner);
                   }
                   Future.delayed(const Duration(seconds: 1), () {
                     ScaffoldMessenger.of(context).hideCurrentMaterialBanner();
@@ -105,24 +110,8 @@ class FavoriteScreen extends StatelessWidget {
                                             ],
                                           ),
                                           SizedBox(
-                                            child: CachedNetworkImage(
-                                              imageUrl: productList[index]
-                                                      .productImage ??
-                                                  "https://hips.hearstapps.com/hmg-prod/images/legacy-fre-image-placeholder-1655513735.png?resize=980:*",
-                                              progressIndicatorBuilder:
-                                                  (context, url,
-                                                          downloadProgress) =>
-                                                      Center(
-                                                child:
-                                                    CircularProgressIndicator(
-                                                        value: downloadProgress
-                                                            .progress),
-                                              ),
-                                              errorWidget: (context, url,
-                                                      error) =>
-                                                  const Center(
-                                                      child: Icon(Icons.error)),
-                                            ),
+                                            child: imageNetwork(
+                                                productList, index),
                                           ),
                                           Text(
                                             productList[index].brandName ?? "",

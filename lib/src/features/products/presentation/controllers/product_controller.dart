@@ -1,6 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:nike_shoe_shop/src/features/authentication/presentation/controller/auth_controller.dart';
-import 'package:nike_shoe_shop/src/features/core/domain/user_id.dart';
 import 'package:nike_shoe_shop/src/features/products/application/product_notifier.dart';
 import 'package:nike_shoe_shop/src/features/products/data/datasource/base_remote_data_source.dart';
 import 'package:nike_shoe_shop/src/features/products/data/repository/product_repository_impl.dart';

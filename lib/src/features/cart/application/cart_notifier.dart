@@ -13,15 +13,19 @@ class CartStateNotifier extends StateNotifier<List<CartProduct>> {
   bool _isLoading = false;
 
   bool get isLoading => _isLoading;
-  Future<void> fetchCart(UserId userId) async {
+
+  Future<List<CartProduct>> fetchCart(UserId userId) async {
     _isLoading = true;
     try {
       final fetchCartCall = await cartUsecase.call(params: userId);
       if (fetchCartCall != null) {
         state = fetchCartCall;
+        return fetchCartCall;
       }
+      return [];
     } catch (e) {
       e.log();
+      return [];
     } finally {
       _isLoading = false;
     }
@@ -33,15 +37,26 @@ class CartStateNotifier extends StateNotifier<List<CartProduct>> {
       required context}) async {
     _isLoading = true;
     try {
-      final isAddedToCart = await cartUsecase.addToCartProduct(
-          productId: productId, userId: userId);
-      if (isAddedToCart) {
-        ScaffoldMessenger.of(context)
-          ..hideCurrentSnackBar()
-          ..showMaterialBanner(successCartBanner);
-      }
+      await cartUsecase
+          .addToCartProduct(productId: productId, userId: userId)
+          .then(
+        (isAdded) {
+          if (isAdded) {
+            ScaffoldMessenger.of(context)
+              ..hideCurrentSnackBar()
+              ..showMaterialBanner(successCartBanner);
+          }
+        },
+      );
     } catch (e) {
       e.log();
+    } finally {
+      Future.delayed(
+        const Duration(seconds: 1),
+        () {
+          ScaffoldMessenger.of(context).hideCurrentMaterialBanner();
+        },
+      );
     }
   }
 
@@ -62,6 +77,16 @@ class CartStateNotifier extends StateNotifier<List<CartProduct>> {
       e.log();
     } finally {
       _isLoading = false;
+    }
+  }
+
+  Future<int> productTotalSum({required UserId userId}) async {
+    try {
+      final total = await cartUsecase.totalSumOfProducts(userId: userId);
+      return total;
+    } catch (e) {
+      e.log();
+      rethrow;
     }
   }
 }

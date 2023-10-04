@@ -2,6 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:nike_shoe_shop/src/features/authentication/presentation/controller/auth_controller.dart';
+import 'package:nike_shoe_shop/src/features/cart/ui/controllers/cart_controller.dart';
 import 'package:nike_shoe_shop/src/features/core/extension/dollar_extension.dart';
 import 'package:nike_shoe_shop/src/features/core/presentation/widget/btn.dart';
 import 'package:nike_shoe_shop/src/features/products/presentation/controllers/product_controller.dart';
@@ -33,9 +35,11 @@ class ProductDetailScreen extends StatelessWidget {
       ),
       body: Consumer(
         builder: (BuildContext context, WidgetRef ref, Widget? child) {
+          final userId = ref.watch(firebaseAuthProvider).currentUser?.uid;
           final productFuture = ref
               .watch(productStateNotifier.notifier)
               .getProductById(productID);
+
           return FutureBuilder(
             future: productFuture,
             builder: (context, snapshot) {
@@ -76,11 +80,7 @@ class ProductDetailScreen extends StatelessWidget {
                       ),
                       const SizedBox(height: 8),
                       Text(
-                        product?.retailPriceCents
-                                
-                                .toString()
-                                .dollar() ??
-                            "",
+                        product?.retailPriceCents.toString().dollar() ?? "",
                         style: const TextStyle(
                           color: Color(0xff2B2B2B),
                           fontSize: 28,
@@ -142,8 +142,13 @@ class ProductDetailScreen extends StatelessWidget {
                                 fixedSize: const Size(200, 50),
                                 backgroundColor: const Color(0xff0D6EFD),
                                 foregroundColor: const Color(0xffffffff)),
-                            onPressed: () {
-                              // TODO: Implement Add to Cart functionality
+                            onPressed: () async {
+                              await ref
+                                  .watch(cartStateNotifierProvider.notifier)
+                                  .addToCart(
+                                      productId: product!.id.toString(),
+                                      userId: userId!,
+                                      context: context);
                             },
                             icon: const Icon(MdiIcons.cartPlus),
                             label: const Text(
