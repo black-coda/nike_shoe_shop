@@ -136,7 +136,7 @@ class AuthStateNotifier extends StateNotifier<AuthState> {
     await authenticator.loginUserWithEmailAndPassword(userModel).then(
       (authState) {
         //? Close the loading dialog
-        Navigator.of(context).pop();
+        ScaffoldMessenger.of(context).hideCurrentSnackBar();
 
         //? Declare state using dartz
         state = authState.fold(

@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:nike_shoe_shop/src/features/authentication/domain/user_model.dart';
 import 'package:nike_shoe_shop/src/features/authentication/presentation/controller/auth_controller.dart';
+import 'package:nike_shoe_shop/src/utils/devtool.dart';
 import 'package:nike_shoe_shop/src/utils/form_widget.dart';
 
 class LoginView extends ConsumerStatefulWidget {
@@ -172,7 +173,7 @@ class _LoginViewState extends ConsumerState<LoginView> {
                                   email: emailText,
                                   password: passwordText,
                                   displayName: '');
-                              debugPrint(userModel.toString());
+                              userModel.toString().log();
                               await ref
                                   .read(authStateNotifierProvider.notifier)
                                   .loginUserWithEmailAndPassword(
@@ -202,8 +203,10 @@ class _LoginViewState extends ConsumerState<LoginView> {
                     SizedBox(
                       width: MediaQuery.of(context).size.width - 40,
                       child: IconButton(
-                        onPressed: () async{
-                          await ref.read(authStateNotifierProvider.notifier).loginWithGoogle(context);
+                        onPressed: () async {
+                          await ref
+                              .read(authStateNotifierProvider.notifier)
+                              .loginWithGoogle(context);
                         },
                         style: ElevatedButton.styleFrom(
                           padding: const EdgeInsets.all(18),

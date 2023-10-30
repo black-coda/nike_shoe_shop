@@ -19,22 +19,11 @@ class UserInfoStorage {
         .where("displayName", isEqualTo: displayName)
         .limit(1)
         .get();
-    // .then(
-    //   (queries) {
-
-    //     for (var query in queries.docs) {
-    //       return query.data();
-    //     }
-    //   },
-    // );
+    
 
     final userData = userQuery.docs.first.data();
     return userData;
-    // for (var data in userData) {
-    //   final udata =  data.data();
-    // }
-
-    // return null;
+  
   }
 
   //* Save user information to firebase db

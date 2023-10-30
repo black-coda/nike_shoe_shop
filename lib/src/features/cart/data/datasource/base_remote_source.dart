@@ -6,7 +6,6 @@ import 'package:nike_shoe_shop/src/features/cart/data/models/cart_model.dart';
 import 'package:nike_shoe_shop/src/features/core/domain/user_id.dart';
 import 'package:nike_shoe_shop/src/utils/devtool.dart';
 
-
 abstract class CartBaseRemoteDataSource {
   Future<List<CartProduct>> fetchCart({required UserId userId});
 
@@ -15,7 +14,12 @@ abstract class CartBaseRemoteDataSource {
 
   Future<bool> removeFromCartProduct(
       {required String productId, required UserId userId});
-      Future<int> totalSumOfProducts({required UserId userId});
+  Future<int> totalSumOfProducts({required UserId userId});
+
+  Future<void> increaseProductUnit(
+      {required String productId, required UserId userId});
+  Future<void> decreaseProductUnit(
+      {required String productId, required UserId userId});
 }
 
 class CartRemoteService extends CartBaseRemoteDataSource {
@@ -119,23 +123,24 @@ class CartRemoteService extends CartBaseRemoteDataSource {
 
   //* convert to CartProduct class
   Future<List<CartProduct>> convertToCartProduct(Cart cart) async {
-    final productSnapShot = await Future.wait(cart.cartList!
-        .map(
-          (productId) => db
-              .collection(FirebaseCollectionName.product)
-              .doc(productId)
-              .get(),
-        )
-        .toList());
+    final productSnapShot = await Future.wait(
+      cart.cartList!
+          .map(
+            (productId) => db
+                .collection(FirebaseCollectionName.product)
+                .doc(productId)
+                .get(),
+          )
+          .toList(),
+    );
 
-      productSnapShot.log();
+    productSnapShot.log();
 
     final cartProduct = productSnapShot
         .where((product) => product.exists)
         .map((e) => CartProduct.fromFirestore(snapshot: e))
-        
         .toList();
-  
+
     return cartProduct;
   }
 
@@ -153,7 +158,7 @@ class CartRemoteService extends CartBaseRemoteDataSource {
         return cart.toFirestore();
       },
     );
-     // Check if the document exists
+    // Check if the document exists
     final cartDoc = await cartRef.get();
     if (!cartDoc.exists) {
       // If it doesn't exist, create a new cart instance in Firebase
@@ -161,17 +166,16 @@ class CartRemoteService extends CartBaseRemoteDataSource {
       await cartRef.set(newCart);
     }
 
-    
     return cartRef;
   }
 
-  //* Calculate total  
+  //* Calculate total
   @override
   Future<int> totalSumOfProducts({required UserId userId}) async {
     final cartRef = await cartFromDB(userId);
     final cartDoc = await cartRef.get();
     final Cart? cart = cartDoc.data();
-    const  totalSum = 0;
+    var totalSum = 0;
     if (cart != null) {
       if (cart.cartList != null) {
         final products = await convertToCartProduct(cart);
@@ -181,5 +185,46 @@ class CartRemoteService extends CartBaseRemoteDataSource {
     }
     return totalSum;
   }
-}
 
+  @override
+  Future<void> increaseProductUnit({
+    required String productId,
+    required UserId userId,
+  }) async {
+    final cartRef = await cartFromDB(userId);
+    final cartDoc = await cartRef.get();
+    final Cart? cart = cartDoc.data();
+    if (cart!.cartList!.isNotEmpty) {
+      final products = await convertToCartProduct(cart);
+      for (var cartProduct in products) {
+        if (cartProduct.id.toString() == productId) {
+          final initialUnit = cartProduct.productUnit;
+          final increase = initialUnit + 1;
+          cartProduct.priceCopyWith(productUnit: increase);
+        }
+      }
+    }
+  }
+
+  @override
+  Future<void> decreaseProductUnit(
+      {required String productId, required UserId userId}) async {
+    final cartRef = await cartFromDB(userId);
+    final cartDoc = await cartRef.get();
+    final Cart? cart = cartDoc.data();
+    if (cart!.cartList!.isNotEmpty) {
+      final products = await convertToCartProduct(cart);
+      for (var cartProduct in products) {
+        if (cartProduct.id.toString() == productId) {
+          final initialUnit = cartProduct.productUnit;
+          if (initialUnit != 0) {
+            final decrease = initialUnit - 1;
+            cartProduct.priceCopyWith(productUnit: decrease);
+          } else {
+            cartProduct.priceCopyWith(productUnit: initialUnit);
+          }
+        }
+      }
+    }
+  }
+}

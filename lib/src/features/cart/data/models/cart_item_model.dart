@@ -43,8 +43,6 @@ class CartProduct {
       {required DocumentSnapshot<Map<String, dynamic>> snapshot,
       SnapshotOptions? options}) {
     final data = snapshot.data();
-    
-    
 
     return CartProduct(
       productName: data?["name"],
@@ -64,21 +62,20 @@ class CartProduct {
   @override
   bool operator ==(covariant CartProduct other) {
     if (identical(this, other)) return true;
-  
-    return 
-      other.productName == productName &&
-      other.productImage == productImage &&
-      other.price == price &&
-      other.productUnit == productUnit &&
-      other.id == id;
+
+    return other.productName == productName &&
+        other.productImage == productImage &&
+        other.price == price &&
+        other.productUnit == productUnit &&
+        other.id == id;
   }
 
   @override
   int get hashCode {
     return productName.hashCode ^
-      productImage.hashCode ^
-      price.hashCode ^
-      productUnit.hashCode ^
-      id.hashCode;
+        productImage.hashCode ^
+        price.hashCode ^
+        productUnit.hashCode ^
+        id.hashCode;
   }
 }
