@@ -88,18 +88,21 @@ class ProductDetailScreen extends StatelessWidget {
                         ),
                       ),
                       SizedBox(
-                        child: CachedNetworkImage(
-                          imageUrl: product?.productImage ??
-                              "https://hips.hearstapps.com/hmg-prod/images/legacy-fre-image-placeholder-1655513735.png?resize=980:*",
-                          height: MediaQuery.of(context).size.height * 0.4,
-                          fit: BoxFit.scaleDown,
-                          progressIndicatorBuilder:
-                              (context, url, downloadProgress) => Center(
-                            child: CircularProgressIndicator(
-                                value: downloadProgress.progress),
+                        child: Hero(
+                          tag: "product-hero-${product?.id}",
+                          child: CachedNetworkImage(
+                            imageUrl: product?.productImage ??
+                                "https://hips.hearstapps.com/hmg-prod/images/legacy-fre-image-placeholder-1655513735.png?resize=980:*",
+                            height: MediaQuery.of(context).size.height * 0.4,
+                            fit: BoxFit.scaleDown,
+                            progressIndicatorBuilder:
+                                (context, url, downloadProgress) => Center(
+                              child: CircularProgressIndicator(
+                                  value: downloadProgress.progress),
+                            ),
+                            errorWidget: (context, url, error) =>
+                                const Center(child: Icon(Icons.error)),
                           ),
-                          errorWidget: (context, url, error) =>
-                              const Center(child: Icon(Icons.error)),
                         ),
                       ),
                       // TODO: Check out this

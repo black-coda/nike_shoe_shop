@@ -1,0 +1,11 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"a-file-icon-vscode.folderColor": "#90a7b2",
+		"explorerExclude.backup": {}
+	}
+}

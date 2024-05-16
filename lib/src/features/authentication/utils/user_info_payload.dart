@@ -16,5 +16,3 @@ class UserInfoPayload with _$UserInfoPayload {
   factory UserInfoPayload.fromJson(Map<String, dynamic> json) =>
       _$UserInfoPayloadFromJson(json);
 }
-
-// final solo = UserInfoPayload(userId: "userId", displayName: "displayName", email: "email");

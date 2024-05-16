@@ -39,7 +39,7 @@ class _DashBoardScreenState extends ConsumerState<ScaffoldWithNavBar> {
                 selectedIconData: MdiIcons.account),
           ],
           currentIndex: indexPosition,
-          onTap: (indexPosition) => _onTap(indexPosition),
+          onTap: _onTap,
         ),
       ),
     );

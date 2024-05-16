@@ -45,7 +45,7 @@ final serviceProvider = Provider<ProductRemoteService>((ref) {
 
 //* Favorite
 final getFavoriteFutureProvider =
-    FutureProvider.autoDispose<List<ProductEntity>?>((ref) async {
+    FutureProvider<List<ProductEntity>?>((ref) async {
   final userId = ref.watch(firebaseAuthProvider).currentUser?.uid;
 
   final products = await ref
@@ -53,4 +53,3 @@ final getFavoriteFutureProvider =
       .getFavoriteProduct(userId!);
   return products?.toList();
 });
-

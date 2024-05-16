@@ -11,24 +11,19 @@ class AppEntry extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     ref.watch(isSignedInProvider).log();
-    // ref.listen(isSignedInProvider, (previous, next) {});
+
     final routes = ref.watch(goRouterProvider);
-  ref.watch(authStateNotifierProvider).maybeMap(
-          authenticated: (value) {
-            debugPrint(value.toString());
-            routes.go("/productList");
-          },
+    ref.watch(authStateNotifierProvider).maybeMap(
+          authenticated: (value) => routes.go("/productList"),
           unauthenticated: (value) => routes.go("/"),
-          orElse: () {
-            routes.go("/");
-          },
+          orElse: () => routes.go("/"),
         );
 
     return MaterialApp.router(
-      routerConfig: routes, 
+      routerConfig: routes,
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      theme: primaryTheme,
+    theme: primaryTheme,
       // home: const OnBoardScreen(),
     );
   }

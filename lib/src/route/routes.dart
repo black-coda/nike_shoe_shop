@@ -7,6 +7,7 @@ import 'package:nike_shoe_shop/src/features/authentication/presentation/widgets/
 import 'package:nike_shoe_shop/src/features/authentication/presentation/widgets/reset_password.dart';
 import 'package:nike_shoe_shop/src/features/cart/ui/pages/cart_page.dart';
 import 'package:nike_shoe_shop/src/features/onboardscreens/presentation/onboard_screen.dart';
+import 'package:nike_shoe_shop/src/features/products/presentation/widgets/app_entry_stack.dart';
 import 'package:nike_shoe_shop/src/features/products/presentation/widgets/favorite_screen.dart';
 import 'package:nike_shoe_shop/src/features/products/presentation/widgets/nav_bar/bottom_navbar_scaffold.dart';
 import 'package:nike_shoe_shop/src/features/products/presentation/widgets/notification_screen.dart';
@@ -24,6 +25,13 @@ class RouteManager {
     navigatorKey: _rootNavigator,
     errorBuilder: (context, state) => const ErrorScreen(),
     routes: <RouteBase>[
+      // GoRoute(
+      //   path: "/app-entry",
+      //   parentNavigatorKey: _rootNavigator,
+      //   builder: (context, state) => const DrawerStack(),
+      // ),
+
+      //? Base
       GoRoute(
         path: "/",
         builder: (context, state) => const OnBoardScreen(),
@@ -42,7 +50,6 @@ class RouteManager {
         path: "/reset-password",
         builder: (context, state) => const PasswordResetWidget(),
       ),
-
       GoRoute(
         path: "/cart",
         parentNavigatorKey: _rootNavigator,
@@ -63,7 +70,7 @@ class RouteManager {
             name: "productList",
             path: '/productList',
             pageBuilder: (context, state) => NoTransitionPage(
-              child: ProductListScreen(
+              child: DrawerStack(
                 key: state.pageKey,
               ),
             ),

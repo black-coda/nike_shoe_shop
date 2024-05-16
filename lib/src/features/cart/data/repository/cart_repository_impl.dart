@@ -30,7 +30,7 @@ class CartRepositoryImpl implements CartRepository {
       return result;
     } catch (e) {
       e.log();
-      debugPrint("${e.toString()} jipfppovpodsjposd");
+      debugPrint(e.toString());
       return [];
     }
   }
@@ -38,7 +38,7 @@ class CartRepositoryImpl implements CartRepository {
   @override
   Future<bool> removeFromCartProduct(
       {required String productId, required UserId userId}) async {
-     try {
+    try {
       final result = await cartService.removeFromCartProduct(
           productId: productId, userId: userId);
       return result;
@@ -47,11 +47,11 @@ class CartRepositoryImpl implements CartRepository {
       return false;
     }
   }
-  
+
   @override
-  Future<int> totalSumOfProducts({required UserId userId}) async{
+  Future<int> totalSumOfProducts({required UserId userId}) async {
     try {
-      final r = await cartService.totalSumOfProducts(userId: userId); 
+      final r = await cartService.totalSumOfProducts(userId: userId);
       return r;
     } catch (e) {
       debugPrint(e.toString());

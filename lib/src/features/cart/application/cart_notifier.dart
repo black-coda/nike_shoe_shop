@@ -44,7 +44,8 @@ class CartStateNotifier extends StateNotifier<List<CartProduct>> {
           if (isAdded) {
             ScaffoldMessenger.of(context)
               ..hideCurrentSnackBar()
-              ..showMaterialBanner(successCartBanner);
+              ..showMaterialBanner(
+                  showActionMaterialBanner(context, "Added to cart"));
           }
         },
       );
@@ -69,9 +70,10 @@ class CartStateNotifier extends StateNotifier<List<CartProduct>> {
       final isRemovedFromCart = await cartUsecase.removeFromCartProduct(
           productId: productId, userId: userId);
       if (isRemovedFromCart) {
-        scaffoldMessenger(context);
-      } else {
-        scaffoldMessenger(context);
+        ScaffoldMessenger.of(context)
+          ..hideCurrentSnackBar()
+          ..showMaterialBanner(
+              showActionMaterialBanner(context, "Removed from cart"));
       }
     } catch (e) {
       e.log();

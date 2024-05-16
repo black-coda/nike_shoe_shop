@@ -16,8 +16,26 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:nike_shoe_shop/src/features/products/data/models/product_model.dart';
 import 'package:nike_shoe_shop/src/utils/devtool.dart';
 
+/// **Authenticator: A Class for User Authentication and Profile Management**
+///
+/// The `Authenticator` class handles all user authentication processes,
+/// including sign-up, login, logout, and profile updates. It integrates
+/// with Firebase Authentication and Firestore for seamless user data management.
+///
+/// ### **Usage Example:**
+/// ```dart
+/// Authenticator authenticator = Authenticator();
+/// Either<AuthFailure, Unit> result = await authenticator.loginUserWithEmailAndPassword(userModel);
+/// ```
+
 class Authenticator {
-  final UserInfoStorage userInfoStorage;
+  /// **Constructor:**
+  ///
+  /// Initializes the [Authenticator] with necessary instances.
+  ///
+  /// - [userInfoStorage]: Storage class for user data.
+  /// - [auth]: Firebase Authentication instance.
+  /// - [db]: Cloud Firestore instance.
 
   Authenticator({
     required this.userInfoStorage,
@@ -26,10 +44,16 @@ class Authenticator {
   });
 
   //? General declaration
+  final UserInfoStorage userInfoStorage;
   final FirebaseAuth auth;
   final FirebaseFirestore db;
 
-  //?
+  /// **Uploads JSON Data to Firestore:**
+  ///
+  /// Reads JSON data from a local file and uploads it to Firestore.
+  ///
+  /// - **Returns:** Future<void>
+
   Future<void> uploadJsonToFirestore4() async {
     List<ProductModel> prod = [];
     // Initialize Firebase app (if not already initialized)
@@ -79,8 +103,14 @@ class Authenticator {
         );
   }
 
-  //
-  //*update user profile
+  //*  Update User Profile:
+  ///
+  /// Updates the current user's profile information, including email and display name.
+  ///
+  /// - [newDisplayName]: New display name for the user.
+  /// - [newEmail]: New email address for the user.
+  ///
+  /// - **Returns:** Future<bool> indicating whether the update was successful.
   Future<bool> updateUserProfile({
     required String newDisplayName,
     required String newEmail,
@@ -184,6 +214,11 @@ class Authenticator {
     // await GoogleSignIn().signOut();
   }
 
+  /// **Login with Google Provider:**
+  ///
+  /// Performs user login using Google authentication provider.
+  ///
+  /// - **Returns:** Either<AuthFailure, Unit>
   Future<Either<AuthFailure, Unit>> loginWithGoogleProvider() async {
     //? Create Google sign in object
 
@@ -237,7 +272,13 @@ class Authenticator {
     }
   }
 
-  //? Create user with email and password
+  ///?  Create User with Email and Password:
+  ///
+  /// Creates a new user account using email and password.
+  ///
+  /// - [userModel]: User information including email, password, and display name.
+  ///
+  /// - **Returns:** Either<AuthFailure, Unit>
   Future<Either<AuthFailure, Unit>> createUserWithEmailAndPassword(
       UserModel userModel) async {
     final auth = FirebaseAuth.instance;
@@ -271,7 +312,17 @@ class Authenticator {
     }
   }
 
-  //* save user information
+  ///*  Save User Information:
+  ///
+  /// Saves user information, including user ID, display name, email, and photo URL.
+  ///
+  /// - [userId]: User ID of the current user.
+  /// - [displayName]: Display name of the current user.
+  /// - [email]: Email address of the current user.
+  /// - [photoUrl]: URL of the user's profile photo.
+  ///
+  /// - **Returns:** Future<void>
+
   Future<void> saveUserInformation({
     required UserId userId,
     required String displayName,
@@ -286,7 +337,13 @@ class Authenticator {
     );
   }
 
-  //? sign in with email and password
+  ///?  Login User with Email and Password:
+  ///
+  /// Logs in a user using email and password.
+  ///
+  /// - [userModel]: User information including email and password.
+  ///
+  ///* - Returns: Either<AuthFailure, Unit>
   Future<Either<AuthFailure, Unit>> loginUserWithEmailAndPassword(
       UserModel userModel) async {
     final auth = FirebaseAuth.instance;
