@@ -97,7 +97,7 @@ class _PasswordResetWidgetState extends ConsumerState<PasswordResetWidget> {
                   controller: emailController,
                   obscureText: true,
                   focusNode: emailFocusNode,
-                  prefIcon: const Icon(MdiIcons.email),
+                  prefIcon: Icon(MdiIcons.email),
                   textInputAction: TextInputAction.done,
                   validator: authValidators.emailValidator,
                 ),

@@ -52,7 +52,7 @@ class CustomCurvedNavigationBar extends StatelessWidget {
                         elevation: 2.0,
                         onPressed: () {},
                         shape: const CircleBorder(),
-                        child: const Icon(
+                        child: Icon(
                           MdiIcons.cartOutline,
                         ),
                       ),
@@ -68,22 +68,22 @@ class CustomCurvedNavigationBar extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         IconButton(
-                          icon: const Icon(MdiIcons.homeOutline),
+                          icon: Icon(MdiIcons.homeOutline),
                           onPressed: () {},
                         ),
                         IconButton(
-                          icon: const Icon(MdiIcons.heartOutline),
+                          icon: Icon(MdiIcons.heartOutline),
                           onPressed: () {},
                         ),
                         SizedBox(
                           width: size.width * 0.20,
                         ),
                         IconButton(
-                          icon: const Icon(MdiIcons.bellOutline),
+                          icon: Icon(MdiIcons.bellOutline),
                           onPressed: () {},
                         ),
                         IconButton(
-                          icon: const Icon(MdiIcons.accountOutline),
+                          icon: Icon(MdiIcons.accountOutline),
                           onPressed: () {},
                         ),
                       ],
@@ -170,7 +170,7 @@ class CustomCurvedNavigationWidget extends ConsumerWidget {
                           GoRouter.of(context).push("/cart");
                         },
                         shape: const CircleBorder(),
-                        child: const Icon(
+                        child: Icon(
                           MdiIcons.cartOutline,
                         ),
                       ),
@@ -183,7 +183,6 @@ class CustomCurvedNavigationWidget extends ConsumerWidget {
                     height: 90,
                     // width: size.width,
                     child: Row(
-                     
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: List.generate(items.length, (index) {
                         final item = items[index];

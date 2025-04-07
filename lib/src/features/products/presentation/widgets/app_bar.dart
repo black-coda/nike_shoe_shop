@@ -91,14 +91,14 @@ class CustomSliverAppBar extends StatelessWidget {
             onPressed: () {
               GoRouter.of(context).push("/cart");
             },
-            icon: const Icon(
+            icon: Icon(
               MdiIcons.cart,
             ),
           ),
         )
       ],
       leading: IconButton(
-        icon: const Icon(
+        icon: Icon(
           MdiIcons.menu,
           weight: 10,
           size: 35,

@@ -99,7 +99,7 @@ class FavoriteScreen extends StatelessWidget {
                                           Row(
                                             children: [
                                               AnimatedIconButton(
-                                                mdiIcons: const Icon(
+                                                mdiIcons: Icon(
                                                   MdiIcons.heartMinus,
                                                   size: 20.0,
                                                   color: Colors.red,
@@ -174,7 +174,7 @@ class FavoriteScreen extends StatelessWidget {
                                                 onPressed: () {
                                                   // TODO; Implement add to cart functionality
                                                 },
-                                                icon: const Icon(
+                                                icon: Icon(
                                                   MdiIcons.cartPlus,
                                                   size: 24,
                                                 ),

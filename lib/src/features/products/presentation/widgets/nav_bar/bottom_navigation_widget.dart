@@ -23,13 +23,13 @@ class _BottomNavigationWidgetState
       selectedIconTheme: const IconThemeData().copyWith(color: Colors.pink),
       onTap: (indexPosition) => _onTap(indexPosition),
       currentIndex: indexPosition,
-      items: const [
+      items: [
         BottomNavigationBarItem(
           icon: Icon(MdiIcons.home),
           label: "Home",
-          activeIcon: Icon(Icons.home_sharp),
+          activeIcon: const Icon(Icons.home_sharp),
         ),
-        BottomNavigationBarItem(
+        const BottomNavigationBarItem(
           icon: Icon(Icons.favorite_border),
           label: "Favorite",
           activeIcon: Icon(Icons.favorite_sharp),
@@ -37,12 +37,12 @@ class _BottomNavigationWidgetState
         BottomNavigationBarItem(
           icon: Icon(MdiIcons.bellAlertOutline),
           label: "Home",
-          activeIcon: Icon(Icons.notifications_sharp),
+          activeIcon: const Icon(Icons.notifications_sharp),
         ),
         BottomNavigationBarItem(
           icon: Icon(MdiIcons.accountOutline),
           label: "Home",
-          activeIcon: Icon(Icons.person_3_sharp),
+          activeIcon: const Icon(Icons.person_3_sharp),
         ),
       ],
     );
@@ -64,7 +64,6 @@ class _BottomNavigationWidgetState
         context.go("/profile");
         break;
       default:
-      
     }
   }
 }

@@ -110,7 +110,7 @@ class _LoginViewState extends ConsumerState<LoginView> {
                           focusNode: emailFocusNode,
                           isNonPasswordField: true,
                           obscureText: false,
-                          prefIcon: const Icon(MdiIcons.email),
+                          prefIcon: Icon(MdiIcons.email),
                           textInputAction: TextInputAction.next,
                           validator: authValidators.emailValidator,
                         ),
@@ -125,7 +125,7 @@ class _LoginViewState extends ConsumerState<LoginView> {
                           validator: authValidators.passwordWordValidator,
                           obscureText: obscureText,
                           toggleObscureText: toggleObscureText,
-                          prefIcon: const Icon(MdiIcons.formTextboxPassword),
+                          prefIcon: Icon(MdiIcons.formTextboxPassword),
                           textInputAction: TextInputAction.done,
                         ),
                       ],
@@ -202,8 +202,10 @@ class _LoginViewState extends ConsumerState<LoginView> {
                     SizedBox(
                       width: MediaQuery.of(context).size.width - 40,
                       child: IconButton(
-                        onPressed: () async{
-                          await ref.read(authStateNotifierProvider.notifier).loginWithGoogle(context);
+                        onPressed: () async {
+                          await ref
+                              .read(authStateNotifierProvider.notifier)
+                              .loginWithGoogle(context);
                         },
                         style: ElevatedButton.styleFrom(
                           padding: const EdgeInsets.all(18),

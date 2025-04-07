@@ -85,10 +85,10 @@ class ProductGridView extends ConsumerWidget {
                     Row(
                       children: [
                         AnimatedIconButton(
-                          mdiIcons: const Icon(
+                          mdiIcons: Icon(
                             MdiIcons.heartPlus,
                             size: 20.0,
-                            color: Color(0xff20daa9),
+                            color: const Color(0xff20daa9),
                           ),
                           onTapped: () async => await addToFav(index),
                         ),
@@ -149,7 +149,7 @@ class ProductGridView extends ConsumerWidget {
                         ),
                         IconButton(
                           onPressed: () async => await addToCart(index),
-                          icon: const Icon(
+                          icon: Icon(
                             MdiIcons.cartPlus,
                             size: 24,
                           ),
@@ -165,6 +165,4 @@ class ProductGridView extends ConsumerWidget {
       ),
     );
   }
-
-  
 }

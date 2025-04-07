@@ -18,9 +18,9 @@ class ProductDetailScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        actions: const [
+        actions: [
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 15.0),
+            padding: const EdgeInsets.symmetric(horizontal: 15.0),
             child: Icon(MdiIcons.cartOutline),
           ),
         ],
@@ -132,7 +132,7 @@ class ProductDetailScreen extends StatelessWidget {
                             onTap: () {
                               // TODO: Add to Favorite
                             },
-                            child: const Icon(
+                            child: Icon(
                               MdiIcons.heartOutline,
                               size: 30,
                             ),
@@ -150,7 +150,7 @@ class ProductDetailScreen extends StatelessWidget {
                                       userId: userId!,
                                       context: context);
                             },
-                            icon: const Icon(MdiIcons.cartPlus),
+                            icon: Icon(MdiIcons.cartPlus),
                             label: const Text(
                               "Add to Cart",
                               style: TextStyle(

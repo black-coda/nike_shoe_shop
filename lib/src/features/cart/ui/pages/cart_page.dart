@@ -92,11 +92,11 @@ class CartView extends StatelessWidget {
                                       //* Row which contains the increase and decrease button
                                       Row(
                                         children: [
-                                          const IconButton(
+                                          IconButton(
                                             onPressed: null,
                                             icon: Icon(
                                               MdiIcons.minus,
-                                              color: Color(0xff0D6EFD),
+                                              color: const Color(0xff0D6EFD),
                                             ),
                                           ),
                                           const SizedBox(width: 10),
@@ -107,11 +107,11 @@ class CartView extends StatelessWidget {
                                                 .toString(),
                                           ),
                                           const SizedBox(width: 10),
-                                          const IconButton(
+                                          IconButton(
                                             onPressed: null,
                                             icon: Icon(
                                               MdiIcons.plus,
-                                              color: Color(0xff0D6EFD),
+                                              color: const Color(0xff0D6EFD),
                                             ),
                                           ),
                                         ],
@@ -177,9 +177,9 @@ class CartView extends StatelessWidget {
         ref.invalidate(fetchCartProvider);
         ref.invalidate(getPriceProvider);
       },
-      icon: const Icon(
+      icon: Icon(
         MdiIcons.trashCanOutline,
-        color: Color(0xffFF1900),
+        color: const Color(0xffFF1900),
       ),
     );
   }

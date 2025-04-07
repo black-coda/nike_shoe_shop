@@ -4,6 +4,7 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 import 'package:nike_shoe_shop/src/constant/konstant.dart';
 import 'package:nike_shoe_shop/src/features/authentication/presentation/controller/auth_controller.dart';
 import 'package:nike_shoe_shop/src/features/core/presentation/widget/btn.dart';
+
 // import 'package:nike_shoe_shop/src/utils/devtool.dart';
 
 import 'profile_form_field.dart';
@@ -21,7 +22,7 @@ class UserProfileScreen extends ConsumerWidget {
       appBar: AppBar(
         actions: [
           InkWell(
-            child: const Icon(MdiIcons.logout),
+            child: Icon(MdiIcons.logout),
             onTap: () async {
               await ref.read(authStateNotifierProvider.notifier).logoutUser();
             },
